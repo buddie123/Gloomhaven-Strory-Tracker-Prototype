@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools='http://schemas.android.com/tools'
+    android:id="@+id/detailButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:padding="@dimen/thin_padding"
+    android:text="@string/text_none"
+    android:textSize="@dimen/text_size_medium"
+    android:background="?android:attr/selectableItemBackground"
+    tools:context=".LocationRewardsTabFragment"
+    tools:showIn="@layout/fragment_scenario_rewards_tab"/>

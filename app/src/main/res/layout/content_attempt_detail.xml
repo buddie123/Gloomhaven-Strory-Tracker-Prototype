@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorAccent"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:contentPadding="@dimen/thick_padding">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:id="@+id/attemptDateRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/dateAttemptedLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/thin_padding"
+                android:text="@string/label_date_attempted"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/dateAttemptedValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/thin_padding"
+                android:text="@string/sample_date"
+                android:textSize="@dimen/text_size_medium" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/participatingCharsRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/participatsSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:prompt="@string/label_participating_characters" />
+
+            <ImageButton
+                android:id="@+id/editParticipantsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/nonParticipatingCharsRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/nonParticipatingSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:prompt="@string/label_non_participants" />
+
+            <ImageButton
+                android:id="@+id/placeholdeEditBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="invisible"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/attemptSuccessfulRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/attemptSuccessfulLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:paddingRight="@dimen/thin_padding"
+                android:text="@string/label_Attempt_Successful"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/attemptSuccssfulValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/thin_padding"
+                android:text="@string/value_no"
+                android:textSize="@dimen/text_size_small" />
+
+        </TableRow>
+
+    </TableLayout>
+</android.support.v7.widget.CardView>

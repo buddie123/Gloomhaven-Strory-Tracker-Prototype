@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".LocationInfoActivity"
+    tools:showIn="@layout/activity_location_info">
+
+    <TableRow
+        android:id="@+id/scenariosUnlockedTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/scenariosUnlockedSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_unlocked_scenarios_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/scenariosUnlockedLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_unlocked_scenarios"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/scenariosUnlockedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/scenariosBlockedTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/scenariosBlockedSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_blocked_scenarios_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/scenariosBlockedLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_blocked_scenarios"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/scenariosBlockedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/globalGainedTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/globalGainedSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_global_achievements_gained_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/globalGainedLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_global_achievements_gained"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/globalGainedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/globalLostTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/globalLostSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_global_achievements_lost_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/globalLostLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_global_achievements_lost"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/globalLostRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/partyGainedTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/partyGainedSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_party_achievements_gained_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/partyGainedLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_party_achievements_gained"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/partyGainedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/partyLostTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/partyLostSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_party_achievements_lost_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/partyLostLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_party_achievements_lost"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/partyLostRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/addRewardsTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/addRewardsSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_additional_rewards_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addRewardsLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_additional_rewards"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/extrasGainedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/extrasLostTableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/extrasLostSpinnerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/spinner_additional_penalties_collapsed"
+            android:padding="11dp"
+            android:src="@drawable/ic_chevron_right__24dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/extrasLostLabelButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="start|center_vertical"
+                android:padding="8dp"
+                android:text="@string/label_additional_penalties"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/extrasLostRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                tools:listitem="@layout/content_reward_detail">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </TableRow>
+
+</TableLayout>

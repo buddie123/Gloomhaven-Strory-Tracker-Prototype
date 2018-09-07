@@ -1,0 +1,127 @@
+package com.atouchofjoe.ghprototye4;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.atouchofjoe.ghprototye4.Dummy.DummyContent;
+import com.atouchofjoe.ghprototye4.models.Attempt;
+import com.atouchofjoe.ghprototye4.models.Location;
+import com.atouchofjoe.ghprototye4.models.Party;
+
+import java.util.List;
+
+import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_LOCATION_NUMBER;
+
+
+public class LocationAttemptsTabFragment extends LocationTabFragment {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Location currentLocation =  dummyScenarios[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER, 0)];
+        Party currentParty = MainActivity.partyMap.get(getArguments().getString(LocationInfoActivity.ARG_PARTY_NAME));
+
+        View rootView;
+            if(currentParty.getLocationAttempted(currentLocation)) {
+                rootView = inflater.inflate(R.layout.fragment_scenario_attempts_tab, container, false);
+                setupRecyclerView((RecyclerView)rootView, currentParty.getLocationAttemptsForLocation(currentLocation));
+            }
+            else {
+                rootView = inflater.inflate(R.layout.content_empty_tab, container, false);
+
+                TextView noAttemptsMessage = rootView.findViewById(R.id.emptyMessage);
+                noAttemptsMessage.setText(R.string.text_no_attempts);
+            }
+        return rootView;
+    }
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<Attempt> attempts) {
+        recyclerView.setAdapter(new AttemptsRecyclerViewAdapter(getActivity(), attempts));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    public static class AttemptsRecyclerViewAdapter
+            extends RecyclerView.Adapter<AttemptsRecyclerViewAdapter.ViewHolder> {
+
+        private final List<Attempt> mValues;
+        private LayoutInflater mInflater;
+        private Context mContext;
+
+        private AttemptsRecyclerViewAdapter(Context context, List<Attempt> data){
+            mInflater = LayoutInflater.from(context);
+            mValues = data;
+            mContext = context;
+        }
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = mInflater.inflate(R.layout.content_attempt_detail, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            Attempt attempt = mValues.get(position);
+            holder.date.setText(attempt.getTimestamp().toString());
+
+            ArrayAdapter<String> participantsSpinnerAdapter
+                    = new ArrayAdapter<>(mContext,
+                                                android.R.layout.simple_selectable_list_item,
+                                                attempt.getParticipants());
+            participantsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            holder.participantsSpinner.setAdapter(participantsSpinnerAdapter);
+
+            ArrayAdapter<String> nonParticipantsSpinnerAdapter
+                    = new ArrayAdapter<>(mContext,
+                                        android.R.layout.simple_selectable_list_item,
+                                        attempt.getNonParticipants());
+            nonParticipantsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            holder.nonParticipantsSpinner.setAdapter(nonParticipantsSpinnerAdapter);
+
+            holder.attemptSuccessful.setText(attempt.getAttemptSuccessful() ?
+                                                R.string.value_yes: R.string.value_no);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mValues.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            final TextView date;
+            final Spinner participantsSpinner;
+            final Spinner nonParticipantsSpinner;
+            final ImageButton editParticipantsButton;
+            final TextView attemptSuccessful;
+
+
+            ViewHolder(View view) {
+                super(view);
+                date = view.findViewById(R.id.dateAttemptedValue);
+                participantsSpinner = view.findViewById((R.id.participatsSpinner));
+                nonParticipantsSpinner = view.findViewById(R.id.nonParticipatingSpinner);
+                editParticipantsButton = view.findViewById(R.id.editParticipantsButton);
+                editParticipantsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //TODO
+                    }
+                });
+                attemptSuccessful = view.findViewById(R.id.attemptSuccssfulValue);
+
+            }
+        }
+    }
+}
+
