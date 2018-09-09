@@ -65,4 +65,8 @@
     <string name="label_select_party">Seclect Party</string>
     <string name="prompt_participating_characters">Participating Characters</string>
     <string name="prompt_non_participating_characters">Non-Participating Characters</string>
+    <string name="error_invalid_query">Invalid query uri: </string>
+    <string name="error_invalid_insert_uri">Invalid insert uri: </string>
+    <string name="error_invalid_update_uri">Invalid update uri: </string>
+    <string name="error_invalid_delete_uri">Invalid delete uri: </string>
 </resources>

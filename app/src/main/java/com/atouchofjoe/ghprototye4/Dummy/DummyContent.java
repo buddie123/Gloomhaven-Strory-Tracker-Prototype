@@ -45,7 +45,7 @@ public class DummyContent {
                     new String[] {},
                     new String[] {},
                     new String[]{"1"},
-                    new String[]{"0"},
+                    new String[]{},
                     new String[] {},
                     new String[] {}));
 

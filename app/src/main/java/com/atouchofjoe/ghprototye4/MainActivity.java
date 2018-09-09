@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.atouchofjoe.ghprototye4.Dummy.DummyContent;
+import com.atouchofjoe.ghprototye4.location.data.StoryDatabaseInitializer;
 import com.atouchofjoe.ghprototye4.models.Party;
 
 import java.util.HashMap;
@@ -25,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
         content = new DummyContent(this);
         final String partyName = getString(R.string.sample_party_name);
         partyMap.put(partyName, content.getParty());
-
         super.onCreate(savedInstanceState);
+        StoryDatabaseInitializer initializer = new StoryDatabaseInitializer(this);
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
