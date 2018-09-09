@@ -26,7 +26,7 @@ public class Attempt {
     }
 
     private Attempt(Party party, Location location, boolean successful) {
-            timestamp = new Date(System.currentTimeMillis());
+        timestamp = new Date(System.currentTimeMillis());
         this.party = party;
         this.location = location;
         participants = new ArrayList<>();
