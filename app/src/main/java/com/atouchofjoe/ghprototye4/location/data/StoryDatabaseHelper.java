@@ -18,7 +18,6 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
     // creates all the tables when the database is created
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("PRAGMA foreign_keys = ON;");
 
         // create the Locations Table
         final String CREATE_LOCATIONS_TABLE =
@@ -43,7 +42,8 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
         // create the PartyAchievements table
         final String CREATE_PARTY_ACHIEVEMENTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.PartyAchievements.TABLE_NAME + "(" +
-                        DatabaseDescription.PartyAchievements.COLUMN_NAME + " TEXT primary key, " +
+                        DatabaseDescription.PartyAchievements._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.PartyAchievements.COLUMN_NAME + " TEXT, " +
                         DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_REPLACED + " TEXT);";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_TABLE);
 
@@ -53,13 +53,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.GlobalAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
                         DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_TIMES_GAINED + " INTEGER DEFAULT 1, " +
-                        "FOREIGN KEY (" + DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT +
-                        ") REFERENCES " + DatabaseDescription.GlobalAchievements.TABLE_NAME +
-                        " (" + DatabaseDescription.GlobalAchievements.COLUMN_NAME + "));";
+                        DatabaseDescription.GlobalAchievementsGained.COLUMN_TIMES_GAINED + " INTEGER DEFAULT 1);";
         db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE);
 
         // create the GlobalAchievementsLost table
@@ -67,13 +61,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.GlobalAchievementsLost.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsLost._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT +
-                        ") REFERENCES " + DatabaseDescription.GlobalAchievements.TABLE_NAME +
-                        " (" + DatabaseDescription.GlobalAchievements.COLUMN_NAME + "));";
+                        DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT);";
         db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_LOST_TABLE);
 
         // create the PartyAchievementsGained table
@@ -81,13 +69,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.PartyAchievementsGained.TABLE_NAME + "(" +
                         DatabaseDescription.PartyAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT +
-                        ") REFERENCES " + DatabaseDescription.PartyAchievements.TABLE_NAME +
-                        " (" + DatabaseDescription.PartyAchievements.COLUMN_NAME + "));";
+                        DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT + " TEXT);";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_GAINED_TABLE);
 
         // create the PartyAchievementsLost table
@@ -95,13 +77,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.PartyAchievementsLost.TABLE_NAME + "(" +
                         DatabaseDescription.PartyAchievementsLost._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT +
-                        ") REFERENCES " + DatabaseDescription.PartyAchievements.TABLE_NAME +
-                        " (" + DatabaseDescription.PartyAchievements.COLUMN_NAME + "));";
+                        DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT + " TEXT);";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_LOST_TABLE);
 
         // create the LocationsUnlocked table
@@ -109,13 +85,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.LocationsUnlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsUnlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER);";
         db.execSQL(CREATE_LOCATIONS_UNLOCKED_TABLE);
 
         // create the LocationsBlocked table
@@ -123,25 +93,21 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.LocationsBlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsBlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER);";
         db.execSQL(CREATE_LOCATIONS_BLOCKED_TABLE);
 
         // create AppliedTypes table
         final String CREATE_APPLIED_TYPES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AppliedTypes.TABLE_NAME + "(" +
-                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + " TEXT primary key);";
+                        DatabaseDescription.AppliedTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + " TEXT);";
         db.execSQL(CREATE_APPLIED_TYPES_TABLE);
 
         // create AppliedTypes table
         final String CREATE_ADD_REWARD_TYPES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AddRewardTypes.TABLE_NAME + "(" +
-                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + " TEXT primary key);";
+                        DatabaseDescription.AddRewardTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + " TEXT);";
         db.execSQL(CREATE_ADD_REWARD_TYPES_TABLE);
 
         // create the AddRewards table
@@ -151,16 +117,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
                         DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE + " TEXT, " +
                         DatabaseDescription.AddRewardsGained.COLUMN_REWARD_VALUE + " INTEGER, " +
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE +
-                        ") REFERENCES " + DatabaseDescription.AddRewardTypes.TABLE_NAME +
-                        " (" + DatabaseDescription.AddRewardTypes.COLUMN_TYPE + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE +
-                        ") REFERENCES " + DatabaseDescription.AppliedTypes.TABLE_NAME +
-                        " (" + DatabaseDescription.AppliedTypes.COLUMN_TYPE + "));";
+                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE + " TEXT);";
         db.execSQL(CREATE_ADD_REWARDS_TABLE);
 
         // create the AddPenalties table
@@ -170,22 +127,14 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
                         DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE + " TEXT, " +
                         DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_VALUE + " INTEGER, " +
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME +
-                        " (" + DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE +
-                        ") REFERENCES " + DatabaseDescription.AddRewardTypes.TABLE_NAME +
-                        " (" + DatabaseDescription.AddRewardTypes.COLUMN_TYPE + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE +
-                        ") REFERENCES " + DatabaseDescription.AppliedTypes.TABLE_NAME +
-                        " (" + DatabaseDescription.AppliedTypes.COLUMN_TYPE + "));";
+                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE + " TEXT);";
         db.execSQL(CREATE_ADD_PENALTIES_TABLE);
 
         // create PARTIES table
         final String CREATE_PARTIES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.Parties.TABLE_NAME + "(" +
-                        DatabaseDescription.Parties.COLUMN_NAME + " TEXT primary key);";
+                        DatabaseDescription.Parties._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.Parties.COLUMN_NAME + " TEXT);";
         db.execSQL(CREATE_PARTIES_TABLE);
 
         // create Characters table
@@ -193,25 +142,17 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.Characters.TABLE_NAME + "(" +
                         DatabaseDescription.Characters._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.Characters.COLUMN_NAME + " TEXT, " +
-                        DatabaseDescription.Characters.COLUMN_PARTY + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.Characters.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME +
-                        " (" + DatabaseDescription.Parties.COLUMN_NAME + "));";
+                        DatabaseDescription.Characters.COLUMN_PARTY + " TEXT);";
         db.execSQL(CREATE_CHARACTERS_TABLE);
 
         // create Attempt Table
         final String CREATE_ATTEMPTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.Attempts.TABLE_NAME + "(" +
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + " INTEGER primary key, " +
+                        DatabaseDescription.Attempts._ID + "INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + " INTEGER, " +
                         DatabaseDescription.Attempts.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.Attempts.COLUMN_LOCATION + " INTEGER, " +
-                        DatabaseDescription.Attempts.COLUMN_SUCCESSFUL + " TEXT, " +
-                        "FOREIGN KEY (" + DatabaseDescription.Attempts.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME + " (" +
-                        DatabaseDescription.Parties.COLUMN_NAME + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.Attempts.COLUMN_LOCATION +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.Attempts.COLUMN_SUCCESSFUL + " TEXT);";
         db.execSQL(CREATE_ATTEMPTS_TABLE);
 
         // create Participants table
@@ -219,13 +160,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.Participants.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.Participants.COLUMN_TIMESTAMP + " INTEGER, " +
-                        DatabaseDescription.Participants.COLUMN_CHARACTER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.Participants.COLUMN_TIMESTAMP +
-                        ") REFERENCES " + DatabaseDescription.Attempts.TABLE_NAME + " (" +
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.Participants.COLUMN_CHARACTER +
-                        ") REFERENCES " + DatabaseDescription.Characters.TABLE_NAME + " (" +
-                        DatabaseDescription.Characters._ID + "));";
+                        DatabaseDescription.Participants.COLUMN_CHARACTER + " INTEGER);";
         db.execSQL(CREATE_PARTICIPANTS_TABLE);
 
 
@@ -234,13 +169,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.NonParticipants.TABLE_NAME + "(" +
                         DatabaseDescription.NonParticipants._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.NonParticipants.COLUMN_TIMESTAMP + " INTEGER, " +
-                        DatabaseDescription.NonParticipants.COLUMN_CHARACTER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.NonParticipants.COLUMN_TIMESTAMP +
-                        ") REFERENCES " + DatabaseDescription.Attempts.TABLE_NAME + " (" +
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.NonParticipants.COLUMN_CHARACTER +
-                        ") REFERENCES " + DatabaseDescription.Characters.TABLE_NAME + " (" +
-                        DatabaseDescription.Characters._ID + "));";
+                        DatabaseDescription.NonParticipants.COLUMN_CHARACTER + " INTEGER);";
         db.execSQL(CREATE_NON_PARTICIPANTS_TABLE);
 
         final String CREATE_UNLOCKED_LOCATIONS_TABLE =
@@ -248,34 +177,15 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.UnlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.UnlockedLocations.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME + " (" +
-                        DatabaseDescription.Parties.COLUMN_NAME + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER + " INTEGER);";
         db.execSQL(CREATE_UNLOCKED_LOCATIONS_TABLE);
 
         final String CREATE_BLOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.BlockedLocations.TABLE_NAME + "(" +
+                        DatabaseDescription.BlockedLocations._ID + " INTEger primary key AUTOINCREMENT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME + " INTEGER, " +
-                        "PRIMARY KEY (" + DatabaseDescription.BlockedLocations.COLUMN_PARTY + ", " +
-                        DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.BlockedLocations.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME + " (" +
-                        DatabaseDescription.Parties.COLUMN_NAME + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME + " INTEGER);";
         db.execSQL(CREATE_BLOCKED_LOCATIONS_TABLE);
 
         final String CREATE_COMPLETED_LOCATIONS_TABLE =
@@ -283,34 +193,16 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.CompletedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.CompletedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.CompletedLocations.COLUMN_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.CompletedLocations.COLUMN_COMPLETED_TIMESTAMP + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.CompletedLocations.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME + " (" +
-                        DatabaseDescription.Parties.COLUMN_NAME + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.CompletedLocations.COLUMN_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.CompletedLocations.COLUMN_COMPLETED_TIMESTAMP +
-                        ") REFERENCES " + DatabaseDescription.Attempts.TABLE_NAME + " (" +
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "));";
+                        DatabaseDescription.CompletedLocations.COLUMN_COMPLETED_TIMESTAMP + " INTEGER);";
         db.execSQL(CREATE_COMPLETED_LOCATIONS_TABLE);
 
         final String CREATE_LOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.LockedLocations.TABLE_NAME + "(" +
                         DatabaseDescription.LockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LockedLocations.COLUMN_PARTY + " TEXT, " +
-                        DatabaseDescription.LockedLocations.COLUMN_LOCATION_NUMBER + " INTEGER, " +
-                        "FOREIGN KEY (" + DatabaseDescription.LockedLocations.COLUMN_PARTY +
-                        ") REFERENCES " + DatabaseDescription.Parties.TABLE_NAME + " (" +
-                        DatabaseDescription.Parties.COLUMN_NAME + "), " +
-                        "FOREIGN KEY (" + DatabaseDescription.LockedLocations.COLUMN_LOCATION_NUMBER +
-                        ") REFERENCES " + DatabaseDescription.Locations.TABLE_NAME + " (" +
-                        DatabaseDescription.Locations.COLUMN_NUMBER + "));";
+                        DatabaseDescription.LockedLocations.COLUMN_LOCATION_NUMBER + " INTEGER);";
         db.execSQL(CREATE_LOCKED_LOCATIONS_TABLE);
     }
-
-
-
 
     // normally defines how to upgrade the database when the schema changes
     @Override

@@ -14,7 +14,7 @@ public class StoryDatabaseInitializer {
         databaseHelper = new StoryDatabaseHelper(context);
         databaseHelper.getWritableDatabase();
         initializeGlobalAchievements(context);
-        //initializePartyAchievements(context);
+        initializePartyAchievements(context);
         initializeLocations(context);
     }
 
@@ -35,6 +35,22 @@ public class StoryDatabaseInitializer {
         }
         if(max_count > 1) {
             contentValues.put(DatabaseDescription.GlobalAchievements.COLUMN_ACHIEVEMENT_MAX_COUNT, max_count);
+        }
+        context.getContentResolver().insert(DatabaseDescription.GlobalAchievements.CONTENT_URI, contentValues);
+    }
+
+    private void initializePartyAchievements(Context context) {
+        initializePartyAchievement(context, "First Steps", null);
+        initializePartyAchievement(context, "Jekserah's Plans", null);
+        initializePartyAchievement(context, "Dark Bounty", null);
+        initializePartyAchievement(context, "A Demon's Errand", null);
+    }
+
+    private void initializePartyAchievement(Context context, String name, String achievementReplaced) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseDescription.PartyAchievements.COLUMN_NAME, name);
+        if(achievementReplaced != null) {
+            contentValues.put(DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_REPLACED, achievementReplaced);
         }
         context.getContentResolver().insert(DatabaseDescription.GlobalAchievements.CONTENT_URI, contentValues);
     }

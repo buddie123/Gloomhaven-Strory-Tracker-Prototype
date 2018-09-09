@@ -81,7 +81,7 @@ public class GHStoryContentProvider extends ContentProvider {
 
         // Parties
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.Parties.TABLE_NAME + "/*", ONE_PARTY);
+                DatabaseDescription.Parties.TABLE_NAME + "/#", ONE_PARTY);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.Parties.TABLE_NAME, PARTIES);
 
@@ -105,7 +105,7 @@ public class GHStoryContentProvider extends ContentProvider {
 
         // Party Achievements
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.PartyAchievements.TABLE_NAME + "/*", ONE_PARTY_ACHIEVEMENT);
+                DatabaseDescription.PartyAchievements.TABLE_NAME + "/#", ONE_PARTY_ACHIEVEMENT);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.PartyAchievements.TABLE_NAME, PARTY_ACHIEVEMENTS);
 
@@ -147,13 +147,13 @@ public class GHStoryContentProvider extends ContentProvider {
 
         // Applied Types
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AppliedTypes.TABLE_NAME + "/*", ONE_APPLIED_TYPE);
+                DatabaseDescription.AppliedTypes.TABLE_NAME + "/#", ONE_APPLIED_TYPE);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.AppliedTypes.TABLE_NAME, APPLIED_TYPES);
 
         // Add Reward Types
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AddRewardTypes.TABLE_NAME + "/*", ONE_ADD_REWARD_TYPE);
+                DatabaseDescription.AddRewardTypes.TABLE_NAME + "/#", ONE_ADD_REWARD_TYPE);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.AddRewardTypes.TABLE_NAME, ADD_REWARD_TYPES);
 
@@ -232,7 +232,7 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_PARTY:
                 queryBuilder.setTables(DatabaseDescription.Parties.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.Parties.COLUMN_NAME + "=" +
+                        DatabaseDescription.Parties._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_CHARACTER:
@@ -244,7 +244,7 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_ATTEMPT:
                 queryBuilder.setTables(DatabaseDescription.Attempts.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "=" +
+                        DatabaseDescription.Attempts._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_GLOBAL_ACHIEVEMENT:
@@ -256,7 +256,7 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_PARTY_ACHIEVEMENT:
                 queryBuilder.setTables(DatabaseDescription.PartyAchievements.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.PartyAchievements.COLUMN_NAME + "=" +
+                        DatabaseDescription.PartyAchievements._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
@@ -298,13 +298,13 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_APPLIED_TYPE:
                 queryBuilder.setTables(DatabaseDescription.AppliedTypes.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + "=" +
+                        DatabaseDescription.AppliedTypes._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_ADD_REWARD_TYPE:
                 queryBuilder.setTables(DatabaseDescription.AddRewardTypes.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + "=" +
+                        DatabaseDescription.AddRewardTypes._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_ADD_REWARD:
@@ -626,7 +626,7 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_PARTY:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.Parties.TABLE_NAME, contentValues,
-                        DatabaseDescription.Parties.COLUMN_NAME + "+" + id,
+                        DatabaseDescription.Parties._ID + "=" + id,
                     selectionArgs);
                 break;
             case ONE_CHARACTER:
@@ -638,19 +638,19 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_ATTEMPT:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.Attempts.TABLE_NAME, contentValues,
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "=" + id,
+                        DatabaseDescription.Attempts._ID+ "=" + id,
                         selectionArgs);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.GlobalAchievements.TABLE_NAME, contentValues,
-                        DatabaseDescription.GlobalAchievements.COLUMN_NAME + "=" + id,
+                        DatabaseDescription.GlobalAchievements._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_PARTY_ACHIEVEMENT:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.PartyAchievements.TABLE_NAME, contentValues,
-                        DatabaseDescription.PartyAchievements.COLUMN_NAME + "=" + id,
+                        DatabaseDescription.PartyAchievements._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
@@ -692,13 +692,13 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_APPLIED_TYPE:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.AppliedTypes.TABLE_NAME, contentValues,
-                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + "=" + id,
+                        DatabaseDescription.AppliedTypes._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_ADD_REWARD_TYPE:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
                     DatabaseDescription.AddRewardTypes.TABLE_NAME, contentValues,
-                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + "=" + id,
+                        DatabaseDescription.AddRewardTypes._ID + "=" + id,
                                 selectionArgs);
                 break;
             case ONE_ADD_REWARD:
@@ -778,7 +778,7 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_PARTY:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.Parties.TABLE_NAME,
-                        DatabaseDescription.Parties.COLUMN_NAME + "+" + id,
+                        DatabaseDescription.Parties._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_CHARACTER:
@@ -790,19 +790,19 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_ATTEMPT:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.Attempts.TABLE_NAME,
-                        DatabaseDescription.Attempts.COLUMN_TIMESTAMP + "=" + id,
+                        DatabaseDescription.Attempts._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.GlobalAchievements.TABLE_NAME,
-                        DatabaseDescription.GlobalAchievements.COLUMN_NAME + "=" + id,
+                        DatabaseDescription.GlobalAchievements._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_PARTY_ACHIEVEMENT:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.PartyAchievements.TABLE_NAME,
-                        DatabaseDescription.PartyAchievements.COLUMN_NAME + "=" + id,
+                        DatabaseDescription.PartyAchievements._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
@@ -844,13 +844,13 @@ public class GHStoryContentProvider extends ContentProvider {
             case ONE_APPLIED_TYPE:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.AppliedTypes.TABLE_NAME,
-                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + "=" + id,
+                        DatabaseDescription.AppliedTypes._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_ADD_REWARD_TYPE:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.AddRewardTypes.TABLE_NAME,
-                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + "=" + id,
+                        DatabaseDescription.AddRewardTypes._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_ADD_REWARD:
