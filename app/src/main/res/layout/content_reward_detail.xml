@@ -9,5 +9,5 @@
     android:text="@string/text_none"
     android:textSize="@dimen/text_size_medium"
     android:background="?android:attr/selectableItemBackground"
-    tools:context=".LocationRewardsTabFragment"
+    tools:context=".location.info.LocationRewardsTabFragment"
     tools:showIn="@layout/fragment_scenario_rewards_tab"/>

@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.atouchofjoe.ghprototye4.Dummy.DummyContent;
+import com.atouchofjoe.ghprototye4.location.info.LocationAttemptsTabFragment;
+import com.atouchofjoe.ghprototye4.location.info.LocationRewardsTabFragment;
+import com.atouchofjoe.ghprototye4.location.info.LocationStoryTabFragment;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 

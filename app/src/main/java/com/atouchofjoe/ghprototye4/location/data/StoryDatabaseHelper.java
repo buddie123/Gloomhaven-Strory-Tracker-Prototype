@@ -52,8 +52,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.GlobalAchievementsGained.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_TIMES_GAINED + " INTEGER DEFAULT 1);";
+                        DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT);";
         db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE);
 
         // create the GlobalAchievementsLost table
@@ -148,7 +147,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
         // create Attempt Table
         final String CREATE_ATTEMPTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.Attempts.TABLE_NAME + "(" +
-                        DatabaseDescription.Attempts._ID + "INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.Attempts._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.Attempts.COLUMN_TIMESTAMP + " INTEGER, " +
                         DatabaseDescription.Attempts.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.Attempts.COLUMN_LOCATION + " INTEGER, " +
@@ -182,7 +181,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
 
         final String CREATE_BLOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.BlockedLocations.TABLE_NAME + "(" +
-                        DatabaseDescription.BlockedLocations._ID + " INTEger primary key AUTOINCREMENT, " +
+                        DatabaseDescription.BlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
                         DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME + " INTEGER);";

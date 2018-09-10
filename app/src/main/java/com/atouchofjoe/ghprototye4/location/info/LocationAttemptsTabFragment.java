@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4;
+package com.atouchofjoe.ghprototye4.location.info;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,14 +14,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.atouchofjoe.ghprototye4.Dummy.DummyContent;
+import com.atouchofjoe.ghprototye4.LocationInfoActivity;
+import com.atouchofjoe.ghprototye4.MainActivity;
+import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.models.Attempt;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
 import java.util.List;
-
-import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_LOCATION_NUMBER;
 
 
 public class LocationAttemptsTabFragment extends LocationTabFragment {

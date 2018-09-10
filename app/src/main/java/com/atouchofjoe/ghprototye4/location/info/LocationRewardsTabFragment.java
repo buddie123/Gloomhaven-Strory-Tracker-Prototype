@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4;
+package com.atouchofjoe.ghprototye4.location.info;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.atouchofjoe.ghprototye4.LocationInfoActivity;
+import com.atouchofjoe.ghprototye4.MainActivity;
+import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
