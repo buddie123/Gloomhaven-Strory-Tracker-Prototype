@@ -32,11 +32,11 @@
             android:layout_weight="4"
             android:gravity="center"
             android:paddingLeft="@dimen/thin_padding"
-            android:text="@string/sample_party_name"
+            android:text="@string/message_no_party_selected"
             android:textSize="@dimen/text_size_medium" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/selectPartyButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

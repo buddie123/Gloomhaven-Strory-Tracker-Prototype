@@ -1,10 +1,9 @@
-package com.atouchofjoe.ghprototye4.location.data;
+package com.atouchofjoe.ghprototye4.data;
 
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 public class StoryDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "GloomhavenStory.db";

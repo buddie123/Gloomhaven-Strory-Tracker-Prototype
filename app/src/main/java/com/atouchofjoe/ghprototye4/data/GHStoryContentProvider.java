@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4.location.data;
+package com.atouchofjoe.ghprototye4.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -11,9 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.atouchofjoe.ghprototye4.R;
-import com.atouchofjoe.ghprototye4.models.Attempt;
-import com.atouchofjoe.ghprototye4.models.Party;
-import com.atouchofjoe.ghprototye4.models.Location;
 
 public class GHStoryContentProvider extends ContentProvider {
     // used to access the database

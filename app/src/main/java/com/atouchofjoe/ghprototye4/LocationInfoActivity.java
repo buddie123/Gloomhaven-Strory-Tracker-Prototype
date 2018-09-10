@@ -51,7 +51,7 @@ public class LocationInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_info);
 
         currentLocNumber = getIntent().getIntExtra(ARG_LOCATION_NUMBER, 0);
-        currentParty = MainActivity.partyMap.get(getIntent().getStringExtra(ARG_PARTY_NAME));
+        currentParty = MainActivity.currentParty;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,7 +68,7 @@ public class LocationInfoActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        Location currentLoc= MainActivity.content.getLocations()[currentLocNumber];
+        Location currentLoc= MainActivity.locations[currentLocNumber];
 
         TextView locationName = findViewById(R.id.locationName);
         locationName.setText(currentLoc.toString());

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="No Parties Created"
+        android:entries="@array/party_preferences_empty_list"
+        android:entryValues="@array/party_preferences_empty_list"
+        android:key="pref_currentParty"
+        android:persistent="true"
+        android:summary="Select the party to view the story progress for!"
+        android:title="Select Party" />
+</PreferenceScreen>

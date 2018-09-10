@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4.location.data;
+package com.atouchofjoe.ghprototye4.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -143,19 +143,19 @@ public class StoryDatabaseInitializer {
         context.getContentResolver().insert(DatabaseDescription.GlobalAchievementsGained.CONTENT_URI, contentValues);
     }
 
-    private void initializePartyAchievementGained(Context context, int locNumber, String globalAchievement) {
+    private void initializePartyAchievementGained(Context context, int locNumber, String partyAchievement) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT, globalAchievement);
+        contentValues.put(DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
         context.getContentResolver().insert(DatabaseDescription.PartyAchievementsGained.CONTENT_URI, contentValues);
     }
 
 
     // for use in the initializePartyAchievementsLost() method
-    private void initializePartyAchievementLost(Context context, int locNumber, String globalAchievement) {
+    private void initializePartyAchievementLost(Context context, int locNumber, String partyAchievement) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT, globalAchievement);
+        contentValues.put(DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
         context.getContentResolver().insert(DatabaseDescription.PartyAchievementsLost.CONTENT_URI, contentValues);
     }
 

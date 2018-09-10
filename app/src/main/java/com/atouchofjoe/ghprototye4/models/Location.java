@@ -1,5 +1,8 @@
 package com.atouchofjoe.ghprototye4.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Location {
     public static final int TOTAL_LOCATIONS = 95;
 
@@ -8,35 +11,33 @@ public class Location {
     private String teaser;
     private String summary;
     private String conclusion;
-    private String[] globalAchievementsGained;
-    private String[] globalAchievementsLost;
-    private String[] partyAchievementsGained;
-    private String[] partyAchievementsLost;
-    private String[] locationsUnlocked;
-    private String[] locationsBlocked;
-    private String[] addRewards;
-    private String[] addPenalties;
+    private List<String> globalAchievementsGained = new ArrayList<>();
+    private List<String> globalAchievementsLost = new ArrayList<>();
+    private List<String> partyAchievementsGained = new ArrayList<>();
+    private List<String> partyAchievementsLost = new ArrayList<>();
+    private List<String> locationsUnlocked = new ArrayList<>();
+    private List<String> locationsBlocked = new ArrayList<>();
+    private List<String> addRewards = new ArrayList<>();
+    private List<String> addPenalties = new ArrayList<>();
 
     public Location(int sNumber, String sName,
-                    String sTeaser, String sSummary, String sConclusion,
-                    String[] sGlobalAchievementsGained, String[] sGlobalAchievementsLost,
-                    String[] sPartyAchievementsGained, String[] sPartyAchievementsLost,
-                    String[] sDummyScenariosUnlocked, String[] sDummyScenariosBlocked,
-                    String[] sExtrasGained, String[] sExtrasLost) {
+                    String sTeaser, String sSummary, String sConclusion) {
         this.number = sNumber;
         this.name = sName;
         this.teaser = sTeaser;
         this.summary = sSummary;
         this.conclusion = sConclusion;
-        this.globalAchievementsGained = sGlobalAchievementsGained;
-        this.globalAchievementsLost = sGlobalAchievementsLost;
-        this.partyAchievementsGained = sPartyAchievementsGained;
-        this.partyAchievementsLost = sPartyAchievementsLost;
-        this.locationsUnlocked = sDummyScenariosUnlocked;
-        this.locationsBlocked = sDummyScenariosBlocked;
-        this.addRewards = sExtrasGained;
-        this.addPenalties = sExtrasLost;
     }
+
+
+//        this.globalAchievementsGained = sGlobalAchievementsGained;
+//        this.globalAchievementsLost = sGlobalAchievementsLost;
+//        this.partyAchievementsGained = sPartyAchievementsGained;
+//        this.partyAchievementsLost = sPartyAchievementsLost;
+//        this.locationsUnlocked = sDummyScenariosUnlocked;
+//        this.locationsBlocked = sDummyScenariosBlocked;
+//        this.addRewards = sExtrasGained;
+//        this.addPenalties = sExtrasLost;
 
     public int getNumber() {
         return number;
@@ -58,35 +59,35 @@ public class Location {
         return conclusion;
     }
 
-    public String[] getGlobalAchievementsGained() {
+    public List<String> getGlobalAchievementsGained() {
         return globalAchievementsGained;
     }
 
-    public String[] getGlobalAchievementsLost() {
+    public List<String> getGlobalAchievementsLost() {
         return globalAchievementsLost;
     }
 
-    public String[] getPartyAchievementsGained() {
+    public List<String> getPartyAchievementsGained() {
         return partyAchievementsGained;
     }
 
-    public String[] getPartyAchievementsLost() {
+    public List<String> getPartyAchievementsLost() {
         return partyAchievementsLost;
     }
 
-    public String[] getLocationsUnlocked() {
+    public List<String> getLocationsUnlocked() {
         return locationsUnlocked;
     }
 
-    public String[] getLocationsBlocked() {
+    public List<String> getLocationsBlocked() {
         return locationsBlocked;
     }
 
-    public String[] getAddRewards() {
+    public List<String> getAddRewards() {
         return addRewards;
     }
 
-    public String[] getAddPenalties() {
+    public List<String> getAddPenalties() {
         return addPenalties;
     }
 

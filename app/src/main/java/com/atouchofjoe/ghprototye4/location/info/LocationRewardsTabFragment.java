@@ -21,6 +21,8 @@ import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
+import java.util.List;
+
 
 public class LocationRewardsTabFragment extends LocationTabFragment {
 
@@ -31,49 +33,49 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        currentLoc = dummyScenarios[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
-        currentParty = MainActivity.partyMap.get(getArguments().getString(LocationInfoActivity.ARG_PARTY_NAME));
+        currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
+        currentParty = MainActivity.currentParty;
 
         if (currentParty.getLocationCompleted(currentLoc)) {
 
             rootView = inflater.inflate(R.layout.fragment_scenario_rewards_tab, container, false);
             // unlocked scenarios
-            activateSpinner(currentLoc.getLocationsUnlocked().length == 0,
+            activateSpinner(currentLoc.getLocationsUnlocked().size()== 0,
                     R.id.scenariosUnlockedTableRow, R.id.scenariosUnlockedSpinnerButton,
                     R.id.scenariosUnlockedLabelButton, scenariosUnlockedOnClickListener);
 
             // blocked scenarios
-            activateSpinner(currentLoc.getLocationsBlocked().length == 0,
+            activateSpinner(currentLoc.getLocationsBlocked().size() == 0,
                     R.id.scenariosBlockedTableRow, R.id.scenariosBlockedSpinnerButton,
                     R.id.scenariosBlockedLabelButton, scenariosBlockedOnClickListener);
 
             // global achievements gained
-            activateSpinner(currentLoc.getGlobalAchievementsGained().length == 0,
+            activateSpinner(currentLoc.getGlobalAchievementsGained().size() == 0,
                     R.id.globalGainedTableRow, R.id.globalGainedSpinnerButton,
                     R.id.globalGainedLabelButton, globalGainedOnClickListener);
 
             // global achievements lost
-            activateSpinner(currentLoc.getGlobalAchievementsLost().length == 0,
+            activateSpinner(currentLoc.getGlobalAchievementsLost().size() == 0,
                     R.id.globalLostTableRow, R.id.globalLostSpinnerButton,
                     R.id.globalLostLabelButton, globalLostOnClickListener);
 
             // party achievements gained
-            activateSpinner(currentLoc.getPartyAchievementsGained().length == 0,
+            activateSpinner(currentLoc.getPartyAchievementsGained().size() == 0,
                     R.id.partyGainedTableRow, R.id.partyGainedSpinnerButton,
                     R.id.partyGainedLabelButton, partyGainedOnClickListener);
 
             // party achievements lost
-            activateSpinner(currentLoc.getPartyAchievementsLost().length == 0,
+            activateSpinner(currentLoc.getPartyAchievementsLost().size() == 0,
                     R.id.partyLostTableRow, R.id.partyLostSpinnerButton,
                     R.id.partyLostLabelButton, partyLostOnClickListener);
 
             // additional rewards gained
-            activateSpinner(currentLoc.getAddRewards().length == 0,
+            activateSpinner(currentLoc.getAddRewards().size() == 0,
                     R.id.addRewardsTableRow, R.id.addRewardsSpinnerButton,
                     R.id.addRewardsLabelButton, extrasGainedOnClickListener);
 
             // additional rewards lost
-            activateSpinner(currentLoc.getAddPenalties().length == 0,
+            activateSpinner(currentLoc.getAddPenalties().size() == 0,
                     R.id.extrasLostTableRow, R.id.extrasLostSpinnerButton,
                     R.id.extrasLostLabelButton, extrasLostOnClickListener);
         } else {
@@ -100,10 +102,10 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
         }
     }
 
-        private void updateSpinner(AppCompatImageButton spinner, RecyclerView rView, String[] list) {
+        private void updateSpinner(AppCompatImageButton spinner, RecyclerView rView, List<String> list) {
             LinearLayout.LayoutParams params= ((LinearLayout.LayoutParams) rView.getLayoutParams());
             if (params.weight == 0) {
-                params.weight = list.length;
+                params.weight = list.size();
                 spinner.setImageResource(R.drawable.ic_expand_more_24dp);
             } else {
                 params.weight = 0;
@@ -292,7 +294,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                 }
             };
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView, String[] data) {
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<String> data) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(getActivity(), data));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -300,11 +302,11 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final String[] mValues;
+        private final List<String> mValues;
         private LayoutInflater mInflater;
 
 
-        private SimpleItemRecyclerViewAdapter(Context context, String[] data){
+        private SimpleItemRecyclerViewAdapter(Context context, List<String> data){
 
             this.mInflater = LayoutInflater.from(context);
             mValues = data;
@@ -329,13 +331,13 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.button.setText(mValues[position]);
+            holder.button.setText(mValues.get(position));
 
         }
 
         @Override
         public int getItemCount() {
-            return mValues.length;
+            return mValues.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

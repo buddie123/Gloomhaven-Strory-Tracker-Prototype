@@ -24,8 +24,8 @@ public class LocationStoryTabFragment extends LocationTabFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scenario_story_tab, container, false);
 
-        Location currentLoc = dummyScenarios[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
-        Party currentParty = MainActivity.partyMap.get(getArguments().getString(LocationInfoActivity.ARG_PARTY_NAME));
+        Location currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
+        Party currentParty = MainActivity.currentParty;
 
         // set view
         if(currentParty.getLocationCompleted(currentLoc)) {

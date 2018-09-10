@@ -69,4 +69,10 @@
     <string name="error_invalid_insert_uri">Invalid insert uri: </string>
     <string name="error_invalid_update_uri">Invalid update uri: </string>
     <string name="error_invalid_delete_uri">Invalid delete uri: </string>
+    <string name="message_no_party_selected">Select a Party</string>
+    <string name="dialog_select_party_title">Select Party</string>
+    <string name="dialog_select_party_message">Select an existing party or create a new party.</string>
+    <string name="dialog_select_party_add_label">New Party</string>
+    <string name="dialog_select_party_select_label">Select Party</string>
+    <string name="title_activity_create_party">CreateParty</string>
 </resources>

@@ -28,8 +28,8 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Location currentLocation =  dummyScenarios[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER, 0)];
-        Party currentParty = MainActivity.partyMap.get(getArguments().getString(LocationInfoActivity.ARG_PARTY_NAME));
+        Location currentLocation =  locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER, 0)];
+        Party currentParty = MainActivity.currentParty;
 
         View rootView;
             if(currentParty.getLocationAttempted(currentLocation)) {

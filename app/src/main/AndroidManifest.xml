@@ -19,16 +19,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LocationInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".LocationInfoActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
+            android:name=".data.GHStoryContentProvider"
             android:authorities="com.atouchofjoe.ghprototye4.location.data"
-            android:name=".location.data.GHStoryContentProvider"
             android:grantUriPermissions="true"
             android:readPermission="com.atouchofjoe.ghprototye4.location.data.READ"
-            android:writePermission="com.atouchofjoe.ghprototye4.location.data.WRITE"/>
+            android:writePermission="com.atouchofjoe.ghprototye4.location.data.WRITE" />
 
+        <activity
+            android:name=".CreatePartyActivity"
+            android:label="@string/title_activity_create_party"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.atouchofjoe.ghprototye4.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

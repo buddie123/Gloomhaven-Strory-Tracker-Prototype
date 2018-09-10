@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4.location.data;
+package com.atouchofjoe.ghprototye4.data;
 
 
 import android.content.ContentUris;

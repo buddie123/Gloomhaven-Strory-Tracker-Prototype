@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="party_preferences_empty_list">
+        <item name="default_value">No Parties Created</item>
+    </string-array>
+</resources>
