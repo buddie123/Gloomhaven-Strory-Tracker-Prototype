@@ -7,6 +7,8 @@ import android.content.Context;
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.models.Attempt;
+import com.atouchofjoe.ghprototye4.models.Character;
+import com.atouchofjoe.ghprototye4.models.CharacterClass;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
@@ -32,12 +34,12 @@ public class DummyContent {
         party = new Party(context.getString(R.string.sample_party_name));
 
         // add a party
-        party.addCharacter("Francis");
-        party.addCharacter("Ping-Pong");
-        party.addCharacter("I Pitty The Fool");
-        party.addCharacter("Me");
-        party.addCharacter("Flim-Flam");
-        party.addCharacter("Mr. Meek");
+        party.addCharacter(new Character("Francis", CharacterClass.Brute));
+        party.addCharacter(new Character("Ping-Pong", CharacterClass.Cragheart));
+        party.addCharacter(new Character("I Pitty The Fool", CharacterClass.Mindthief));
+        party.addCharacter(new Character("Me", CharacterClass.Scoundrel));
+        party.addCharacter(new Character("Flim-Flam", CharacterClass.Spellweaver));
+        party.addCharacter(new Character("Mr. Meek", CharacterClass.Tinkerer));
 
         Attempt attemptOne = Attempt.getNewAttempt(party, MainActivity.locations[1], false);
         attemptOne.setAsParticipant(party.getCharacters().get(0));

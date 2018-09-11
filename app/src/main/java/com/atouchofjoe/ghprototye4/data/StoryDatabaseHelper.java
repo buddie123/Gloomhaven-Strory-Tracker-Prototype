@@ -140,6 +140,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.Characters.TABLE_NAME + "(" +
                         DatabaseDescription.Characters._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.Characters.COLUMN_NAME + " TEXT, " +
+                        DatabaseDescription.Characters.COLUMN_CLASS + " TEXT, " +
                         DatabaseDescription.Characters.COLUMN_PARTY + " TEXT);";
         db.execSQL(CREATE_CHARACTERS_TABLE);
 

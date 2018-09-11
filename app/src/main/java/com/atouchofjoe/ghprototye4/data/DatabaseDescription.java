@@ -100,6 +100,7 @@ public class DatabaseDescription {
         // column names for contacts table's columns
         public static final String COLUMN_PARTY = "party";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_CLASS = "class";
 
         // creates a URI for a specific contact
         public static Uri buildCharacterUri(long id) {

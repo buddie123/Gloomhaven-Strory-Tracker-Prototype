@@ -3,4 +3,13 @@
     <string-array name="party_preferences_empty_list">
         <item name="default_value">No Parties Created</item>
     </string-array>
+    <string-array name="char_classes">
+        <item name="default">Select a Class</item>
+        <item name="brute">Brute</item>
+        <item name="cragheart">Cragheart</item>
+        <item name="mindthief">Mindthief</item>
+        <item name="scoundrel">Scoundrel</item>
+        <item name="spellweaver">Spellweaver</item>
+        <item name="tinkerer">Tinkerer</item>
+    </string-array>
 </resources>

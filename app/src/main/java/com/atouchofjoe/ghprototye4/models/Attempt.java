@@ -37,12 +37,12 @@ public class Attempt {
         party.addLocationAttempt(location,this);
     }
 
-    public boolean setAsParticipant(String participant){
+    public boolean setAsParticipant(Character participant){
         if(participants.size() != MAX_PARTICIPANTS + 1 && !participants.contains(participant)){
-            if(nonParticipants.contains(participant)) {
-                nonParticipants.remove(participant);
+            if(nonParticipants.contains(participant.getName())) {
+                nonParticipants.remove(participant.getName());
             }
-            participants.add(participant);
+            participants.add(participant.getName());
             return true;
         }
         else{
@@ -50,12 +50,12 @@ public class Attempt {
         }
     }
 
-    public boolean setAsNonParticipant(String nonParticipant){
-        if(!nonParticipants.contains(nonParticipant)) {
-            if(participants.contains(nonParticipant)) {
-                participants.remove(nonParticipant);
+    public boolean setAsNonParticipant(Character nonParticipant){
+        if(!nonParticipants.contains(nonParticipant.getName())) {
+            if(participants.contains(nonParticipant.getName())) {
+                participants.remove(nonParticipant.getName());
             }
-            nonParticipants.add(nonParticipant);
+            nonParticipants.add(nonParticipant.getName());
             return true;
         }
         else {
