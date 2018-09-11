@@ -1,6 +1,8 @@
 package com.atouchofjoe.ghprototye4.location.info;
 
 import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -122,6 +124,11 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
 
             }
         }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
     }
 }
 

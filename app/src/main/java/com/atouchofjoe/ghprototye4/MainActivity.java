@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_PARTY_NAME;
+import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOCATION_CURSOR_LOADER = 1;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int PARTY_SELECTED_REQUEST_CODE = 4;
 
     public static Party currentParty;
-    public static Location[] locations = new Location[Location.TOTAL_LOCATIONS];
     public static boolean preferencesChanged = true;
     public static List<Party> partyList;
     public static final String PARTIES = "pref_currentParty";
@@ -110,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), LocationInfoActivity.class);
-                intent.putExtra(LocationInfoActivity.ARG_LOCATION_NUMBER, 1);
+                intent.putExtra(LocationInfoActivity.ARG_PARTY_NAME, currentParty.getName());
+                intent.putExtra(LocationInfoActivity.ARG_LOCATION_NUMBER, 0);
                 startActivity(intent);
             }
         });
@@ -242,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
 
     }
 

@@ -16,6 +16,20 @@ public class DatabaseDescription {
 
 
 
+    public static final class UnlockingLocations implements BaseColumns {
+        public static final String TABLE_NAME = "unlocking_locations";
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+        public static final String COLUMN_PARTY = "party";
+        public static final String COLUMN_UNLOCKED_LOCATION = "unlocked_location";
+        public static final String COLUMN_UNLOCKING_LOCATION = "unlocking_location";
+
+        public static Uri buildUnlockingLocationUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    }
+
     // nested class defines contents table
     public static final class Attempts implements BaseColumns {
         public static final String TABLE_NAME = "attempts"; // table's name
@@ -159,7 +173,6 @@ public class DatabaseDescription {
         // column names for contacts table's columns
         public static final String COLUMN_COMPLETED_LOCATION_NUMBER = "completed_location_number";
         public static final String COLUMN_GLOBAL_ACHIEVEMENT = "global_achievement";
-        public static final String COLUMN_TIMES_GAINED = "times_gained";
 
         // creates a URI for a specific contact
         public static Uri buildGlobalAchievementGainedUri(long id) {

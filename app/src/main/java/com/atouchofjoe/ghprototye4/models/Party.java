@@ -55,5 +55,6 @@ public class Party {
         if(attempt.getAttemptSuccessful()) {
             locationsCompleted[loc.getNumber()] = true;
         }
+
     }
 }

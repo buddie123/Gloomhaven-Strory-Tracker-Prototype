@@ -43,6 +43,7 @@ public class GHStoryContentProvider extends ContentProvider {
     private static final int ONE_BLOCKED_LOCATION = 20;
     private static final int ONE_COMPLETED_LOCATION = 21;
     private static final int ONE_LOCKED_LOCATION = 22;
+    private static final int ONE_UNLOCKING_LOCATION = 23;
 
     private static final int LOCATIONS = 31;
     private static final int PARTIES = 32;
@@ -66,6 +67,7 @@ public class GHStoryContentProvider extends ContentProvider {
     private static final int BLOCKED_LOCATIONS = 50;
     private static final int COMPLETED_LOCATIONS = 51;
     private static final int LOCKED_LOCATIONS = 52;
+    private static final int UNLOCKING_LOCATIONS = 53;
 
 
     static {
@@ -200,6 +202,14 @@ public class GHStoryContentProvider extends ContentProvider {
                 DatabaseDescription.LockedLocations.TABLE_NAME + "/#", ONE_LOCKED_LOCATION);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.LockedLocations.TABLE_NAME, LOCKED_LOCATIONS);
+
+        // Unlocking Locations
+        uriMatcher.addURI(DatabaseDescription.AUTHORITY,
+                DatabaseDescription.UnlockingLocations.TABLE_NAME + "/#", ONE_UNLOCKING_LOCATION);
+        uriMatcher.addURI(DatabaseDescription.AUTHORITY,
+                DatabaseDescription.UnlockingLocations.TABLE_NAME, UNLOCKING_LOCATIONS);
+
+
     }
 
     @Override
@@ -352,6 +362,12 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.LockedLocations._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
+            case ONE_UNLOCKING_LOCATION:
+                queryBuilder.setTables(DatabaseDescription.UnlockingLocations.TABLE_NAME);
+                queryBuilder.appendWhere(
+                        DatabaseDescription.UnlockingLocations._ID + "=" +
+                                uri.getLastPathSegment());
+                break;
 
             // Multiple entry queries
             case LOCATIONS:
@@ -419,6 +435,9 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case LOCKED_LOCATIONS:
                 queryBuilder.setTables(DatabaseDescription.LockedLocations.TABLE_NAME);
+                break;
+            case UNLOCKING_LOCATIONS:
+                queryBuilder.setTables(DatabaseDescription.UnlockingLocations.TABLE_NAME);
                 break;
             default:
                 throw new UnsupportedOperationException(
@@ -593,6 +612,13 @@ public class GHStoryContentProvider extends ContentProvider {
                     newElementUri = DatabaseDescription.LockedLocations.buildLockedLocationUri(rowID);
                 }
                 break;
+            case UNLOCKING_LOCATIONS:
+                rowID = dbHelper.getWritableDatabase().insert(
+                        DatabaseDescription.UnlockingLocations.TABLE_NAME, null, contentValues);
+                if(rowID > 0) {
+                    newElementUri = DatabaseDescription.UnlockingLocations.buildUnlockingLocationUri(rowID);
+                }
+                break;
             default:
                 throw new SQLException(
                         getContext().getString(R.string.error_invalid_insert_uri) + uri);
@@ -746,6 +772,12 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.LockedLocations._ID + "=" + id,
                         selectionArgs);
                 break;
+            case ONE_UNLOCKING_LOCATION:
+                numberOfRowsUpdated = dbHelper.getWritableDatabase().update(
+                        DatabaseDescription.UnlockingLocations.TABLE_NAME, contentValues,
+                        DatabaseDescription.UnlockingLocations._ID + "=" + id,
+                        selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException(
                         getContext().getString(R.string.error_invalid_update_uri) + uri);
@@ -896,6 +928,12 @@ public class GHStoryContentProvider extends ContentProvider {
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.LockedLocations.TABLE_NAME,
                         DatabaseDescription.LockedLocations._ID + "=" + id,
+                        selectionArgs);
+                break;
+            case ONE_UNLOCKING_LOCATION:
+                numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
+                        DatabaseDescription.UnlockingLocations.TABLE_NAME,
+                        DatabaseDescription.UnlockingLocations._ID + "=" + id,
                         selectionArgs);
                 break;
             default:

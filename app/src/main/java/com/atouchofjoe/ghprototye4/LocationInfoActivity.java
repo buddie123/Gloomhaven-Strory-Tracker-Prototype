@@ -21,6 +21,8 @@ import com.atouchofjoe.ghprototye4.location.info.LocationStoryTabFragment;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
+import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
+
 
 public class LocationInfoActivity extends AppCompatActivity {
 
@@ -68,7 +70,7 @@ public class LocationInfoActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        Location currentLoc= MainActivity.locations[currentLocNumber];
+        Location currentLoc = locations[currentLocNumber];
 
         TextView locationName = findViewById(R.id.locationName);
         locationName.setText(currentLoc.toString());

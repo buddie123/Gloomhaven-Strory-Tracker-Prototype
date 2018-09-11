@@ -1,6 +1,9 @@
 package com.atouchofjoe.ghprototye4.location.info;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,17 +21,29 @@ import android.widget.TextView;
 import com.atouchofjoe.ghprototye4.LocationInfoActivity;
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
+import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class LocationRewardsTabFragment extends LocationTabFragment {
+public class LocationRewardsTabFragment extends LocationTabFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private Location currentLoc;
     private Party currentParty;
     View rootView;
+    private int numLoadersFinished = 0;
+    private static final int NUM_LOADERS = 8;
+    private List<String> locationsUnlocked = new ArrayList<>();
+    private List<String> locationsBlocked = new ArrayList<>();
+    private List<String> globalAchievementsGained = new ArrayList<>();
+    private List<String> globalAchievementsLost = new ArrayList<>();
+    private List<String> partyAchievementsGained = new ArrayList<>();
+    private List<String> partyAchievementsLost = new ArrayList<>();
+    private List<String> addRewards = new ArrayList<>();
+    private List<String> addPenalties = new ArrayList<>();
 
     @Nullable
     @Override
@@ -37,54 +52,156 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
         currentParty = MainActivity.currentParty;
 
         if (currentParty.getLocationCompleted(currentLoc)) {
-
             rootView = inflater.inflate(R.layout.fragment_scenario_rewards_tab, container, false);
-            // unlocked scenarios
-            activateSpinner(currentLoc.getLocationsUnlocked().size()== 0,
-                    R.id.scenariosUnlockedTableRow, R.id.scenariosUnlockedSpinnerButton,
-                    R.id.scenariosUnlockedLabelButton, scenariosUnlockedOnClickListener);
-
-            // blocked scenarios
-            activateSpinner(currentLoc.getLocationsBlocked().size() == 0,
-                    R.id.scenariosBlockedTableRow, R.id.scenariosBlockedSpinnerButton,
-                    R.id.scenariosBlockedLabelButton, scenariosBlockedOnClickListener);
-
-            // global achievements gained
-            activateSpinner(currentLoc.getGlobalAchievementsGained().size() == 0,
-                    R.id.globalGainedTableRow, R.id.globalGainedSpinnerButton,
-                    R.id.globalGainedLabelButton, globalGainedOnClickListener);
-
-            // global achievements lost
-            activateSpinner(currentLoc.getGlobalAchievementsLost().size() == 0,
-                    R.id.globalLostTableRow, R.id.globalLostSpinnerButton,
-                    R.id.globalLostLabelButton, globalLostOnClickListener);
-
-            // party achievements gained
-            activateSpinner(currentLoc.getPartyAchievementsGained().size() == 0,
-                    R.id.partyGainedTableRow, R.id.partyGainedSpinnerButton,
-                    R.id.partyGainedLabelButton, partyGainedOnClickListener);
-
-            // party achievements lost
-            activateSpinner(currentLoc.getPartyAchievementsLost().size() == 0,
-                    R.id.partyLostTableRow, R.id.partyLostSpinnerButton,
-                    R.id.partyLostLabelButton, partyLostOnClickListener);
-
-            // additional rewards gained
-            activateSpinner(currentLoc.getAddRewards().size() == 0,
-                    R.id.addRewardsTableRow, R.id.addRewardsSpinnerButton,
-                    R.id.addRewardsLabelButton, extrasGainedOnClickListener);
-
-            // additional rewards lost
-            activateSpinner(currentLoc.getAddPenalties().size() == 0,
-                    R.id.extrasLostTableRow, R.id.extrasLostSpinnerButton,
-                    R.id.extrasLostLabelButton, extrasLostOnClickListener);
         } else {
             rootView = inflater.inflate(R.layout.content_empty_tab, container, false);
 
             TextView notCompleteMessage = rootView.findViewById(R.id.emptyMessage);
             notCompleteMessage.setText(R.string.text_not_completed);
         }
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARTY_NAME, currentParty.getName());
+        bundle.putString(ARG_LOCATION_NUMBER, "" + getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER));
+        LoaderManager loaderManager = getActivity().getLoaderManager();
+        loaderManager.initLoader(LOCATIONS_UNLOCKED_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(LOCATIONS_BLOCKED_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(PARTY_ACHIEVEMENTS_GAINED_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(PARTY_ACHIEVEMENTS_LOST_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(ADD_REWARDS_GAINED_CURSOR_LOADER, bundle, this);
+        loaderManager.initLoader(ADD_PENALTIES_LOST_CURSOR_LOADER, bundle, this);
+
         return rootView;
+    }
+
+    private void initializeSpinners() {
+        // unlocked scenarios
+        activateSpinner(locationsUnlocked.size()==0,
+        R.id.scenariosUnlockedTableRow,R.id.scenariosUnlockedSpinnerButton,
+        R.id.scenariosUnlockedLabelButton,scenariosUnlockedOnClickListener);
+
+        // blocked scenarios
+        activateSpinner(locationsBlocked.size() ==0,
+        R.id.scenariosBlockedTableRow,R.id.scenariosBlockedSpinnerButton,
+        R.id.scenariosBlockedLabelButton,scenariosBlockedOnClickListener);
+
+        // global achievements gained
+        activateSpinner(globalAchievementsGained.size() ==0,
+        R.id.globalGainedTableRow,R.id.globalGainedSpinnerButton,
+        R.id.globalGainedLabelButton,globalGainedOnClickListener);
+
+        // global achievements lost
+        activateSpinner(globalAchievementsLost.size() ==0,
+        R.id.globalLostTableRow,R.id.globalLostSpinnerButton,
+        R.id.globalLostLabelButton,globalLostOnClickListener);
+
+        // party achievements gained
+        activateSpinner(partyAchievementsGained.size() ==0,
+        R.id.partyGainedTableRow,R.id.partyGainedSpinnerButton,
+        R.id.partyGainedLabelButton,partyGainedOnClickListener);
+
+        // party achievements lost
+        activateSpinner(partyAchievementsLost.size() ==0,
+        R.id.partyLostTableRow,R.id.partyLostSpinnerButton,
+        R.id.partyLostLabelButton,partyLostOnClickListener);
+
+        // additional rewards gained
+        activateSpinner(addRewards.size() ==0,
+        R.id.addRewardsTableRow,R.id.addRewardsSpinnerButton,
+        R.id.addRewardsLabelButton,extrasGainedOnClickListener);
+
+        // additional rewards lost
+        activateSpinner(addPenalties.size() ==0,
+        R.id.extrasLostTableRow,R.id.extrasLostSpinnerButton,
+        R.id.extrasLostLabelButton,extrasLostOnClickListener);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        switch(loader.getId()) {
+            case LOCATIONS_UNLOCKED_CURSOR_LOADER:
+                int unlockedLocIndex = cursor.getColumnIndex(
+                        DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER);
+                while (cursor.moveToNext()) {
+                    locationsUnlocked.add(locations[cursor.getInt(unlockedLocIndex)].toString());
+                }
+                break;
+            case LOCATIONS_BLOCKED_CURSOR_LOADER:
+                int blockedLocIndex = cursor.getColumnIndex(
+                        DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER);
+                while (cursor.moveToNext()) {
+                    locationsBlocked.add(locations[cursor.getInt(blockedLocIndex)].toString());
+                }
+                break;
+            case GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
+                int globalAchievementIndex = cursor.getColumnIndex(
+                        DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT);
+                while (cursor.moveToNext()) {
+                    globalAchievementsGained.add(cursor.getString(globalAchievementIndex));
+                }
+                break;
+            case GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER:
+                globalAchievementIndex = cursor.getColumnIndex(
+                        DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT);
+                while (cursor.moveToNext()) {
+                    globalAchievementsLost.add(cursor.getString(globalAchievementIndex));
+                }
+                break;
+            case PARTY_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
+                int partyAchievementIndex = cursor.getColumnIndex(
+                        DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT);
+                while (cursor.moveToNext()) {
+                    partyAchievementsGained.add(cursor.getString(partyAchievementIndex));
+                }
+                break;
+            case PARTY_ACHIEVEMENTS_LOST_CURSOR_LOADER:
+                partyAchievementIndex = cursor.getColumnIndex(
+                        DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT);
+                while (cursor.moveToNext()) {
+                    partyAchievementsLost.add(cursor.getString(partyAchievementIndex));
+                }
+                break;
+            case ADD_REWARDS_GAINED_CURSOR_LOADER:
+                int rewardTypeIndex = cursor.getColumnIndex(
+                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE);
+                int rewardValueIndex = cursor.getColumnIndex(
+                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_VALUE);
+                int appliedTypeIndex = cursor.getColumnIndex(
+                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE);
+                while(cursor.moveToNext()) {
+                    StringBuilder string = new StringBuilder("+");
+                    string.append("" + cursor.getInt(rewardValueIndex));
+                    string.append(" " + cursor.getString(rewardTypeIndex));
+                    if(cursor.getString(appliedTypeIndex).equals("each")) {
+                        string.append(" each");
+                    }
+                }
+                break;
+            case ADD_PENALTIES_LOST_CURSOR_LOADER:
+                int penaltyTypeIndex = cursor.getColumnIndex(
+                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE);
+                int penaltyValueIndex = cursor.getColumnIndex(
+                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_VALUE);
+                int penaltyAppliedType = cursor.getColumnIndex(
+                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE);
+                while(cursor.moveToNext()) {
+                    StringBuilder string = new StringBuilder("-");
+                    string.append("" + cursor.getInt(penaltyValueIndex));
+                    string.append(" " + cursor.getString(penaltyTypeIndex));
+                    if(cursor.getString(penaltyAppliedType).equals("each")) {
+                        string.append(" each");
+                    }
+                }
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        numLoadersFinished++;
+        if(numLoadersFinished == NUM_LOADERS){
+            initializeSpinners();
+        }
     }
 
     private void activateSpinner(boolean makeGone, int tableRowResource,
@@ -131,8 +248,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.scenariosUnlockedRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getLocationsUnlocked());
-                    updateSpinner(spinner, rView, currentLoc.getLocationsUnlocked());
+                    setupRecyclerView(rView, locationsUnlocked);
+                    updateSpinner(spinner, rView, locationsUnlocked);
                 }
             };
 
@@ -154,8 +271,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.scenariosBlockedRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getLocationsBlocked());
-                    updateSpinner(spinner, rView, currentLoc.getLocationsBlocked());
+                    setupRecyclerView(rView, locationsBlocked);
+                    updateSpinner(spinner, rView, locationsBlocked);
                 }
             };
 
@@ -175,8 +292,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.globalGainedRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getGlobalAchievementsGained());
-                    updateSpinner(spinner, rView, currentLoc.getGlobalAchievementsGained());
+                    setupRecyclerView(rView, globalAchievementsGained);
+                    updateSpinner(spinner, rView, globalAchievementsGained);
                 }
             };
 
@@ -197,8 +314,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                         label = (Button) view;
                     }
                     rView = label.getRootView().findViewById(R.id.globalLostRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getGlobalAchievementsLost());
-                    updateSpinner(spinner, rView, currentLoc.getGlobalAchievementsLost());
+                    setupRecyclerView(rView, globalAchievementsLost);
+                    updateSpinner(spinner, rView, globalAchievementsLost);
                 }
             };
 
@@ -220,8 +337,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.partyGainedRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getPartyAchievementsGained());
-                    updateSpinner(spinner, rView, currentLoc.getPartyAchievementsGained());
+                    setupRecyclerView(rView, partyAchievementsGained);
+                    updateSpinner(spinner, rView, partyAchievementsGained);
                 }
             };
 
@@ -243,8 +360,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.partyLostRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getPartyAchievementsLost());
-                    updateSpinner(spinner, rView, currentLoc.getGlobalAchievementsLost());
+                    setupRecyclerView(rView, globalAchievementsLost);
+                    updateSpinner(spinner, rView, globalAchievementsLost);
                 }
             };
 
@@ -266,8 +383,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.extrasGainedRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getAddRewards());
-                    updateSpinner(spinner, rView, currentLoc.getAddRewards());
+                    setupRecyclerView(rView, addRewards);
+                    updateSpinner(spinner, rView, addRewards);
                 }
             };
 
@@ -289,8 +406,8 @@ public class LocationRewardsTabFragment extends LocationTabFragment {
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.extrasLostRecyclerView);
-                    setupRecyclerView(rView, currentLoc.getAddPenalties());
-                    updateSpinner(spinner, rView, currentLoc.getAddPenalties());
+                    setupRecyclerView(rView, addPenalties);
+                    updateSpinner(spinner, rView, addPenalties);
                 }
             };
 

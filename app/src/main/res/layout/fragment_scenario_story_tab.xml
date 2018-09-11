@@ -29,22 +29,22 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/locNameLabelTextView"
+                    android:id="@+id/unlockLocationLabel"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end"
                     android:padding="@dimen/thin_padding"
-                    android:text="@string/label_location"
+                    android:text="@string/label_unlocking_location"
                     android:textSize="@dimen/text_size_small" />
 
                 <Button
-                    android:id="@+id/locNameButton"
+                    android:id="@+id/unlockLocationButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/thin_padding"
                     android:layout_weight="2"
-                    android:text="@string/label_current_location_name"
+                    android:text="@string/default_no_unlocking_loc"
                     android:textSize="@dimen/text_size_small" />
             </TableRow>
 

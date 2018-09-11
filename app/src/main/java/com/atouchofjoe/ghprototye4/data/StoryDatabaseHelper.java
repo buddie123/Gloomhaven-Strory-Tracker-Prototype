@@ -144,6 +144,15 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.Characters.COLUMN_PARTY + " TEXT);";
         db.execSQL(CREATE_CHARACTERS_TABLE);
 
+        // create UnlockingLocations table
+        final String CREATE_UNLOCKING_LOCATIONS_TABLE =
+                "CREATE TABLE " + DatabaseDescription.UnlockingLocations.TABLE_NAME + "(" +
+                        DatabaseDescription.UnlockingLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.UnlockingLocations.COLUMN_PARTY + " TEXT, " +
+                        DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKED_LOCATION + " INTEGER, " +
+                        DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKING_LOCATION + " INTEGER);";
+        db.execSQL(CREATE_UNLOCKING_LOCATIONS_TABLE);
+
         // create Attempt Table
         final String CREATE_ATTEMPTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.Attempts.TABLE_NAME + "(" +

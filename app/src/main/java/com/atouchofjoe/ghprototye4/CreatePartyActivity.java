@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
+
 public class CreatePartyActivity extends AppCompatActivity {
 
     public static final String RESULT_PARTY_NAME = "com.atouchofjoe.ghprototye4.RESULT_PARTY_NAME";
@@ -75,6 +77,28 @@ public class CreatePartyActivity extends AppCompatActivity {
                     charValues.put(DatabaseDescription.Characters.COLUMN_CLASS, c.getCharClass().toString());
                     charValues.put(DatabaseDescription.Characters.COLUMN_PARTY, party.getName());
                     view.getContext().getContentResolver().insert(DatabaseDescription.Characters.CONTENT_URI, charValues);
+                }
+
+                ContentValues completedLocValues = new ContentValues();
+                completedLocValues.put(DatabaseDescription.CompletedLocations.COLUMN_PARTY, party.getName());
+                completedLocValues.put(DatabaseDescription.CompletedLocations.COLUMN_LOCATION_NUMBER, 0);
+                completedLocValues.put(DatabaseDescription.CompletedLocations.COLUMN_COMPLETED_TIMESTAMP, System.currentTimeMillis());
+                view.getContext().getContentResolver().insert(DatabaseDescription.CompletedLocations.CONTENT_URI, completedLocValues);
+
+                ContentValues unlockedLocValues = new ContentValues();
+                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_PARTY, party.getName());
+                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER, 1);
+                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER, 0);
+                view.getContext().getContentResolver().insert(DatabaseDescription.UnlockedLocations.CONTENT_URI, unlockedLocValues);
+
+
+                for(int i = 2; i < locations.length; i++ ){
+                    if(locations[i] != null){
+                        ContentValues lockedLocValues = new ContentValues();
+                        lockedLocValues.put(DatabaseDescription.LockedLocations.COLUMN_PARTY, party.getName());
+                        lockedLocValues.put(DatabaseDescription.LockedLocations.COLUMN_LOCATION_NUMBER, i);
+                        view.getContext().getContentResolver().insert(DatabaseDescription.LockedLocations.CONTENT_URI, lockedLocValues);
+                    }
                 }
                 MainActivity.partyList.add(party);
                 MainActivity.currentParty = party;
