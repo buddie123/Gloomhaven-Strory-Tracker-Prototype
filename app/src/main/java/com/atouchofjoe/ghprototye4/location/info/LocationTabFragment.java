@@ -10,8 +10,6 @@ import android.support.v4.app.Fragment;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.models.Location;
 
-import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_PARTY_NAME;
-
 public abstract class LocationTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototye4.location.info.ARG_PARTY_NAME";
     public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.location.info.ARG_LOCATION_NUMBER";

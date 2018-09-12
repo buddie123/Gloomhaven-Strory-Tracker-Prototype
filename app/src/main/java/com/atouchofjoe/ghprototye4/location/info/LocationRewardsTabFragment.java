@@ -75,6 +75,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
         return rootView;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        numLoadersFinished = 0;
+    }
+
     private void initializeSpinners() {
         // unlocked scenarios
         activateSpinner(locationsUnlocked.size()==0,

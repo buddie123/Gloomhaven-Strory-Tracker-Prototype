@@ -4,17 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.atouchofjoe.ghprototye4.Dummy.DummyContent;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.data.StoryDatabaseInitializer;
 import com.atouchofjoe.ghprototye4.models.Character;
@@ -33,22 +29,20 @@ import com.atouchofjoe.ghprototye4.models.CharacterClass;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_PARTY_NAME;
 import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    // Loader constants for the LoaderCallbacks
     private static final int LOCATION_CURSOR_LOADER = 1;
     private static final int PARTY_CURSOR_LOADER = 2;
     private static final int CHARACTER_CURSOR_LOADER = 3;
+
+
+
     public static final int PARTY_SELECTED_REQUEST_CODE = 4;
 
     public static Party currentParty;
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         historyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO
             }
         });
 

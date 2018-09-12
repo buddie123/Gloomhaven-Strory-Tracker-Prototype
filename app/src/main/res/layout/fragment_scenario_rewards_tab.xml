@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_unlocked_scenarios_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -63,7 +63,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_blocked_scenarios_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -108,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_global_achievements_gained_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -153,7 +151,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_global_achievements_lost_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -198,7 +195,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_party_achievements_gained_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -243,7 +239,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_party_achievements_lost_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -288,7 +283,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_additional_rewards_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />
@@ -333,7 +327,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/spinner_additional_penalties_collapsed"
             android:padding="11dp"
             android:src="@drawable/ic_chevron_right__24dp" />

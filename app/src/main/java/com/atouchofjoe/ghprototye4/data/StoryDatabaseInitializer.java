@@ -5,16 +5,12 @@ import android.content.Context;
 
 public class StoryDatabaseInitializer {
 
-    public static StoryDatabaseHelper databaseHelper;
-
     public StoryDatabaseInitializer(Context context){
-        databaseHelper = new StoryDatabaseHelper(context);
-        databaseHelper.getWritableDatabase();
+        new StoryDatabaseHelper(context).getWritableDatabase();
         initializeGlobalAchievements(context);
         initializePartyAchievements(context);
         initializeAppliedTypes(context);
         initializeAddRewardTypes(context);
-
         initializeLocations(context);
 
         initializeGlobalAchievementsGained(context);
