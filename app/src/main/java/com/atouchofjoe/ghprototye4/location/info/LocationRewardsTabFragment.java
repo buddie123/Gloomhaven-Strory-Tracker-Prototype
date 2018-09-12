@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.atouchofjoe.ghprototye4.LocationInfoActivity;
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;

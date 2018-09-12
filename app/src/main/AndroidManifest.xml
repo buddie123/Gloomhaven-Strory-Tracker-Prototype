@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LocationInfoActivity"
+            android:name=".location.info.LocationInfoActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -32,7 +32,7 @@
             android:writePermission="com.atouchofjoe.ghprototye4.location.data.WRITE" />
 
         <activity
-        android:name=".CreatePartyActivity"
+        android:name=".party.info.CreatePartyActivity"
         android:label="@string/title_activity_create_party"
         android:parentActivityName=".MainActivity"
         android:theme="@style/AppTheme.NoActionBar">
@@ -41,7 +41,7 @@
             android:value="com.atouchofjoe.ghprototye4.MainActivity" />
         </activity>
         <activity
-            android:name=".EditPartyActivity"
+            android:name=".party.info.EditPartyActivity"
             android:label="Edit Party"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

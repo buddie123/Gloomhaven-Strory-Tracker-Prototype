@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4;
+package com.atouchofjoe.ghprototye4.party.info;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.atouchofjoe.ghprototye4.MainActivity;
+import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.data.StoryDatabaseHelper;
 import com.atouchofjoe.ghprototye4.models.CharacterClass;
@@ -31,12 +33,8 @@ import com.atouchofjoe.ghprototye4.models.Character;
 import com.atouchofjoe.ghprototye4.models.Party;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 
-import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_PARTY_NAME;
 import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
 
 public class CreatePartyActivity extends AppCompatActivity {
@@ -111,7 +109,7 @@ public class CreatePartyActivity extends AppCompatActivity {
                 characters.clear();
 
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(view.getContext()).edit();
-                editor.putString(MainActivity.PARTIES, party.getName() );
+                editor.putString(MainActivity.PREF_CURRENT_PARTY, party.getName() );
                 editor.apply();
 
 

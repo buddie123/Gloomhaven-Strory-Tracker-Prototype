@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4;
+package com.atouchofjoe.ghprototye4.party.info;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.style.UpdateAppearance;
-import android.util.LayoutDirection;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,19 +28,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.atouchofjoe.ghprototye4.MainActivity;
+import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.data.StoryDatabaseHelper;
 import com.atouchofjoe.ghprototye4.models.Character;
 import com.atouchofjoe.ghprototye4.models.CharacterClass;
-import com.atouchofjoe.ghprototye4.models.Party;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
-import static com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_PARTY_NAME;
+import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_PARTY_NAME;
 import static com.atouchofjoe.ghprototye4.MainActivity.currentParty;
-import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
 
 public class EditPartyActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -133,7 +129,7 @@ public class EditPartyActivity extends AppCompatActivity implements LoaderManage
                 }
 
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(view.getContext()).edit();
-                editor.putString(MainActivity.PARTIES, currentParty.getName());
+                editor.putString(MainActivity.PREF_CURRENT_PARTY, currentParty.getName());
                 editor.apply();
                 MainActivity.preferencesChanged = true;
 

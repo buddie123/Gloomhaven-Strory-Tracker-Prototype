@@ -1,4 +1,4 @@
-package com.atouchofjoe.ghprototye4;
+package com.atouchofjoe.ghprototye4.location.info;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,9 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.atouchofjoe.ghprototye4.location.info.LocationAttemptsTabFragment;
-import com.atouchofjoe.ghprototye4.location.info.LocationRewardsTabFragment;
-import com.atouchofjoe.ghprototye4.location.info.LocationStoryTabFragment;
+import com.atouchofjoe.ghprototye4.MainActivity;
+import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
@@ -26,7 +25,7 @@ import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.loca
 
 public class LocationInfoActivity extends AppCompatActivity {
 
-    public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.LocationInfoActivity.ARG_LOCATION_NUMBER";
+    public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_LOCATION_NUMBER";
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototype.LocationInfoActivity.ARG_PARTY_NAME";
 
 
