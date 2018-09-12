@@ -77,4 +77,5 @@
     <string name="title_activity_create_party">CreateParty</string>
     <string name="default_no_unlocking_loc">No Unlocking Location</string>
     <string name="label_unlocking_location">Unlocked By:</string>
+    <string name="button_cancel_edit">Cancel</string>
 </resources>

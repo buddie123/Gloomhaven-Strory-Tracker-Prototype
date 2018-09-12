@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Selection;
 import android.util.Log;
 
 import com.atouchofjoe.ghprototye4.R;
@@ -648,16 +649,14 @@ public class GHStoryContentProvider extends ContentProvider {
                     DatabaseDescription.Locations._ID + "=" + id,
                     selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_PARTY:
+            case PARTIES:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.Parties.TABLE_NAME, contentValues,
-                        DatabaseDescription.Parties._ID + "=" + id,
+                    DatabaseDescription.Parties.TABLE_NAME, contentValues, selection,
                     selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_CHARACTER:
+            case CHARACTERS:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.Characters.TABLE_NAME, contentValues,
-                        DatabaseDescription.Characters._ID + "=" + id,
+                    DatabaseDescription.Characters.TABLE_NAME, contentValues, selection,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_ATTEMPT:
@@ -807,16 +806,16 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.Locations._ID + "=" + id,
                         selectionArgs);
                 break;
-            case ONE_PARTY:
+            case PARTIES:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.Parties.TABLE_NAME,
-                        DatabaseDescription.Parties._ID + "=" + id,
+                        selection,
                         selectionArgs);
                 break;
-            case ONE_CHARACTER:
+            case CHARACTERS:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.Characters.TABLE_NAME,
-                        DatabaseDescription.Characters._ID + "=" + id,
+                        selection,
                         selectionArgs);
                 break;
             case ONE_ATTEMPT:

@@ -49,21 +49,31 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/createPartyButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/thick_padding"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_weight="1"
-        android:text="Create Party" />
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-    <android.support.constraint.Guideline
+        <Button
+            android:id="@+id/cancelEditButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button_cancel_edit" />
+
+        <Button
+            android:id="@+id/createPartyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Create Party" />
+    </LinearLayout>
+
+    <FrameLayout
         android:id="@+id/guideline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical" />
+        android:layout_height="0dp"
+        android:layout_weight="2" />
 
 </LinearLayout>

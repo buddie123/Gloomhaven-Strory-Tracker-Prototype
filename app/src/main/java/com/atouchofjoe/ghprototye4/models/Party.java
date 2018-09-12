@@ -23,8 +23,16 @@ public class Party {
         locationAttempts = new Object[TOTAL_LOCATIONS];
     }
 
-    public boolean addCharacter(com.atouchofjoe.ghprototye4.models.Character charName) {
-        return characters.add(charName);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean addCharacter(com.atouchofjoe.ghprototye4.models.Character character) {
+        return characters.add(character);
+    }
+
+    public void removeCharacter(com.atouchofjoe.ghprototye4.models.Character character) {
+        characters.remove(character);
     }
 
     public String getName(){

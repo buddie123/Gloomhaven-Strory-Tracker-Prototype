@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     // Loader constants for the LoaderCallbacks
     private static final int LOCATION_CURSOR_LOADER = 1;
     private static final int PARTY_CURSOR_LOADER = 2;
-    private static final int CHARACTER_CURSOR_LOADER = 3;
 
 
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static Party currentParty;
     public static boolean preferencesChanged = true;
-    public static List<Party> partyList;
+    public static List<Party> partyList = new ArrayList<>();
     public static final String PARTIES = "pref_currentParty";
     public static final String SELECT_A_PARTY = "Select A Party ->";
 
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        partyList = new ArrayList<>();
 
         super.onCreate(savedInstanceState);
         new StoryDatabaseInitializer(this);
@@ -75,13 +73,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String partyPref = sharedPreferences.getString(s, SELECT_A_PARTY);
                 if (!partyPref.equals(SELECT_A_PARTY)) {
                     if (currentParty != null && currentParty.getName().equals(partyPref)) {
-                        // TODO
+
                     } else {
                         currentParty = new Party(partyPref);
                         partyValue.setText(partyPref);
-                        Bundle args = new Bundle();
-                        args.putString(ARG_PARTY_NAME, partyPref);
-                        getLoaderManager().initLoader(CHARACTER_CURSOR_LOADER, args, (MainActivity) partyValue.getContext());
                     }
                 }
             }
@@ -137,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (preferencesChanged) {
             partyValue.setText(PreferenceManager.getDefaultSharedPreferences(this).getString(PARTIES, SELECT_A_PARTY));
+            if(partyList != null) {
+                for (int i = 0; i < partyList.size(); i++) {
+                    if (partyValue.getText().toString().equals(partyList.get(i).getName())) {
+                        currentParty = partyList.get(i);
+                    }
+                }
+            }
             preferencesChanged = false;
         }
     }
@@ -173,9 +175,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case PARTY_CURSOR_LOADER:
                 return new CursorLoader(this, DatabaseDescription.Parties.CONTENT_URI,
                         null, null, null, null);
-            case CHARACTER_CURSOR_LOADER:
-                return new CursorLoader(this, DatabaseDescription.Characters.CONTENT_URI, null,
-                        DatabaseDescription.Characters.COLUMN_PARTY + " = ? ", new String[]{bundle.getString(ARG_PARTY_NAME)}, null);
             default:
                 return null;
         }
@@ -185,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch (loader.getId()) {
             case PARTY_CURSOR_LOADER:
+                partyList = new ArrayList<>();
                 if (cursor != null && !cursor.isAfterLast()) {
                     int nameIndex = cursor.getColumnIndex(DatabaseDescription.Parties.COLUMN_NAME);
                     while (cursor.moveToNext()) {
@@ -222,15 +222,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
                 Toast.makeText(this, "Finished loading the Location Cursor Loader", Toast.LENGTH_SHORT).show();
                 break;
-            case CHARACTER_CURSOR_LOADER:
-                int nameIndex = cursor.getColumnIndex(DatabaseDescription.Characters.COLUMN_NAME);
-                int classIndex = cursor.getColumnIndex(DatabaseDescription.Characters.COLUMN_CLASS);
 
-                while(cursor.moveToNext()) {
-                    currentParty.addCharacter(new Character(cursor.getString(nameIndex), CharacterClass.valueOf(cursor.getString(classIndex))));
-                }
-                Toast.makeText(this, "Finished loading the Characters for party " + currentParty.getName(), Toast.LENGTH_SHORT).show();
-                break;
         }
 
     }
@@ -249,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             builder.setTitle(R.string.dialog_select_party_title);
 
-            builder.setPositiveButton(R.string.dialog_select_party_add_label,
+            builder.setNegativeButton(R.string.dialog_select_party_add_label,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -259,28 +251,46 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         }
                     });
 
-                final String[] partyNames = new String[partyList.size()];
-                int selectedIndex = 0;
-                for(int i = 0; i < partyList.size(); i++) {
-                    partyNames[i] = partyList.get(i).getName();
-                    if(partyList.get(i).getName().contentEquals(currentParty.getName())){
-                        selectedIndex = i;
-                    }
+            final String[] partyNames = new String[partyList.size()];
+            int selectedIndex = 0;
+            for(int i = 0; i < partyList.size(); i++) {
+                partyNames[i] = partyList.get(i).getName();
+                if(partyList.get(i).getName().contentEquals(currentParty.getName())){
+                    selectedIndex = i;
                 }
-                builder.setSingleChoiceItems(partyNames, selectedIndex, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+            }
+            builder.setSingleChoiceItems(partyNames, selectedIndex, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(0 <= i && i < partyNames.length) {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
                         editor.putString(PARTIES, partyNames[i]);
                         editor.apply();
+                        currentParty = partyList.get(i);
                         preferencesChanged = true;
-                        dialogInterface.dismiss();
                     }
-                });
+                }
+            });
+            builder.setPositiveButton("Select Party", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.setNeutralButton("Edit Party", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    Intent intent = new Intent(getActivity(), EditPartyActivity.class);
+                    startActivity(intent);
+                }
+            });
+
 
 
 
             return builder.create();
         }
     }
+
 }

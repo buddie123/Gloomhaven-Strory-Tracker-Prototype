@@ -32,13 +32,22 @@
             android:writePermission="com.atouchofjoe.ghprototye4.location.data.WRITE" />
 
         <activity
-            android:name=".CreatePartyActivity"
-            android:label="@string/title_activity_create_party"
+        android:name=".CreatePartyActivity"
+        android:label="@string/title_activity_create_party"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.atouchofjoe.ghprototye4.MainActivity" />
+        </activity>
+        <activity
+            android:name=".EditPartyActivity"
+            android:label="Edit Party"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.atouchofjoe.ghprototye4.MainActivity" />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.atouchofjoe.ghprototye4.MainActivity" />
         </activity>
     </application>
 
