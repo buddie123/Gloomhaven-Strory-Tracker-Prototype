@@ -749,30 +749,25 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.NonParticipants._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_UNLOCKED_LOCATION:
+            case UNLOCKED_LOCATIONS:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
                     DatabaseDescription.UnlockedLocations.TABLE_NAME, contentValues,
-                        DatabaseDescription.UnlockedLocations._ID + "=" + id,
-                       selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
+                       selection, selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_BLOCKED_LOCATION:
+            case BLOCKED_LOCATIONS:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
                     DatabaseDescription.BlockedLocations.TABLE_NAME, contentValues,
-                        DatabaseDescription.BlockedLocations._ID + "=" + id,
-                         selectionArgs,
-                        SQLiteDatabase.CONFLICT_IGNORE);
+                        selection, selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_COMPLETED_LOCATION:
+            case COMPLETED_LOCATIONS:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
                     DatabaseDescription.CompletedLocations.TABLE_NAME, contentValues,
-                        DatabaseDescription.CompletedLocations._ID + "=" + id,
-                        selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
+                        selection, selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
-            case ONE_LOCKED_LOCATION:
+            case LOCKED_LOCATIONS:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
                     DatabaseDescription.LockedLocations.TABLE_NAME, contentValues,
-                        DatabaseDescription.LockedLocations._ID + "=" + id,
-                        selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
+                        selection, selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_UNLOCKING_LOCATION:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(

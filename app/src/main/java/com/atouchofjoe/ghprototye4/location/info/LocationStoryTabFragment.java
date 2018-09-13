@@ -17,6 +17,8 @@ import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
+import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.locations;
+
 
 public class LocationStoryTabFragment extends LocationTabFragment {
 

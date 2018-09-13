@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.data.StoryDatabaseInitializer;
 import com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity;
-import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 import com.atouchofjoe.ghprototye4.party.info.CreatePartyActivity;
 import com.atouchofjoe.ghprototye4.party.info.EditPartyActivity;
@@ -32,12 +31,9 @@ import com.atouchofjoe.ghprototye4.party.info.EditPartyActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
-
-
 /*
  * MainActivity.java
- * Robert Reed
+ * Author: Robert Reed
  * The landing page for the Gloomhaven story tracking app. Displays a welcome message
  * along with the current/last party selected, if any, with a few choice buttons to
  * navigate to the main parts of the app. These include an add/edit party button next
@@ -45,11 +41,9 @@ import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.loca
  */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     // Loader constants for LoaderCallbacks
-    private static final int LOCATION_CURSOR_LOADER = 1;
     private static final int PARTY_CURSOR_LOADER = 2;
 
     // other constants
-    public static final int PARTY_SELECTED_REQUEST_CODE = 4;
     public static final String PREF_CURRENT_PARTY = "pref_currentParty";
     public static final String CREATE_A_PARTY = "Create a Party -->";
 
@@ -94,12 +88,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // if the current party preference was changed, assign a new Party object to
                 // currentParty with the new setting and change the partyNameTV text to reflect
                 // the new currentParty name
-                if (prefType.equals(PREF_CURRENT_PARTY) && sharedPreferencesString != null &&
-                        sharedPreferencesString.equals(CREATE_A_PARTY)) {
+                if (prefType.equals(PREF_CURRENT_PARTY) && sharedPreferencesString != null) {
                     if (currentParty == null || !currentParty.getName().equals(sharedPreferencesString)) {
                         currentParty = new Party(sharedPreferencesString);
-                        partyNameTV.setText(sharedPreferencesString);
+                        partyList.add(currentParty);
                     }
+                    partyNameTV.setText(sharedPreferencesString);
                 }
             }
         });
@@ -154,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // initialize loaders for retrieving the data for the created parties
         getLoaderManager().initLoader(PARTY_CURSOR_LOADER, null, this);
-        // getLoaderManager().initLoader(LOCATION_CURSOR_LOADER, null, this); // unused code
     }
 
     // lifecycle method onStart used to reset the current party if necessary when the activity
@@ -166,39 +159,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // update app to reflect preferences
         if (preferencesChanged) {
 
-            // check for an update to the current party selected preference and
-            // set the current party to the Party object in the partyList that,
-            // has the same name, if able, or create a new party with the given name,
-            // if there isn't one already created
-            String partyPreferenceString = sharedPreferences.getString(PREF_CURRENT_PARTY, CREATE_A_PARTY);
-            if(!partyPreferenceString.equals(CREATE_A_PARTY)) {
-                // update the screen
-                partyNameTV.setText(partyPreferenceString);
+            // set the partyNameTV field to the name of the currentParty
+            partyNameTV.setText(currentParty.getName());
 
-                // update the current party to an existing party object
-                if(partyList != null && currentParty != null &&
-                   partyPreferenceString.equals(currentParty.getName())) {
-                    int index;
-                    for (index = 0; index < partyList.size(); index++) {
-                        if (partyPreferenceString.equals(partyList.get(index).getName())) {
-                            currentParty = partyList.get(index);
-                            break;
-                        }
-                    }
-
-                    // make a new party object if one isn't found and add it to the
-                    // list of known party objects
-                    if(index == partyList.size()) {
-                        currentParty = new Party(partyPreferenceString);
-                        partyList.add(currentParty);
-                    }
-                }
-            }
-
+            if(!partyList.contains(currentParty))
+                partyList.add(currentParty);
             // reset the preferencesChanged variable
             preferencesChanged = false;
         }
-    }
+}
 
 
     // set up the menu
@@ -298,18 +267,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 builder.setNegativeButton("Edit Party", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // verify selection is in range
-                        if (0 <= i && i < partyNames.length) {
 
-                            // update shared preferences object
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(PREF_CURRENT_PARTY, partyNames[i]);
-                            editor.apply();
-                            preferencesChanged = true;
+                        dialogInterface.dismiss();
+                        // update shared preferences object
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(PREF_CURRENT_PARTY, partyNames[newPartySelection]);
+                        editor.apply();
+                        preferencesChanged = true;
 
-                            // update currentParty
-                            currentParty = partyList.get(i);
-                        }
+                        // update currentParty
+                        currentParty = partyList.get(newPartySelection);
 
                         // open the editParty screen ( will populate with the currentParty info)
                         Intent intent = new Intent(getActivity(), EditPartyActivity.class);
@@ -325,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
                             Intent intent = new Intent(getActivity(), CreatePartyActivity.class);
-                            startActivityForResult(intent, PARTY_SELECTED_REQUEST_CODE);
+                            startActivity(intent);
                         }
                     });
 
@@ -333,7 +300,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             return builder.create();
         }
     }
-
 
     // implementation of the LoaderCallbacks methods
     @Override
@@ -343,13 +309,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case PARTY_CURSOR_LOADER:
                 return new CursorLoader(this, DatabaseDescription.Parties.CONTENT_URI,
                         null, null, null, null);
-
-
-            // get all locations in the database, sorted by location number
-            case LOCATION_CURSOR_LOADER: // TODO move this to the location guide activity
-                return new CursorLoader(this, DatabaseDescription.Locations.CONTENT_URI,
-                        null, null, null,
-                        DatabaseDescription.Locations.COLUMN_NUMBER);
             default:
                 return null;
         }
@@ -394,25 +353,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
                 selectPartyButton.setEnabled(true);
                 break;
-            case LOCATION_CURSOR_LOADER: // TODO move this to the Location Guide Activity
-                int locNumberIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NUMBER);
-                int locNameIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NAME);
-                int locTeaserIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_TEASER);
-                int locSummaryIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_SUMMARY);
-                int locConclusionIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_CONCLUSION);
-
-                while (cursor.moveToNext()) {
-                    locations[cursor.getInt(locNumberIndex)] =
-                            new Location(cursor.getInt(locNumberIndex),
-                                    cursor.getString(locNameIndex),
-                                    cursor.getString(locTeaserIndex),
-                                    cursor.getString(locSummaryIndex),
-                                    cursor.getString(locConclusionIndex));
-                }
-                break;
-
+            default:
         }
-
     }
 
     @Override

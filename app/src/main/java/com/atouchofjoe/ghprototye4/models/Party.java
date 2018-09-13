@@ -1,9 +1,5 @@
 package com.atouchofjoe.ghprototye4.models;
 
-import android.os.Parcelable;
-
-import java.lang.Character;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +23,8 @@ public class Party {
         this.name = name;
     }
 
-    public boolean addCharacter(com.atouchofjoe.ghprototye4.models.Character character) {
-        return characters.add(character);
+    public void addCharacter(com.atouchofjoe.ghprototye4.models.Character character){
+        characters.add(character);
     }
 
     public void removeCharacter(com.atouchofjoe.ghprototye4.models.Character character) {

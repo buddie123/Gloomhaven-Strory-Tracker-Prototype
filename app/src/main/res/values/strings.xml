@@ -78,4 +78,8 @@
     <string name="default_no_unlocking_loc">No Unlocking Location</string>
     <string name="label_unlocking_location">Unlocked By:</string>
     <string name="button_cancel_edit">Cancel</string>
+    <string name="label_save_changes">Save Changes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,5 +1,9 @@
 package com.atouchofjoe.ghprototye4.location.info;
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,16 +19,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.atouchofjoe.ghprototye4.LoadingFragment;
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
+import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
-import static com.atouchofjoe.ghprototye4.location.info.LocationTabFragment.locations;
+public class LocationInfoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static Location[] locations = new Location[Location.TOTAL_LOCATIONS];
 
-public class LocationInfoActivity extends AppCompatActivity {
-
+    private static final int LOCATION_CURSOR_LOADER = 1;
     public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_LOCATION_NUMBER";
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototype.LocationInfoActivity.ARG_PARTY_NAME";
 
@@ -40,6 +46,7 @@ public class LocationInfoActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private boolean locationsLoaded = false;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -69,15 +76,6 @@ public class LocationInfoActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        Location currentLoc = locations[currentLocNumber];
-
-        TextView locationName = findViewById(R.id.locationName);
-        locationName.setText(currentLoc.toString());
-
-        TextView locationStatus = findViewById(R.id.statusValue);
-        locationStatus.setText(currentParty.getLocationCompleted(currentLoc) ? R.string.status_completed :
-                               currentParty.getLocationAttempted(currentLoc) ? R.string.status_attempted :
-                                                            R.string.status_unplayed);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +86,7 @@ public class LocationInfoActivity extends AppCompatActivity {
             }
         });
 
+        getLoaderManager().initLoader(LOCATION_CURSOR_LOADER, null, this);
     }
 
 
@@ -111,6 +110,61 @@ public class LocationInfoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
+        // get all locations in the database, sorted by location number
+        switch (loaderID) {
+            case LOCATION_CURSOR_LOADER: // TODO move this to the location guide activity
+                return new CursorLoader(this, DatabaseDescription.Locations.CONTENT_URI,
+                        null, null, null,
+                        DatabaseDescription.Locations.COLUMN_NUMBER);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        switch(loader.getId()) {
+            case LOCATION_CURSOR_LOADER: // TODO move this to the Location Guide Activity
+                int locNumberIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NUMBER);
+                int locNameIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NAME);
+                int locTeaserIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_TEASER);
+                int locSummaryIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_SUMMARY);
+                int locConclusionIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_CONCLUSION);
+
+                while (cursor.moveToNext()) {
+                    locations[cursor.getInt(locNumberIndex)] =
+                            new Location(cursor.getInt(locNumberIndex),
+                                    cursor.getString(locNameIndex),
+                                    cursor.getString(locTeaserIndex),
+                                    cursor.getString(locSummaryIndex),
+                                    cursor.getString(locConclusionIndex));
+                }
+
+
+                Location currentLoc = locations[currentLocNumber];
+
+                TextView locationName = findViewById(R.id.locationName);
+                locationName.setText(currentLoc.toString());
+
+                TextView locationStatus = findViewById(R.id.statusValue);
+                locationStatus.setText(currentParty.getLocationCompleted(currentLoc) ? R.string.status_completed :
+                        currentParty.getLocationAttempted(currentLoc) ? R.string.status_attempted :
+                                R.string.status_unplayed);
+                locationsLoaded = true;
+                mSectionsPagerAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return;
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
     /**
@@ -140,17 +194,22 @@ public class LocationInfoActivity extends AppCompatActivity {
             else {
                 throw new IndexOutOfBoundsException();
             }
-            Bundle args = new Bundle();
-            args.putInt(LocationInfoActivity.ARG_LOCATION_NUMBER, currentLocNumber);
-            args.putString(ARG_PARTY_NAME, currentParty.getName());
-            scenarioTabFragment.setArguments(args);
-            return scenarioTabFragment;
+            if(locationsLoaded) {
+                Bundle args = new Bundle();
+                args.putInt(LocationInfoActivity.ARG_LOCATION_NUMBER, currentLocNumber);
+                args.putString(ARG_PARTY_NAME, currentParty.getName());
+                scenarioTabFragment.setArguments(args);
+                return scenarioTabFragment;
+            }
+            else{
+                return new LoadingFragment();
+            }
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return locationsLoaded ? 3 : 0;
         }
     }
 }

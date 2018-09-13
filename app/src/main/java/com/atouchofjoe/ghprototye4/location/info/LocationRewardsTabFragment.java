@@ -27,6 +27,8 @@ import com.atouchofjoe.ghprototye4.models.Party;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.locations;
+
 
 public class LocationRewardsTabFragment extends LocationTabFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 

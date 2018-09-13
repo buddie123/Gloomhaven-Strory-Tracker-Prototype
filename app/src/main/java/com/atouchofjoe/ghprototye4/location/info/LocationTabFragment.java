@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
-import com.atouchofjoe.ghprototye4.models.Location;
 
 public abstract class LocationTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototye4.location.info.ARG_PARTY_NAME";
@@ -25,7 +24,6 @@ public abstract class LocationTabFragment extends Fragment implements LoaderMana
     public static final int ADD_REWARDS_GAINED_CURSOR_LOADER = 8;
     public static final int ADD_PENALTIES_LOST_CURSOR_LOADER = 9;
 
-    public static Location[] locations = new Location[Location.TOTAL_LOCATIONS];
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
