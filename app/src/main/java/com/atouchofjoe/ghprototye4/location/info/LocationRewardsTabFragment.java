@@ -130,7 +130,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
         switch(loader.getId()) {
             case LOCATIONS_UNLOCKED_CURSOR_LOADER:
                 int unlockedLocIndex = cursor.getColumnIndex(
-                        DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER);
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION);
                 while (cursor.moveToNext()) {
                     locationsUnlocked.add(locations[cursor.getInt(unlockedLocIndex)].toString());
                 }
@@ -144,39 +144,39 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 break;
             case GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
                 int globalAchievementIndex = cursor.getColumnIndex(
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT);
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
                     globalAchievementsGained.add(cursor.getString(globalAchievementIndex));
                 }
                 break;
             case GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER:
                 globalAchievementIndex = cursor.getColumnIndex(
-                        DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT);
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
                     globalAchievementsLost.add(cursor.getString(globalAchievementIndex));
                 }
                 break;
             case PARTY_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
                 int partyAchievementIndex = cursor.getColumnIndex(
-                        DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT);
+                        DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
                     partyAchievementsGained.add(cursor.getString(partyAchievementIndex));
                 }
                 break;
             case PARTY_ACHIEVEMENTS_LOST_CURSOR_LOADER:
                 partyAchievementIndex = cursor.getColumnIndex(
-                        DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT);
+                        DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
                     partyAchievementsLost.add(cursor.getString(partyAchievementIndex));
                 }
                 break;
             case ADD_REWARDS_GAINED_CURSOR_LOADER:
                 int rewardTypeIndex = cursor.getColumnIndex(
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE);
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_TYPE);
                 int rewardValueIndex = cursor.getColumnIndex(
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_VALUE);
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_VALUE);
                 int appliedTypeIndex = cursor.getColumnIndex(
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE);
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_APPLICATION_TYPE);
                 while(cursor.moveToNext()) {
                     StringBuilder string = new StringBuilder("+");
                     string.append("" + cursor.getInt(rewardValueIndex));
@@ -188,11 +188,11 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 break;
             case ADD_PENALTIES_LOST_CURSOR_LOADER:
                 int penaltyTypeIndex = cursor.getColumnIndex(
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE);
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_TYPE);
                 int penaltyValueIndex = cursor.getColumnIndex(
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_VALUE);
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_VALUE);
                 int penaltyAppliedType = cursor.getColumnIndex(
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE);
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_APPLICATION_TYPE);
                 while(cursor.moveToNext()) {
                     StringBuilder string = new StringBuilder("-");
                     string.append("" + cursor.getInt(penaltyValueIndex));

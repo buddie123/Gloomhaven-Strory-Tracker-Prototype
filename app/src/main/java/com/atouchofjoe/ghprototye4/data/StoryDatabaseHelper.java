@@ -43,105 +43,105 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.PartyAchievements.TABLE_NAME + "(" +
                         DatabaseDescription.PartyAchievements._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.PartyAchievements.COLUMN_NAME + " TEXT UNIQUE, " +
-                        DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_REPLACED + " TEXT);";
+                        DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_TO_BE_REPLACED + " TEXT);";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_TABLE);
 
-        // create the GlobalAchievementsGained table
+        // create the GlobalAchievementsToBeAwarded table
         final String CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE =
-                "CREATE TABLE " + DatabaseDescription.GlobalAchievementsGained.TABLE_NAME + "(" +
-                        DatabaseDescription.GlobalAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT +"));";
+                "CREATE TABLE " + DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME + "(" +
+                        DatabaseDescription.GlobalAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT +"));";
         db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE);
 
-        // create the GlobalAchievementsLost table
+        // create the GlobalAchievementsToBeRevoked table
         final String CREATE_GLOBAL_ACHIEVEMENTS_LOST_TABLE =
-                "CREATE TABLE " + DatabaseDescription.GlobalAchievementsLost.TABLE_NAME + "(" +
-                        DatabaseDescription.GlobalAchievementsLost._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT + "));";
+                "CREATE TABLE " + DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME + "(" +
+                        DatabaseDescription.GlobalAchievementsToBeRevoked._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT + "));";
         db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_LOST_TABLE);
 
-        // create the PartyAchievementsGained table
+        // create the PartyAchievementsToBeAwarded table
         final String CREATE_PARTY_ACHIEVEMENTS_GAINED_TABLE =
-                "CREATE TABLE " + DatabaseDescription.PartyAchievementsGained.TABLE_NAME + "(" +
-                        DatabaseDescription.PartyAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT + "));";
+                "CREATE TABLE " + DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME + "(" +
+                        DatabaseDescription.PartyAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT + "));";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_GAINED_TABLE);
 
-        // create the PartyAchievementsLost table
+        // create the PartyAchievementsToBeRevoked table
         final String CREATE_PARTY_ACHIEVEMENTS_LOST_TABLE =
-                "CREATE TABLE " + DatabaseDescription.PartyAchievementsLost.TABLE_NAME + "(" +
-                        DatabaseDescription.PartyAchievementsLost._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT +"));";
+                "CREATE TABLE " + DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME + "(" +
+                        DatabaseDescription.PartyAchievementsToBeRevoked._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT +"));";
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_LOST_TABLE);
 
-        // create the LocationsUnlocked table
+        // create the LocationsToBeUnlocked table
         final String CREATE_LOCATIONS_UNLOCKED_TABLE =
-                "CREATE TABLE " + DatabaseDescription.LocationsUnlocked.TABLE_NAME + "(" +
-                        DatabaseDescription.LocationsUnlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        "UNIQUE (" + DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER +"));";
+                "CREATE TABLE " + DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME + "(" +
+                        DatabaseDescription.LocationsToBeUnlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION + " INTEGER, " +
+                        "UNIQUE (" + DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION +"));";
         db.execSQL(CREATE_LOCATIONS_UNLOCKED_TABLE);
 
-        // create the LocationsBlocked table
+        // create the LocationsToBeBlocked table
         final String CREATE_LOCATIONS_BLOCKED_TABLE =
-                "CREATE TABLE " + DatabaseDescription.LocationsBlocked.TABLE_NAME + "(" +
-                        DatabaseDescription.LocationsBlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        "UNIQUE (" + DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER +"));";
+                "CREATE TABLE " + DatabaseDescription.LocationsToBeBlocked.TABLE_NAME + "(" +
+                        DatabaseDescription.LocationsToBeBlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION + " INTEGER, " +
+                        "UNIQUE (" + DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION +"));";
         db.execSQL(CREATE_LOCATIONS_BLOCKED_TABLE);
 
-        // create AppliedTypes table
+        // create AddRewardApplicationTypes table
         final String CREATE_APPLIED_TYPES_TABLE =
-                "CREATE TABLE " + DatabaseDescription.AppliedTypes.TABLE_NAME + "(" +
-                        DatabaseDescription.AppliedTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.AppliedTypes.COLUMN_TYPE + " TEXT UNIQUE);";
+                "CREATE TABLE " + DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME + "(" +
+                        DatabaseDescription.AddRewardApplicationTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AddRewardApplicationTypes.COLUMN_APPLICATION_TYPE + " TEXT UNIQUE);";
         db.execSQL(CREATE_APPLIED_TYPES_TABLE);
 
-        // create AppliedTypes table
+        // create AddRewardApplicationTypes table
         final String CREATE_ADD_REWARD_TYPES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AddRewardTypes.TABLE_NAME + "(" +
                         DatabaseDescription.AddRewardTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.AddRewardTypes.COLUMN_TYPE + " TEXT UNIQUE);";
+                        DatabaseDescription.AddRewardTypes.COLUMN_REWARD_TYPE + " TEXT UNIQUE);";
         db.execSQL(CREATE_ADD_REWARD_TYPES_TABLE);
 
         // create the AddRewards table
         final String CREATE_ADD_REWARDS_TABLE =
-                "CREATE TABLE " + DatabaseDescription.AddRewardsGained.TABLE_NAME + "(" +
-                        DatabaseDescription.AddRewardsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE + " TEXT, " +
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_VALUE + " INTEGER, " +
-                        DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE +"));";
+                "CREATE TABLE " + DatabaseDescription.AddRewards.TABLE_NAME + "(" +
+                        DatabaseDescription.AddRewards._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AddRewards.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_TYPE + " TEXT, " +
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_VALUE + " INTEGER, " +
+                        DatabaseDescription.AddRewards.COLUMN_REWARD_APPLICATION_TYPE + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.AddRewards.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.AddRewards.COLUMN_REWARD_TYPE +"));";
         db.execSQL(CREATE_ADD_REWARDS_TABLE);
 
         // create the AddPenalties table
         final String CREATE_ADD_PENALTIES_TABLE =
-                "CREATE TABLE " + DatabaseDescription.AddPenaltiesLost.TABLE_NAME + "(" +
-                        DatabaseDescription.AddPenaltiesLost._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE + " TEXT, " +
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_VALUE + " INTEGER, " +
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE + " TEXT, " +
-                        "UNIQUE (" + DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE +"));";
+                "CREATE TABLE " + DatabaseDescription.AddPenalties.TABLE_NAME + "(" +
+                        DatabaseDescription.AddPenalties._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AddPenalties.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_TYPE + " TEXT, " +
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_VALUE + " INTEGER, " +
+                        DatabaseDescription.AddPenalties.COLUMN_PENALTY_APPLICATION_TYPE + " TEXT, " +
+                        "UNIQUE (" + DatabaseDescription.AddPenalties.COLUMN_LOCATION_TO_BE_COMPLETED +
+                        ", " + DatabaseDescription.AddPenalties.COLUMN_PENALTY_TYPE +"));";
         db.execSQL(CREATE_ADD_PENALTIES_TABLE);
 
         // create PARTIES table
@@ -162,17 +162,6 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         ", " + DatabaseDescription.Characters.COLUMN_PARTY +"));";
         db.execSQL(CREATE_CHARACTERS_TABLE);
 
-        // create UnlockingLocations table
-        final String CREATE_UNLOCKING_LOCATIONS_TABLE =
-                "CREATE TABLE " + DatabaseDescription.UnlockingLocations.TABLE_NAME + "(" +
-                        DatabaseDescription.UnlockingLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.UnlockingLocations.COLUMN_PARTY + " TEXT, " +
-                        DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKED_LOCATION + " INTEGER, " +
-                        DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKING_LOCATION + " INTEGER, " +
-                        "UNIQUE (" + DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKED_LOCATION +
-                        ", " + DatabaseDescription.UnlockingLocations.COLUMN_PARTY +"));";
-        db.execSQL(CREATE_UNLOCKING_LOCATIONS_TABLE);
-
         // create Attempt Table
         final String CREATE_ATTEMPTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.Attempts.TABLE_NAME + "(" +
@@ -186,25 +175,25 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         ", " + DatabaseDescription.Attempts.COLUMN_LOCATION + "));";
         db.execSQL(CREATE_ATTEMPTS_TABLE);
 
-        // create Participants table
+        // create AttemptParticipants table
         final String CREATE_PARTICIPANTS_TABLE =
-                "CREATE TABLE " + DatabaseDescription.Participants.TABLE_NAME + "(" +
-                        DatabaseDescription.GlobalAchievementsGained._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.Participants.COLUMN_TIMESTAMP + " INTEGER, " +
-                        DatabaseDescription.Participants.COLUMN_CHARACTER + " INTEGER, " +
-                        "UNIQUE (" + DatabaseDescription.Participants.COLUMN_TIMESTAMP +
-                        ", " + DatabaseDescription.Participants.COLUMN_CHARACTER +"));";
+                "CREATE TABLE " + DatabaseDescription.AttemptParticipants.TABLE_NAME + "(" +
+                        DatabaseDescription.GlobalAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AttemptParticipants.COLUMN_ATTEMPT_TIMESTAMP + " INTEGER, " +
+                        DatabaseDescription.AttemptParticipants.COLUMN_CHARACTER + " INTEGER, " +
+                        "UNIQUE (" + DatabaseDescription.AttemptParticipants.COLUMN_ATTEMPT_TIMESTAMP +
+                        ", " + DatabaseDescription.AttemptParticipants.COLUMN_CHARACTER +"));";
         db.execSQL(CREATE_PARTICIPANTS_TABLE);
 
 
-        // create Participants table
+        // create AttemptParticipants table
         final String CREATE_NON_PARTICIPANTS_TABLE =
-                "CREATE TABLE " + DatabaseDescription.NonParticipants.TABLE_NAME + "(" +
-                        DatabaseDescription.NonParticipants._ID + " INTEGER primary key AUTOINCREMENT, " +
-                        DatabaseDescription.NonParticipants.COLUMN_TIMESTAMP + " INTEGER, " +
-                        DatabaseDescription.NonParticipants.COLUMN_CHARACTER + " INTEGER, " +
-                        "UNIQUE (" + DatabaseDescription.NonParticipants.COLUMN_TIMESTAMP +
-                        ", " + DatabaseDescription.NonParticipants.COLUMN_CHARACTER +"));";
+                "CREATE TABLE " + DatabaseDescription.AttemptNonParticipants.TABLE_NAME + "(" +
+                        DatabaseDescription.AttemptNonParticipants._ID + " INTEGER primary key AUTOINCREMENT, " +
+                        DatabaseDescription.AttemptNonParticipants.COLUMN_ATTEMPT_TIMESTAMP + " INTEGER, " +
+                        DatabaseDescription.AttemptNonParticipants.COLUMN_CHARACTER + " INTEGER, " +
+                        "UNIQUE (" + DatabaseDescription.AttemptNonParticipants.COLUMN_ATTEMPT_TIMESTAMP +
+                        ", " + DatabaseDescription.AttemptNonParticipants.COLUMN_CHARACTER +"));";
         db.execSQL(CREATE_NON_PARTICIPANTS_TABLE);
 
         final String CREATE_UNLOCKED_LOCATIONS_TABLE =
@@ -212,9 +201,9 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.UnlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER + " INTEGER, " +
+                        DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER +"));";
+                        ", " + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_UNLOCKED_LOCATIONS_TABLE);
 
         final String CREATE_BLOCKED_LOCATIONS_TABLE =
@@ -222,9 +211,9 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.BlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
-                        DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME + " INTEGER, " +
+                        DatabaseDescription.BlockedLocations.COLUMN_BLOCKING_LOCATION_NUMBER + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER +
-                        ", " + DatabaseDescription.BlockedLocations.COlUMN_BLOCKING_LOCATION_NAME +"));";
+                        ", " + DatabaseDescription.BlockedLocations.COLUMN_BLOCKING_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_BLOCKED_LOCATIONS_TABLE);
 
         final String CREATE_COMPLETED_LOCATIONS_TABLE =

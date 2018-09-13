@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Selection;
 import android.util.Log;
 
 import com.atouchofjoe.ghprototye4.R;
@@ -113,45 +112,45 @@ public class GHStoryContentProvider extends ContentProvider {
 
         // Global Achievements Gained
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.GlobalAchievementsGained.TABLE_NAME + "/#", ONE_GLOBAL_ACHIEVEMENT_GAINED);
+                DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME + "/#", ONE_GLOBAL_ACHIEVEMENT_GAINED);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.GlobalAchievementsGained.TABLE_NAME, GLOBAL_ACHIEVEMENTS_GAINED);
+                DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME, GLOBAL_ACHIEVEMENTS_GAINED);
 
         // Global Achievements Lost
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.GlobalAchievementsLost.TABLE_NAME + "/#", ONE_GLOBAL_ACHIEVEMENT_LOST);
+                DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME + "/#", ONE_GLOBAL_ACHIEVEMENT_LOST);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.GlobalAchievementsLost.TABLE_NAME, GLOBAL_ACHIEVEMENTS_LOST);
+                DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME, GLOBAL_ACHIEVEMENTS_LOST);
 
         // Party Achievements Gained
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.PartyAchievementsGained.TABLE_NAME + "/#", ONE_PARTY_ACHIEVEMENT_GAINED);
+                DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME + "/#", ONE_PARTY_ACHIEVEMENT_GAINED);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.PartyAchievementsGained.TABLE_NAME, PARTY_ACHIEVEMENTS_GAINED);
+                DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME, PARTY_ACHIEVEMENTS_GAINED);
 
         // Party Achievements Lost
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.PartyAchievementsLost.TABLE_NAME + "/#", ONE_PARTY_ACHIEVEMENT_LOST);
+                DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME + "/#", ONE_PARTY_ACHIEVEMENT_LOST);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.PartyAchievementsLost.TABLE_NAME, PARTY_ACHIEVEMENTS_LOST);
+                DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME, PARTY_ACHIEVEMENTS_LOST);
 
         // Locations Unlocked
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.LocationsUnlocked.TABLE_NAME + "/#", ONE_LOCATION_UNLOCKED);
+                DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME + "/#", ONE_LOCATION_UNLOCKED);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.LocationsUnlocked.TABLE_NAME, LOCATIONS_UNLOCKED);
+                DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME, LOCATIONS_UNLOCKED);
 
         // Locations Blocked
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.LocationsBlocked.TABLE_NAME + "/#", ONE_LOCATION_BLOCKED);
+                DatabaseDescription.LocationsToBeBlocked.TABLE_NAME + "/#", ONE_LOCATION_BLOCKED);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.LocationsBlocked.TABLE_NAME, LOCATIONS_BLOCKED);
+                DatabaseDescription.LocationsToBeBlocked.TABLE_NAME, LOCATIONS_BLOCKED);
 
         // Applied Types
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AppliedTypes.TABLE_NAME + "/#", ONE_APPLIED_TYPE);
+                DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME + "/#", ONE_APPLIED_TYPE);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AppliedTypes.TABLE_NAME, APPLIED_TYPES);
+                DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME, APPLIED_TYPES);
 
         // Add Reward Types
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
@@ -161,26 +160,26 @@ public class GHStoryContentProvider extends ContentProvider {
 
         // Add Rewards Gained
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AddRewardsGained.TABLE_NAME + "/#", ONE_ADD_REWARD);
+                DatabaseDescription.AddRewards.TABLE_NAME + "/#", ONE_ADD_REWARD);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AddRewardsGained.TABLE_NAME, ADD_REWARDS);
+                DatabaseDescription.AddRewards.TABLE_NAME, ADD_REWARDS);
         // Add Penalties Lost
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AddPenaltiesLost.TABLE_NAME + "/#", ONE_ADD_PENALTY);
+                DatabaseDescription.AddPenalties.TABLE_NAME + "/#", ONE_ADD_PENALTY);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.AddPenaltiesLost.TABLE_NAME, ADD_PENALTIES);
+                DatabaseDescription.AddPenalties.TABLE_NAME, ADD_PENALTIES);
 
-        // Participants
+        // AttemptParticipants
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.Participants.TABLE_NAME + "/#", ONE_PARTICIPANT);
+                DatabaseDescription.AttemptParticipants.TABLE_NAME + "/#", ONE_PARTICIPANT);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.Participants.TABLE_NAME, PARTICIPANTS);
+                DatabaseDescription.AttemptParticipants.TABLE_NAME, PARTICIPANTS);
 
-        // Non-Participants
+        // Non-AttemptParticipants
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.NonParticipants.TABLE_NAME + "/#", ONE_NON_PARTICIPANT);
+                DatabaseDescription.AttemptNonParticipants.TABLE_NAME + "/#", ONE_NON_PARTICIPANT);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.NonParticipants.TABLE_NAME, NON_PARTICIPANTS);
+                DatabaseDescription.AttemptNonParticipants.TABLE_NAME, NON_PARTICIPANTS);
 
         // Unlocked Locations
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
@@ -205,14 +204,6 @@ public class GHStoryContentProvider extends ContentProvider {
                 DatabaseDescription.LockedLocations.TABLE_NAME + "/#", ONE_LOCKED_LOCATION);
         uriMatcher.addURI(DatabaseDescription.AUTHORITY,
                 DatabaseDescription.LockedLocations.TABLE_NAME, LOCKED_LOCATIONS);
-
-        // Unlocking Locations
-        uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.UnlockingLocations.TABLE_NAME + "/#", ONE_UNLOCKING_LOCATION);
-        uriMatcher.addURI(DatabaseDescription.AUTHORITY,
-                DatabaseDescription.UnlockingLocations.TABLE_NAME, UNLOCKING_LOCATIONS);
-
-
     }
 
     @Override
@@ -270,45 +261,45 @@ public class GHStoryContentProvider extends ContentProvider {
                                 uri.getLastPathSegment());
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
-                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.GlobalAchievementsGained._ID + "=" +
+                        DatabaseDescription.GlobalAchievementsToBeAwarded._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_LOST:
-                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.GlobalAchievementsLost._ID + "=" +
+                        DatabaseDescription.GlobalAchievementsToBeRevoked._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_PARTY_ACHIEVEMENT_GAINED:
-                queryBuilder.setTables(DatabaseDescription.PartyAchievementsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.PartyAchievementsGained._ID + "=" +
+                        DatabaseDescription.PartyAchievementsToBeAwarded._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_PARTY_ACHIEVEMENT_LOST:
-                queryBuilder.setTables(DatabaseDescription.PartyAchievementsLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.PartyAchievementsLost._ID + "=" +
+                        DatabaseDescription.PartyAchievementsToBeRevoked._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_LOCATION_UNLOCKED:
-                queryBuilder.setTables(DatabaseDescription.LocationsUnlocked.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.LocationsUnlocked._ID + "=" +
+                        DatabaseDescription.LocationsToBeUnlocked._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_LOCATION_BLOCKED:
-                queryBuilder.setTables(DatabaseDescription.LocationsBlocked.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.LocationsToBeBlocked.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.LocationsBlocked._ID + "=" +
+                        DatabaseDescription.LocationsToBeBlocked._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_APPLIED_TYPE:
-                queryBuilder.setTables(DatabaseDescription.AppliedTypes.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.AppliedTypes._ID + "=" +
+                        DatabaseDescription.AddRewardApplicationTypes._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_ADD_REWARD_TYPE:
@@ -318,27 +309,27 @@ public class GHStoryContentProvider extends ContentProvider {
                                 uri.getLastPathSegment());
                 break;
             case ONE_ADD_REWARD:
-                queryBuilder.setTables(DatabaseDescription.AddRewardsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddRewards.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.AddRewardsGained._ID + "=" +
+                        DatabaseDescription.AddRewards._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_ADD_PENALTY:
-                queryBuilder.setTables(DatabaseDescription.AddPenaltiesLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddPenalties.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.AddPenaltiesLost._ID + "=" +
+                        DatabaseDescription.AddPenalties._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_PARTICIPANT:
-                queryBuilder.setTables(DatabaseDescription.Participants.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AttemptParticipants.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.Participants._ID + "=" +
+                        DatabaseDescription.AttemptParticipants._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_NON_PARTICIPANT:
-                queryBuilder.setTables(DatabaseDescription.NonParticipants.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AttemptNonParticipants.TABLE_NAME);
                 queryBuilder.appendWhere(
-                        DatabaseDescription.NonParticipants._ID + "=" +
+                        DatabaseDescription.AttemptNonParticipants._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
             case ONE_UNLOCKED_LOCATION:
@@ -365,12 +356,6 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.LockedLocations._ID + "=" +
                                 uri.getLastPathSegment());
                 break;
-            case ONE_UNLOCKING_LOCATION:
-                queryBuilder.setTables(DatabaseDescription.UnlockingLocations.TABLE_NAME);
-                queryBuilder.appendWhere(
-                        DatabaseDescription.UnlockingLocations._ID + "=" +
-                                uri.getLastPathSegment());
-                break;
 
             // Multiple entry queries
             case LOCATIONS:
@@ -392,40 +377,40 @@ public class GHStoryContentProvider extends ContentProvider {
                 queryBuilder.setTables(DatabaseDescription.PartyAchievements.TABLE_NAME);
                 break;
             case GLOBAL_ACHIEVEMENTS_GAINED:
-                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME);
                 break;
             case GLOBAL_ACHIEVEMENTS_LOST:
-                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME);
                 break;
             case PARTY_ACHIEVEMENTS_GAINED:
-                queryBuilder.setTables(DatabaseDescription.PartyAchievementsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME);
                 break;
             case PARTY_ACHIEVEMENTS_LOST:
-                queryBuilder.setTables(DatabaseDescription.PartyAchievementsLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME);
                 break;
             case LOCATIONS_UNLOCKED:
-                queryBuilder.setTables(DatabaseDescription.LocationsUnlocked.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME);
                 break;
             case LOCATIONS_BLOCKED:
-                queryBuilder.setTables(DatabaseDescription.LocationsBlocked.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.LocationsToBeBlocked.TABLE_NAME);
                 break;
             case APPLIED_TYPES:
-                queryBuilder.setTables(DatabaseDescription.AppliedTypes.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME);
                 break;
             case ADD_REWARD_TYPES:
                 queryBuilder.setTables(DatabaseDescription.AddRewardTypes.TABLE_NAME);
                 break;
             case ADD_REWARDS:
-                queryBuilder.setTables(DatabaseDescription.AddRewardsGained.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddRewards.TABLE_NAME);
                 break;
             case ADD_PENALTIES:
-                queryBuilder.setTables(DatabaseDescription.AddPenaltiesLost.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AddPenalties.TABLE_NAME);
                 break;
             case PARTICIPANTS:
-                queryBuilder.setTables(DatabaseDescription.Participants.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AttemptParticipants.TABLE_NAME);
                 break;
             case NON_PARTICIPANTS:
-                queryBuilder.setTables(DatabaseDescription.NonParticipants.TABLE_NAME);
+                queryBuilder.setTables(DatabaseDescription.AttemptNonParticipants.TABLE_NAME);
                 break;
             case UNLOCKED_LOCATIONS:
                 queryBuilder.setTables(DatabaseDescription.UnlockedLocations.TABLE_NAME);
@@ -438,9 +423,6 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case LOCKED_LOCATIONS:
                 queryBuilder.setTables(DatabaseDescription.LockedLocations.TABLE_NAME);
-                break;
-            case UNLOCKING_LOCATIONS:
-                queryBuilder.setTables(DatabaseDescription.UnlockingLocations.TABLE_NAME);
                 break;
             default:
                 throw new UnsupportedOperationException(
@@ -505,51 +487,51 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case GLOBAL_ACHIEVEMENTS_GAINED:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.GlobalAchievementsGained.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.GlobalAchievementsGained.buildGlobalAchievementGainedUri(rowID);
+                    newElementUri = DatabaseDescription.GlobalAchievementsToBeAwarded.buildGlobalAchievementToBeAwardedUri(rowID);
                 }
                 break;
             case GLOBAL_ACHIEVEMENTS_LOST:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.GlobalAchievementsLost.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.GlobalAchievementsLost.buildGlobalAchievementLostUri(rowID);
+                    newElementUri = DatabaseDescription.GlobalAchievementsToBeRevoked.buildGlobalAchievementToBeRevokedUri(rowID);
                 }
                 break;
             case PARTY_ACHIEVEMENTS_GAINED:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.PartyAchievementsGained.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.PartyAchievementsGained.buildPartyAchievementGainedUri(rowID);
+                    newElementUri = DatabaseDescription.PartyAchievementsToBeAwarded.buildPartyAchievementToBeAwardedUri(rowID);
                 }
                 break;
             case PARTY_ACHIEVEMENTS_LOST:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.PartyAchievementsLost.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.PartyAchievementsLost.buildPartyAchievementLostUri(rowID);
+                    newElementUri = DatabaseDescription.PartyAchievementsToBeRevoked.buildPartyAchievementToBeRevokedUri(rowID);
                 }
                 break;
             case LOCATIONS_UNLOCKED:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.LocationsUnlocked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.LocationsUnlocked.buildUnlockedLocationUri(rowID);
+                    newElementUri = DatabaseDescription.LocationsToBeUnlocked.buildLocationToBeUnlockedUri(rowID);
                 }
                 break;
             case LOCATIONS_BLOCKED:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.LocationsBlocked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.LocationsToBeBlocked.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.LocationsBlocked.buildBlockedLocationUri(rowID);
+                    newElementUri = DatabaseDescription.LocationsToBeBlocked.buildLocationToBeBlockedUri(rowID);
                 }
                 break;
             case APPLIED_TYPES:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.AppliedTypes.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.AppliedTypes.buildAppliedTypeUri(rowID);
+                    newElementUri = DatabaseDescription.AddRewardApplicationTypes.buildAddRewardApplicationTypeUri(rowID);
                 }
                 break;
             case ADD_REWARD_TYPES:
@@ -561,30 +543,30 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case ADD_REWARDS:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.AddRewardsGained.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.AddRewards.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.AddRewardsGained.buildAddRewardUri(rowID);
+                    newElementUri = DatabaseDescription.AddRewards.buildAddRewardUri(rowID);
                 }
                 break;
             case ADD_PENALTIES:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.AddPenaltiesLost.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.AddPenalties.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.AddPenaltiesLost.buildAddPenaltyUri(rowID);
+                    newElementUri = DatabaseDescription.AddPenalties.buildAddPenaltyUri(rowID);
                 }
                 break;
             case PARTICIPANTS:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.Participants.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.AttemptParticipants.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.Participants.buildParticipantUri(rowID);
+                    newElementUri = DatabaseDescription.AttemptParticipants.buildAttemptParticipantUri(rowID);
                 }
                 break;
             case NON_PARTICIPANTS:
                 rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.NonParticipants.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        DatabaseDescription.AttemptNonParticipants.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
-                    newElementUri = DatabaseDescription.NonParticipants.buildNonParticipantUri(rowID);
+                    newElementUri = DatabaseDescription.AttemptNonParticipants.buildAttemptNonParticipantUri(rowID);
                 }
                 break;
             case UNLOCKED_LOCATIONS:
@@ -613,13 +595,6 @@ public class GHStoryContentProvider extends ContentProvider {
                         DatabaseDescription.LockedLocations.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (rowID > 0) {
                     newElementUri = DatabaseDescription.LockedLocations.buildLockedLocationUri(rowID);
-                }
-                break;
-            case UNLOCKING_LOCATIONS:
-                rowID = dbHelper.getWritableDatabase().insertWithOnConflict(
-                        DatabaseDescription.UnlockingLocations.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                if(rowID > 0) {
-                    newElementUri = DatabaseDescription.UnlockingLocations.buildUnlockingLocationUri(rowID);
                 }
                 break;
             default:
@@ -679,44 +654,44 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.GlobalAchievementsGained.TABLE_NAME, contentValues,
-                        DatabaseDescription.GlobalAchievementsGained._ID + "=" + id,
+                    DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME, contentValues,
+                        DatabaseDescription.GlobalAchievementsToBeAwarded._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_LOST:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.GlobalAchievementsLost.TABLE_NAME, contentValues,
-                        DatabaseDescription.GlobalAchievementsLost._ID + "=" + id,
+                    DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME, contentValues,
+                        DatabaseDescription.GlobalAchievementsToBeRevoked._ID + "=" + id,
                          selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_PARTY_ACHIEVEMENT_GAINED:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.PartyAchievementsGained.TABLE_NAME, contentValues,
-                        DatabaseDescription.PartyAchievementsGained._ID + "=" + id,
+                    DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME, contentValues,
+                        DatabaseDescription.PartyAchievementsToBeAwarded._ID + "=" + id,
                          selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_PARTY_ACHIEVEMENT_LOST:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.PartyAchievementsLost.TABLE_NAME, contentValues,
-                        DatabaseDescription.PartyAchievementsLost._ID + "=" + id,
+                    DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME, contentValues,
+                        DatabaseDescription.PartyAchievementsToBeRevoked._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_LOCATION_UNLOCKED:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.LocationsUnlocked.TABLE_NAME, contentValues,
-                        DatabaseDescription.LocationsUnlocked._ID + "=" + id,
+                    DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME, contentValues,
+                        DatabaseDescription.LocationsToBeUnlocked._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_LOCATION_BLOCKED:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.LocationsBlocked.TABLE_NAME, contentValues,
-                        DatabaseDescription.LocationsBlocked._ID + "=" + id,
+                    DatabaseDescription.LocationsToBeBlocked.TABLE_NAME, contentValues,
+                        DatabaseDescription.LocationsToBeBlocked._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_APPLIED_TYPE:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.AppliedTypes.TABLE_NAME, contentValues,
-                        DatabaseDescription.AppliedTypes._ID + "=" + id,
+                    DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME, contentValues,
+                        DatabaseDescription.AddRewardApplicationTypes._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_ADD_REWARD_TYPE:
@@ -727,26 +702,26 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case ONE_ADD_REWARD:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.AddRewardsGained.TABLE_NAME, contentValues,
-                        DatabaseDescription.AddRewardsGained._ID + "="  + id,
+                    DatabaseDescription.AddRewards.TABLE_NAME, contentValues,
+                        DatabaseDescription.AddRewards._ID + "="  + id,
                                 selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_ADD_PENALTY:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.AddPenaltiesLost.TABLE_NAME, contentValues,
-                        DatabaseDescription.AddPenaltiesLost._ID + "=" + id,
+                    DatabaseDescription.AddPenalties.TABLE_NAME, contentValues,
+                        DatabaseDescription.AddPenalties._ID + "=" + id,
                                 selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_PARTICIPANT:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.Participants.TABLE_NAME, contentValues,
-                        DatabaseDescription.Participants._ID + "=" + id,
+                    DatabaseDescription.AttemptParticipants.TABLE_NAME, contentValues,
+                        DatabaseDescription.AttemptParticipants._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case ONE_NON_PARTICIPANT:
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                    DatabaseDescription.NonParticipants.TABLE_NAME, contentValues,
-                        DatabaseDescription.NonParticipants._ID + "=" + id,
+                    DatabaseDescription.AttemptNonParticipants.TABLE_NAME, contentValues,
+                        DatabaseDescription.AttemptNonParticipants._ID + "=" + id,
                         selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             case UNLOCKED_LOCATIONS:
@@ -768,12 +743,6 @@ public class GHStoryContentProvider extends ContentProvider {
                 numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
                     DatabaseDescription.LockedLocations.TABLE_NAME, contentValues,
                         selection, selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
-                break;
-            case ONE_UNLOCKING_LOCATION:
-                numberOfRowsUpdated = dbHelper.getWritableDatabase().updateWithOnConflict(
-                        DatabaseDescription.UnlockingLocations.TABLE_NAME, contentValues,
-                        DatabaseDescription.UnlockingLocations._ID + "=" + id,
-                        selectionArgs, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             default:
                 throw new UnsupportedOperationException(
@@ -833,44 +802,44 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_GAINED:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.GlobalAchievementsGained.TABLE_NAME,
-                        DatabaseDescription.GlobalAchievementsGained._ID + "=" + id,
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME,
+                        DatabaseDescription.GlobalAchievementsToBeAwarded._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_GLOBAL_ACHIEVEMENT_LOST:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.GlobalAchievementsLost.TABLE_NAME,
-                        DatabaseDescription.GlobalAchievementsLost._ID + "=" + id,
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME,
+                        DatabaseDescription.GlobalAchievementsToBeRevoked._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_PARTY_ACHIEVEMENT_GAINED:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.PartyAchievementsGained.TABLE_NAME,
-                        DatabaseDescription.PartyAchievementsGained._ID + "=" + id,
+                        DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME,
+                        DatabaseDescription.PartyAchievementsToBeAwarded._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_PARTY_ACHIEVEMENT_LOST:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.PartyAchievementsLost.TABLE_NAME,
-                        DatabaseDescription.PartyAchievementsLost._ID + "=" + id,
+                        DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME,
+                        DatabaseDescription.PartyAchievementsToBeRevoked._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_LOCATION_UNLOCKED:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.LocationsUnlocked.TABLE_NAME,
-                        DatabaseDescription.LocationsUnlocked._ID + "=" + id,
+                        DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME,
+                        DatabaseDescription.LocationsToBeUnlocked._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_LOCATION_BLOCKED:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.LocationsBlocked.TABLE_NAME,
-                        DatabaseDescription.LocationsBlocked._ID + "=" + id,
+                        DatabaseDescription.LocationsToBeBlocked.TABLE_NAME,
+                        DatabaseDescription.LocationsToBeBlocked._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_APPLIED_TYPE:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.AppliedTypes.TABLE_NAME,
-                        DatabaseDescription.AppliedTypes._ID + "=" + id,
+                        DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME,
+                        DatabaseDescription.AddRewardApplicationTypes._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_ADD_REWARD_TYPE:
@@ -881,26 +850,26 @@ public class GHStoryContentProvider extends ContentProvider {
                 break;
             case ONE_ADD_REWARD:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.AddRewardsGained.TABLE_NAME,
-                        DatabaseDescription.AddRewardsGained._ID + "="  + id,
+                        DatabaseDescription.AddRewards.TABLE_NAME,
+                        DatabaseDescription.AddRewards._ID + "="  + id,
                         selectionArgs);
                 break;
             case ONE_ADD_PENALTY:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.AddPenaltiesLost.TABLE_NAME,
-                        DatabaseDescription.AddPenaltiesLost._ID + "=" + id,
+                        DatabaseDescription.AddPenalties.TABLE_NAME,
+                        DatabaseDescription.AddPenalties._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_PARTICIPANT:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.Participants.TABLE_NAME,
-                        DatabaseDescription.Participants._ID + "=" + id,
+                        DatabaseDescription.AttemptParticipants.TABLE_NAME,
+                        DatabaseDescription.AttemptParticipants._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_NON_PARTICIPANT:
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.NonParticipants.TABLE_NAME,
-                        DatabaseDescription.NonParticipants._ID + "=" + id,
+                        DatabaseDescription.AttemptNonParticipants.TABLE_NAME,
+                        DatabaseDescription.AttemptNonParticipants._ID + "=" + id,
                         selectionArgs);
                 break;
             case ONE_UNLOCKED_LOCATION:
@@ -925,12 +894,6 @@ public class GHStoryContentProvider extends ContentProvider {
                 numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
                         DatabaseDescription.LockedLocations.TABLE_NAME,
                         DatabaseDescription.LockedLocations._ID + "=" + id,
-                        selectionArgs);
-                break;
-            case ONE_UNLOCKING_LOCATION:
-                numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        DatabaseDescription.UnlockingLocations.TABLE_NAME,
-                        DatabaseDescription.UnlockingLocations._ID + "=" + id,
                         selectionArgs);
                 break;
             default:

@@ -30,9 +30,9 @@ public abstract class LocationTabFragment extends Fragment implements LoaderMana
         switch(i){
 
             case UNLOCKING_LOCATION_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.UnlockingLocations.CONTENT_URI, null,
-                        DatabaseDescription.UnlockingLocations.COLUMN_PARTY + " = ? AND " +
-                                DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKED_LOCATION + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.UnlockedLocations.CONTENT_URI, null,
+                        DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " = ? AND " +
+                                DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " = ? ",
                         new String []{bundle.getString(ARG_PARTY_NAME), "" + bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case ATTEMPTS_CURSOR_LOADER:
                 return new CursorLoader(getActivity(), DatabaseDescription.Attempts.CONTENT_URI, null,
@@ -40,36 +40,36 @@ public abstract class LocationTabFragment extends Fragment implements LoaderMana
                         DatabaseDescription.Attempts.COLUMN_LOCATION + " = ? ",
                         new String []{bundle.getString(ARG_PARTY_NAME), bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.GlobalAchievementsGained.CONTENT_URI, null,
-                        DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.GlobalAchievementsToBeAwarded.CONTENT_URI, null,
+                        DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.GlobalAchievementsLost.CONTENT_URI, null,
-                        DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.GlobalAchievementsToBeRevoked.CONTENT_URI, null,
+                        DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case PARTY_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.PartyAchievementsGained.CONTENT_URI, null,
-                        DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.PartyAchievementsToBeAwarded.CONTENT_URI, null,
+                        DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case PARTY_ACHIEVEMENTS_LOST_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.PartyAchievementsLost.CONTENT_URI, null,
-                        DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.PartyAchievementsToBeRevoked.CONTENT_URI, null,
+                        DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case LOCATIONS_UNLOCKED_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.LocationsUnlocked.CONTENT_URI, null,
-                        DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.LocationsToBeUnlocked.CONTENT_URI, null,
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case LOCATIONS_BLOCKED_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.LocationsBlocked.CONTENT_URI, null,
-                        DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.LocationsToBeBlocked.CONTENT_URI, null,
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case ADD_REWARDS_GAINED_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.AddRewardsGained.CONTENT_URI, null,
-                        DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.AddRewards.CONTENT_URI, null,
+                        DatabaseDescription.AddRewards.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             case ADD_PENALTIES_LOST_CURSOR_LOADER:
-                return new CursorLoader(getActivity(), DatabaseDescription.AddPenaltiesLost.CONTENT_URI, null,
-                        DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER + " = ? ",
+                return new CursorLoader(getActivity(), DatabaseDescription.AddPenalties.CONTENT_URI, null,
+                        DatabaseDescription.AddPenalties.COLUMN_LOCATION_TO_BE_COMPLETED + " = ? ",
                         new String []{bundle.getString(ARG_LOCATION_NUMBER)}, null);
             default:
                 return null;

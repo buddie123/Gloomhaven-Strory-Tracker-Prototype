@@ -96,7 +96,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
                 if(cursor.moveToFirst()) {
                     int unlockingLocationIndex =
                             cursor.getColumnIndex(
-                                    DatabaseDescription.UnlockingLocations.COLUMN_UNLOCKING_LOCATION);
+                                    DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER);
                     unlockingLoc.setText(cursor.getInt(unlockingLocationIndex));
                 }
                 break;

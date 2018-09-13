@@ -56,7 +56,7 @@ public class StoryDatabaseInitializer {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseDescription.PartyAchievements.COLUMN_NAME, name);
         if(achievementReplaced != null) {
-            contentValues.put(DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_REPLACED, achievementReplaced);
+            contentValues.put(DatabaseDescription.PartyAchievements.COLUMN_ACHIEVEMENT_TO_BE_REPLACED, achievementReplaced);
         }
         context.getContentResolver().insert(DatabaseDescription.PartyAchievements.CONTENT_URI, contentValues);
     }
@@ -127,46 +127,46 @@ public class StoryDatabaseInitializer {
 
     private void initializeGlobalAchievementGained(Context context, int locNumber, String globalAchievement) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.GlobalAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.GlobalAchievementsGained.COLUMN_GLOBAL_ACHIEVEMENT, globalAchievement);
-        context.getContentResolver().insert(DatabaseDescription.GlobalAchievementsGained.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT, globalAchievement);
+        context.getContentResolver().insert(DatabaseDescription.GlobalAchievementsToBeAwarded.CONTENT_URI, contentValues);
     }
 
     private void initializeGlobalAchievementLost(Context context, int locNumber, String globalAchievement) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.GlobalAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.GlobalAchievementsLost.COLUMN_GLOBAL_ACHIEVEMENT, globalAchievement);
-        context.getContentResolver().insert(DatabaseDescription.GlobalAchievementsGained.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT, globalAchievement);
+        context.getContentResolver().insert(DatabaseDescription.GlobalAchievementsToBeAwarded.CONTENT_URI, contentValues);
     }
 
     private void initializePartyAchievementGained(Context context, int locNumber, String partyAchievement) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.PartyAchievementsGained.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.PartyAchievementsGained.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
-        context.getContentResolver().insert(DatabaseDescription.PartyAchievementsGained.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
+        context.getContentResolver().insert(DatabaseDescription.PartyAchievementsToBeAwarded.CONTENT_URI, contentValues);
     }
 
 
     // for use in the initializePartyAchievementsLost() method
     private void initializePartyAchievementLost(Context context, int locNumber, String partyAchievement) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.PartyAchievementsLost.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.PartyAchievementsLost.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
-        context.getContentResolver().insert(DatabaseDescription.PartyAchievementsLost.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT, partyAchievement);
+        context.getContentResolver().insert(DatabaseDescription.PartyAchievementsToBeRevoked.CONTENT_URI, contentValues);
     }
 
     private void initializeLocationUnlocked(Context context, int completedLoc, int unlockedLoc) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.LocationsUnlocked.COLUMN_COMPLETED_LOCATION_NUMBER, completedLoc);
-        contentValues.put(DatabaseDescription.LocationsUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER, unlockedLoc);
-        context.getContentResolver().insert(DatabaseDescription.LocationsUnlocked.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED, completedLoc);
+        contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION, unlockedLoc);
+        context.getContentResolver().insert(DatabaseDescription.LocationsToBeUnlocked.CONTENT_URI, contentValues);
     }
 
     private void initializeLocationBlocked(Context context, int completedLoc, int blockedLoc) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.LocationsBlocked.COLUMN_COMPLETED_LOCATION_NUMBER, completedLoc);
-        contentValues.put(DatabaseDescription.LocationsBlocked.COLUMN_BLOCKED_LOCATION_NUMBER, blockedLoc);
-        context.getContentResolver().insert(DatabaseDescription.LocationsBlocked.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED, completedLoc);
+        contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION, blockedLoc);
+        context.getContentResolver().insert(DatabaseDescription.LocationsToBeBlocked.CONTENT_URI, contentValues);
     }
 
 
@@ -178,8 +178,8 @@ public class StoryDatabaseInitializer {
 
     private void initializeAppliedType(Context context, String type) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.AppliedTypes.COLUMN_TYPE, type);
-        context.getContentResolver().insert(DatabaseDescription.AppliedTypes.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.AddRewardApplicationTypes.COLUMN_APPLICATION_TYPE, type);
+        context.getContentResolver().insert(DatabaseDescription.AddRewardApplicationTypes.CONTENT_URI, contentValues);
     }
 
     private void initializeAddRewardTypes(Context context) {
@@ -192,7 +192,7 @@ public class StoryDatabaseInitializer {
 
     private void initializeAddRewardType(Context context, String type) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.AddRewardTypes.COLUMN_TYPE, type);
+        contentValues.put(DatabaseDescription.AddRewardTypes.COLUMN_REWARD_TYPE, type);
         context.getContentResolver().insert(DatabaseDescription.AddRewardTypes.CONTENT_URI, contentValues);
     }
 
@@ -214,11 +214,11 @@ public class StoryDatabaseInitializer {
 
     private void initializeAddRewardGained(Context context,  int locNumber, String rewardType, int rewardValue, String appliedType) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.AddRewardsGained.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.AddRewardsGained.COLUMN_REWARD_TYPE, rewardType);
-        contentValues.put(DatabaseDescription.AddRewardsGained.COLUMN_REWARD_VALUE, rewardValue);
-        contentValues.put(DatabaseDescription.AddRewardsGained.COLUMN_REWARD_APPLIED_TYPE, appliedType);
-        context.getContentResolver().insert(DatabaseDescription.AddRewardsGained.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.AddRewards.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.AddRewards.COLUMN_REWARD_TYPE, rewardType);
+        contentValues.put(DatabaseDescription.AddRewards.COLUMN_REWARD_VALUE, rewardValue);
+        contentValues.put(DatabaseDescription.AddRewards.COLUMN_REWARD_APPLICATION_TYPE, appliedType);
+        context.getContentResolver().insert(DatabaseDescription.AddRewards.CONTENT_URI, contentValues);
     }
 
     private void initializeAddPenaltiesLost(Context context) {
@@ -227,11 +227,11 @@ public class StoryDatabaseInitializer {
 
     private void initializeAddPenaltyLost(Context context, int locNumber, String rewardType, int rewardValue, String appliedType) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseDescription.AddPenaltiesLost.COLUMN_COMPLETED_LOCATION_NUMBER, locNumber);
-        contentValues.put(DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_TYPE, rewardType);
-        contentValues.put(DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_VALUE, rewardValue);
-        contentValues.put(DatabaseDescription.AddPenaltiesLost.COLUMN_PENALTY_APPLIED_TYPE, appliedType);
-        context.getContentResolver().insert(DatabaseDescription.AddPenaltiesLost.CONTENT_URI, contentValues);
+        contentValues.put(DatabaseDescription.AddPenalties.COLUMN_LOCATION_TO_BE_COMPLETED, locNumber);
+        contentValues.put(DatabaseDescription.AddPenalties.COLUMN_PENALTY_TYPE, rewardType);
+        contentValues.put(DatabaseDescription.AddPenalties.COLUMN_PENALTY_VALUE, rewardValue);
+        contentValues.put(DatabaseDescription.AddPenalties.COLUMN_PENALTY_APPLICATION_TYPE, appliedType);
+        context.getContentResolver().insert(DatabaseDescription.AddPenalties.CONTENT_URI, contentValues);
     }
 
     private void initializeLocations(Context context) {

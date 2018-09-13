@@ -3,7 +3,6 @@ package com.atouchofjoe.ghprototye4.party.info;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -166,7 +165,7 @@ public class CreatePartyActivity extends AppCompatActivity {
                 ContentValues unlockedLocValues = new ContentValues();
                 unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_PARTY, party.getName());
                 unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER, 1);
-                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COlUMN_UNLOCKING_LOCATION_NUMBER, 0);
+                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER, 0);
                 view.getContext().getContentResolver().insert(DatabaseDescription.UnlockedLocations.CONTENT_URI, unlockedLocValues);
 
                 // set each other location as being locked for the party in the database

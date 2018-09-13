@@ -1,7 +1,5 @@
 package com.atouchofjoe.ghprototye4.models;
 
-import com.atouchofjoe.ghprototye4.MainActivity;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
