@@ -10,7 +10,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION= 1;
 
     //constructor
-    public StoryDatabaseHelper(Context context) {
+    StoryDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -47,73 +47,73 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_PARTY_ACHIEVEMENTS_TABLE);
 
         // create the GlobalAchievementsToBeAwarded table
-        final String CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE =
+        final String CREATE_GLOBAL_ACHIEVEMENTS_TO_BE_AWARDED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.GlobalAchievementsToBeAwarded.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT +"));";
-        db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_GAINED_TABLE);
+        db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_TO_BE_AWARDED_TABLE);
 
         // create the GlobalAchievementsToBeRevoked table
-        final String CREATE_GLOBAL_ACHIEVEMENTS_LOST_TABLE =
+        final String CREATE_GLOBAL_ACHIEVEMENTS_TO_BE_REVOKED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.GlobalAchievementsToBeRevoked.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsToBeRevoked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT + "));";
-        db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_LOST_TABLE);
+        db.execSQL(CREATE_GLOBAL_ACHIEVEMENTS_TO_BE_REVOKED_TABLE);
 
         // create the PartyAchievementsToBeAwarded table
-        final String CREATE_PARTY_ACHIEVEMENTS_GAINED_TABLE =
+        final String CREATE_PARTY_ACHIEVEMENTS_TO_BE_AWARDED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.PartyAchievementsToBeAwarded.TABLE_NAME + "(" +
                         DatabaseDescription.PartyAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT + "));";
-        db.execSQL(CREATE_PARTY_ACHIEVEMENTS_GAINED_TABLE);
+        db.execSQL(CREATE_PARTY_ACHIEVEMENTS_TO_BE_AWARDED_TABLE);
 
         // create the PartyAchievementsToBeRevoked table
-        final String CREATE_PARTY_ACHIEVEMENTS_LOST_TABLE =
+        final String CREATE_PARTY_ACHIEVEMENTS_TO_BE_REVOKED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.PartyAchievementsToBeRevoked.TABLE_NAME + "(" +
                         DatabaseDescription.PartyAchievementsToBeRevoked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT +"));";
-        db.execSQL(CREATE_PARTY_ACHIEVEMENTS_LOST_TABLE);
+        db.execSQL(CREATE_PARTY_ACHIEVEMENTS_TO_BE_REVOKED_TABLE);
 
         // create the LocationsToBeUnlocked table
-        final String CREATE_LOCATIONS_UNLOCKED_TABLE =
+        final String CREATE_LOCATIONS_TO_BE_UNLOCKED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsToBeUnlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION +"));";
-        db.execSQL(CREATE_LOCATIONS_UNLOCKED_TABLE);
+        db.execSQL(CREATE_LOCATIONS_TO_BE_UNLOCKED_TABLE);
 
         // create the LocationsToBeBlocked table
-        final String CREATE_LOCATIONS_BLOCKED_TABLE =
+        final String CREATE_LOCATIONS_TO_BE_BLOCKED_TABLE =
                 "CREATE TABLE " + DatabaseDescription.LocationsToBeBlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsToBeBlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
                         DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
                         ", " + DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION +"));";
-        db.execSQL(CREATE_LOCATIONS_BLOCKED_TABLE);
+        db.execSQL(CREATE_LOCATIONS_TO_BE_BLOCKED_TABLE);
 
         // create AddRewardApplicationTypes table
-        final String CREATE_APPLIED_TYPES_TABLE =
+        final String CREATE_ADD_REWARD_APPLICATION_TYPES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AddRewardApplicationTypes.TABLE_NAME + "(" +
                         DatabaseDescription.AddRewardApplicationTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.AddRewardApplicationTypes.COLUMN_APPLICATION_TYPE + " TEXT UNIQUE);";
-        db.execSQL(CREATE_APPLIED_TYPES_TABLE);
+        db.execSQL(CREATE_ADD_REWARD_APPLICATION_TYPES_TABLE);
 
-        // create AddRewardApplicationTypes table
+        // create AddRewardTypes table
         final String CREATE_ADD_REWARD_TYPES_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AddRewardTypes.TABLE_NAME + "(" +
                         DatabaseDescription.AddRewardTypes._ID + " INTEGER primary key AUTOINCREMENT, " +
@@ -176,26 +176,27 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ATTEMPTS_TABLE);
 
         // create AttemptParticipants table
-        final String CREATE_PARTICIPANTS_TABLE =
+        final String CREATE_ATTEMPT_PARTICIPANTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AttemptParticipants.TABLE_NAME + "(" +
                         DatabaseDescription.GlobalAchievementsToBeAwarded._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.AttemptParticipants.COLUMN_ATTEMPT_TIMESTAMP + " INTEGER, " +
                         DatabaseDescription.AttemptParticipants.COLUMN_CHARACTER + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.AttemptParticipants.COLUMN_ATTEMPT_TIMESTAMP +
                         ", " + DatabaseDescription.AttemptParticipants.COLUMN_CHARACTER +"));";
-        db.execSQL(CREATE_PARTICIPANTS_TABLE);
+        db.execSQL(CREATE_ATTEMPT_PARTICIPANTS_TABLE);
 
 
         // create AttemptParticipants table
-        final String CREATE_NON_PARTICIPANTS_TABLE =
+        final String CREATE_ATTEMPT_NON_PARTICIPANTS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.AttemptNonParticipants.TABLE_NAME + "(" +
                         DatabaseDescription.AttemptNonParticipants._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.AttemptNonParticipants.COLUMN_ATTEMPT_TIMESTAMP + " INTEGER, " +
                         DatabaseDescription.AttemptNonParticipants.COLUMN_CHARACTER + " INTEGER, " +
                         "UNIQUE (" + DatabaseDescription.AttemptNonParticipants.COLUMN_ATTEMPT_TIMESTAMP +
                         ", " + DatabaseDescription.AttemptNonParticipants.COLUMN_CHARACTER +"));";
-        db.execSQL(CREATE_NON_PARTICIPANTS_TABLE);
+        db.execSQL(CREATE_ATTEMPT_NON_PARTICIPANTS_TABLE);
 
+        // create UnlockedLocations table
         final String CREATE_UNLOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.UnlockedLocations.TABLE_NAME + "(" +
                         DatabaseDescription.UnlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
@@ -206,6 +207,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         ", " + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_UNLOCKED_LOCATIONS_TABLE);
 
+        // create BlockedLocations table
         final String CREATE_BLOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.BlockedLocations.TABLE_NAME + "(" +
                         DatabaseDescription.BlockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
@@ -216,6 +218,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         ", " + DatabaseDescription.BlockedLocations.COLUMN_BLOCKING_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_BLOCKED_LOCATIONS_TABLE);
 
+        // create CompletedLocations table
         final String CREATE_COMPLETED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.CompletedLocations.TABLE_NAME + "(" +
                         DatabaseDescription.CompletedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
@@ -226,6 +229,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         ", " + DatabaseDescription.CompletedLocations.COLUMN_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_COMPLETED_LOCATIONS_TABLE);
 
+        // create LockedLocations table
         final String CREATE_LOCKED_LOCATIONS_TABLE =
                 "CREATE TABLE " + DatabaseDescription.LockedLocations.TABLE_NAME + "(" +
                         DatabaseDescription.LockedLocations._ID + " INTEGER primary key AUTOINCREMENT, " +
