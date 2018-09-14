@@ -13,7 +13,7 @@ public abstract class LocationTabFragment extends Fragment implements LoaderMana
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototye4.location.info.ARG_PARTY_NAME";
     public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.location.info.ARG_LOCATION_NUMBER";
 
-    public static final int UNLOCKING_LOCATION_CURSOR_LOADER = 0;
+    public static final int UNLOCKED_LOCATION_CURSOR_LOADER = 0;
     public static final int ATTEMPTS_CURSOR_LOADER = 1;
     public static final int GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER = 2;
     public static final int GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER = 3;
@@ -29,7 +29,7 @@ public abstract class LocationTabFragment extends Fragment implements LoaderMana
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         switch(i){
 
-            case UNLOCKING_LOCATION_CURSOR_LOADER:
+            case UNLOCKED_LOCATION_CURSOR_LOADER:
                 return new CursorLoader(getActivity(), DatabaseDescription.UnlockedLocations.CONTENT_URI, null,
                         DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " = ? AND " +
                                 DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " = ? ",

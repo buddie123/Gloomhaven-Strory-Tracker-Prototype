@@ -6,8 +6,8 @@
     <dimen name="text_size_small">16sp</dimen>
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
-    <dimen name="card_corner_radius">4dp</dimen>
-    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_content_padding">0dp</dimen>
     <dimen name="thick_padding">16dp</dimen>
     <dimen name="thin_padding">8dp</dimen>

@@ -7,159 +7,119 @@
     tools:context=".location.info.LocationInfoActivity"
     tools:showIn="@layout/activity_location_info">
 
-    <android.support.v7.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/locCardView"
+    <TableLayout
+        android:id="@+id/locTable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/thick_padding"
-        cardview:cardBackgroundColor="@color/colorAccent"
-        cardview:cardCornerRadius="@dimen/card_corner_radius"
-        cardview:cardElevation="@dimen/card_elevation"
-        cardview:contentPadding="@dimen/card_content_padding">
+        android:layout_height="wrap_content">
 
-        <TableLayout
-            android:id="@+id/locTable"
+        <TableRow
+            android:id="@+id/locTeaserLabelTableRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TableRow
-                android:id="@+id/locNameTableRow"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/locTeaserLabelTextView"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="@string/label_teaser"
+                android:textSize="@dimen/text_size_small" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/unlockLocationLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:padding="@dimen/thin_padding"
-                    android:text="@string/label_unlocking_location"
-                    android:textSize="@dimen/text_size_small" />
+        <TableRow
+            android:id="@+id/locTeaserTableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/unlockLocationButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/thin_padding"
-                    android:layout_weight="2"
-                    android:text="@string/default_no_unlocking_loc"
-                    android:textSize="@dimen/text_size_small" />
-            </TableRow>
+            <TextView
+                android:id="@+id/locTeaserTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/thin_padding"
+                android:paddingEnd="@dimen/thin_padding"
+                android:paddingLeft="@dimen/thick_padding"
+                android:paddingRight="@dimen/thin_padding"
+                android:paddingStart="@dimen/thick_padding"
+                android:paddingTop="@dimen/thin_padding"
+                android:text="@string/sample_scenario_teaser" />
+        </TableRow>
 
-            <TableRow
-                android:id="@+id/locTeaserLabelTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+        <TableRow
+            android:id="@+id/locSummaryLabelTableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/locTeaserLabelTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:text="@string/label_teaser"
-                    android:textSize="@dimen/text_size_small" />
-            </TableRow>
+            <TextView
+                android:id="@+id/locSummaryLabelTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/thin_padding"
+                android:text="@string/label_summary"
+                android:textSize="@dimen/text_size_small" />
+        </TableRow>
 
-            <TableRow
-                android:id="@+id/locTeaserTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+        <TableRow
+            android:id="@+id/locSummaryTableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
 
-                <TextView
-                    android:id="@+id/locTeaserTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/thin_padding"
-                    android:paddingEnd="@dimen/thin_padding"
-                    android:paddingLeft="@dimen/thick_padding"
-                    android:paddingRight="@dimen/thin_padding"
-                    android:paddingStart="@dimen/thick_padding"
-                    android:paddingTop="@dimen/thin_padding"
-                    android:text="@string/sample_scenario_teaser" />
-            </TableRow>
+            <TextView
+                android:id="@+id/lastScenarioSummaryTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/thin_padding"
+                android:paddingEnd="@dimen/thin_padding"
+                android:paddingLeft="@dimen/thick_padding"
+                android:paddingRight="@dimen/thin_padding"
+                android:paddingStart="@dimen/thick_padding"
+                android:paddingTop="@dimen/thin_padding"
+                android:text="@string/sample_scenario_summary"
+                android:textSize="@dimen/text_size_small" />
+        </TableRow>
 
-            <TableRow
-                android:id="@+id/locSummaryLabelTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+        <TableRow
+            android:id="@+id/locConclusionLabelTableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/locSummaryLabelTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="@dimen/thin_padding"
-                    android:text="@string/label_summary"
-                    android:textSize="@dimen/text_size_small" />
-            </TableRow>
+            <TextView
+                android:id="@+id/locConclusionLabelTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/thin_padding"
+                android:text="@string/label_conclusion"
+                android:textSize="@dimen/text_size_small" />
+        </TableRow>
 
-            <TableRow
-                android:id="@+id/locSummaryTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
+        <TableRow
+            android:id="@+id/locConclusionTableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
 
-                <TextView
-                    android:id="@+id/lastScenarioSummaryTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/thin_padding"
-                    android:paddingEnd="@dimen/thin_padding"
-                    android:paddingLeft="@dimen/thick_padding"
-                    android:paddingRight="@dimen/thin_padding"
-                    android:paddingStart="@dimen/thick_padding"
-                    android:paddingTop="@dimen/thin_padding"
-                    android:text="@string/sample_scenario_summary"
-                    android:textSize="@dimen/text_size_small" />
-            </TableRow>
+            <TextView
+                android:id="@+id/locConclusionTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/thin_padding"
+                android:paddingEnd="@dimen/thin_padding"
+                android:paddingLeft="@dimen/thick_padding"
+                android:paddingRight="@dimen/thin_padding"
+                android:paddingStart="@dimen/thick_padding"
+                android:paddingTop="@dimen/thin_padding"
+                android:text="@string/sample_scenario_summary"
+                android:textSize="@dimen/text_size_small" />
 
-            <TableRow
-                android:id="@+id/locConclusionLabelTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/locConclusionLabelTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="@dimen/thin_padding"
-                    android:text="@string/label_conclusion"
-                    android:textSize="@dimen/text_size_small" />
-            </TableRow>
+    </TableLayout>
 
-            <TableRow
-                android:id="@+id/locConclusionTableRow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <TextView
-                    android:id="@+id/locConclusionTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/thin_padding"
-                    android:paddingEnd="@dimen/thin_padding"
-                    android:paddingLeft="@dimen/thick_padding"
-                    android:paddingRight="@dimen/thin_padding"
-                    android:paddingStart="@dimen/thick_padding"
-                    android:paddingTop="@dimen/thin_padding"
-                    android:text="@string/sample_scenario_summary"
-                    android:textSize="@dimen/text_size_small" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </android.support.v7.widget.CardView>
 </ScrollView>

@@ -7,7 +7,7 @@
     android:layout_marginLeft="@dimen/thick_padding"
     android:layout_marginRight="@dimen/thick_padding"
     android:layout_marginTop="@dimen/thin_padding"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/card_corner_radius"
     app:cardElevation="@dimen/card_elevation"
     app:contentPadding="@dimen/thick_padding">
@@ -17,15 +17,51 @@
         android:layout_height="match_parent">
 
         <TableRow
-            android:id="@+id/attemptDateRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/attemptNumLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="@dimen/thin_padding"
+                android:text="@string/label_attempt_number"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/thin_padding"
+                android:text="@string/default_attempt_number"
+                android:textSize="@dimen/text_size_large" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/attemptDateRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
                 android:id="@+id/dateAttemptedLabel"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/thin_padding"
@@ -41,6 +77,34 @@
                 android:paddingLeft="@dimen/thin_padding"
                 android:text="@string/sample_date"
                 android:textSize="@dimen/text_size_medium" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/attemptSuccessfulRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/attemptSuccessfulLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:paddingRight="@dimen/thin_padding"
+                android:text="@string/label_Attempt_Successful"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/attemptSuccssfulValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/thin_padding"
+                android:text="@string/value_no"
+                android:textSize="@dimen/text_size_small" />
+
         </TableRow>
 
         <TableRow
@@ -86,34 +150,6 @@
                 android:layout_gravity="center_vertical"
                 android:visibility="invisible"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/attemptSuccessfulRow"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/attemptSuccessfulLabel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:paddingRight="@dimen/thin_padding"
-                android:text="@string/label_Attempt_Successful"
-                android:textSize="@dimen/text_size_medium" />
-
-            <TextView
-                android:id="@+id/attemptSuccssfulValue"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="@dimen/thin_padding"
-                android:text="@string/value_no"
-                android:textSize="@dimen/text_size_small" />
-
         </TableRow>
 
     </TableLayout>

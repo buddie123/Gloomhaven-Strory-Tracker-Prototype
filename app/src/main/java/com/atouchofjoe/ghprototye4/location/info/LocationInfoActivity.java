@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.atouchofjoe.ghprototye4.LoadingFragment;
@@ -61,6 +62,14 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
         currentLocNumber = getIntent().getIntExtra(ARG_LOCATION_NUMBER, 0);
         currentParty = MainActivity.currentParty;
 
+        Button unlockingLoc = findViewById(R.id.unlockedByButton);
+        unlockingLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -75,16 +84,6 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         getLoaderManager().initLoader(LOCATION_CURSOR_LOADER, null, this);
     }

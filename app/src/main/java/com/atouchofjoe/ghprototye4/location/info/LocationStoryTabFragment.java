@@ -32,18 +32,10 @@ public class LocationStoryTabFragment extends LocationTabFragment {
         Location currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
         Party currentParty = MainActivity.currentParty;
 
-        unlockingLoc = view.findViewById(R.id.unlockLocationButton);
-        unlockingLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO
-            }
-        });
-
         Bundle bundle = new Bundle();
         bundle.putString(ARG_PARTY_NAME, currentParty.getName());
         bundle.putString(ARG_LOCATION_NUMBER, "" + currentLoc.getNumber());
-        getActivity().getLoaderManager().initLoader(UNLOCKING_LOCATION_CURSOR_LOADER, bundle, this);
+        getActivity().getLoaderManager().initLoader(UNLOCKED_LOCATION_CURSOR_LOADER, bundle, this);
 
         // set view
         if(currentParty.getLocationCompleted(currentLoc)) {
@@ -92,7 +84,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch(loader.getId()){
-            case UNLOCKING_LOCATION_CURSOR_LOADER:
+            case UNLOCKED_LOCATION_CURSOR_LOADER:
                 if(cursor.moveToFirst()) {
                     int unlockingLocationIndex =
                             cursor.getColumnIndex(
