@@ -44,9 +44,9 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
                 TextView noAttemptsMessage = rootView.findViewById(R.id.emptyMessage);
                 noAttemptsMessage.setText(R.string.text_no_attempts);
             }
-            else if(currentParty.getLocationAttempted(currentLocation)) {
+            else if(currentParty.getLocationAttempted(currentLocation.getNumber())) {
                 rootView = inflater.inflate(R.layout.fragment_scenario_attempts_tab, container, false);
-                setupRecyclerView((RecyclerView)rootView, currentParty.getLocationAttemptsForLocation(currentLocation));
+                setupRecyclerView((RecyclerView)rootView, currentParty.getLocationAttemptsForLocation(currentLocation.getNumber()));
             }
             else {
                 rootView = inflater.inflate(R.layout.content_add_attempt_tab, container, false);

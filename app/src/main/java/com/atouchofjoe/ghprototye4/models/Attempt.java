@@ -15,7 +15,7 @@ public class Attempt {
     private boolean successful;
 
     public static Attempt getNewAttempt(Party party, Location location, boolean successful) {
-        if(party.getLocationCompleted(location) == true) {
+        if(party.getLocationCompleted(location.getNumber()) == true) {
             return null;
         }
         else {
@@ -32,7 +32,6 @@ public class Attempt {
         nonParticipants = new ArrayList<>();
         nonParticipants.add("Non-Participating Characters");
         this.successful = successful;
-        party.addLocationAttempt(location,this);
     }
 
     public boolean setAsParticipant(Character participant){

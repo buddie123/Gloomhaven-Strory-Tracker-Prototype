@@ -174,8 +174,8 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
                 locationName.setText(currentLoc.toString());
 
                 TextView locationStatus = findViewById(R.id.statusValue);
-                locationStatus.setText(currentParty.getLocationCompleted(currentLoc) ? R.string.status_completed :
-                        currentParty.getLocationAttempted(currentLoc) ? R.string.status_attempted :
+                locationStatus.setText(currentParty.getLocationCompleted(currentLoc.getNumber()) ? R.string.status_completed :
+                        currentParty.getLocationAttempted(currentLoc.getNumber()) ? R.string.status_attempted :
                                 R.string.status_unplayed);
                 locationLoaded = true;
                 mSectionsPagerAdapter.notifyDataSetChanged();

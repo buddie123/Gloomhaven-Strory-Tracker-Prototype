@@ -38,7 +38,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
         currentLoc = locations[getArguments().getInt(ARG_LOCATION_NUMBER)];
 
         // set view
-        if (currentParty.getLocationCompleted(currentLoc)) {
+        if (currentParty.getLocationCompleted(currentLoc.getNumber())) {
             // hide teaser
             view.findViewById(R.id.locTeaserLabelTableRow).setVisibility(View.GONE);
             view.findViewById(R.id.locTeaserTableRow).setVisibility(View.GONE);
@@ -50,7 +50,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
             // update conclusion
             TextView sConclusion = view.findViewById(R.id.locConclusionTextView);
             sConclusion.setText(currentLoc.getConclusion());
-        } else if (currentParty.getLocationAttempted(currentLoc)) {
+        } else if (currentParty.getLocationAttempted(currentLoc.getNumber())) {
 
             // show teaser TODO - figure out if this is the right behavior
             TextView sTeaser = view.findViewById(R.id.locTeaserTextView);

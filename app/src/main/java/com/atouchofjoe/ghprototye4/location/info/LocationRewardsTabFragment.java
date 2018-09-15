@@ -56,7 +56,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
         currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
         currentParty = MainActivity.currentParty;
 
-        if (!currentParty.getLocationCompleted(currentLoc)) {
+        if (!currentParty.getLocationCompleted(currentLoc.getNumber())) {
             rootView = inflater.inflate(R.layout.content_empty_tab, container, false);
 
             TextView notCompleteMessage = rootView.findViewById(R.id.emptyMessage);

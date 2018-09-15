@@ -2,33 +2,23 @@ package com.atouchofjoe.ghprototye4;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity;
 import com.atouchofjoe.ghprototye4.models.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RecordAttemptActivity extends AppCompatActivity {
 
@@ -74,7 +64,10 @@ public class RecordAttemptActivity extends AppCompatActivity {
         final TextView locNameTV = findViewById(R.id.locNameValue);
         locNameTV.setText(defaultLocName);
 
-        final SparseArray sparseArray = new SparseArray<>();
+        final TextView attemptNumTV = findViewById(R.id.attemptNumValue);
+        attemptNumTV.setText("" + (MainActivity.currentParty.getLocationAttemptsForLocation(defaultLocNumber).size() + 1));
+
+        final SparseIntArray sparseArray = new SparseIntArray();
         locStrings = new ArrayList<>();
 
         for(int i = 1; i < Location.TOTAL_LOCATIONS; i ++) {
@@ -99,6 +92,7 @@ public class RecordAttemptActivity extends AppCompatActivity {
                         int newLocNum = (Integer)sparseArray.get(index);
                         locNumberET.setText("" + newLocNum);
                         locNameTV.setText(LocationInfoActivity.locations[newLocNum].getName());
+                        attemptNumTV.setText("" + (MainActivity.currentParty.getLocationAttemptsForLocation(newLocNum).size() + 1));
                         prevLocNumber = newLocNum;
                         dialogInterface.dismiss();
                     }

@@ -1,5 +1,8 @@
 package com.atouchofjoe.ghprototye4.models;
 
+import android.util.SparseArray;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +13,17 @@ public class Party {
     private String name;
     private boolean[] locationsCompleted;
     private boolean[] locationsAvailable;
-    private Object[] locationAttempts; // will be used as a Array of ArrayList<Attempt> objects
+    private SparseArray<List<Attempt>> locationAttempts; // will be used as a Array of ArrayList<Attempt> objects
+    private static final int INDEX_OF_BEG_OF_LIST = 0;
 
     public Party(String name) {
         this.name = name;
         characters = new ArrayList<>();
         locationsCompleted = new boolean[TOTAL_LOCATIONS];
-        locationsCompleted[0] = true;
         locationsAvailable = new boolean[TOTAL_LOCATIONS];
-        locationsAvailable[1] = true;
-        locationAttempts = new Object[TOTAL_LOCATIONS];
+        locationAttempts = new SparseArray<>(TOTAL_LOCATIONS);
+        setLocationCompleted(0);
+        setLocationAvailable(1);
     }
 
     public void setName(String name) {
@@ -42,39 +46,45 @@ public class Party {
         return characters;
     }
 
-    public void setLocationCompleted(Location loc) {
-        locationsCompleted[loc.getNumber()] = true;
-        locationsAvailable[loc.getNumber()] = false;
+    public void setLocationCompleted(int locNum) {
+        locationsCompleted[locNum] = true;
+        locationsAvailable[locNum] = false;
     }
 
-    public boolean getLocationCompleted(Location loc) {
-        return locationsCompleted[loc.getNumber()];
+    public boolean getLocationCompleted(int locNum) {
+        return locationsCompleted[locNum];
     }
 
     public void setLocationAvailable(int locNum) {
         locationsAvailable[locNum] = true;
+        if(locationAttempts.get(locNum) == null) {
+            locationAttempts.put(locNum, new ArrayList<Attempt>());
+        }
     }
 
     public boolean getLocationAvailable(int locNum) {
         return locationsAvailable[locNum];
     }
 
-    public boolean getLocationAttempted(Location loc) { return locationAttempts[loc.getNumber()] != null; }
+    public boolean getLocationAttempted(int locNum) {
 
-    public ArrayList<Attempt> getLocationAttemptsForLocation(Location loc){
-        return (ArrayList<Attempt>) locationAttempts[loc.getNumber()];
+        return locationAttempts.get(locNum) != null && locationAttempts.get(locNum).size() > 0;
+
     }
 
-    public void addLocationAttempt(Location loc, Attempt attempt) {
-        if(locationAttempts[loc.getNumber()] == null){
-            locationAttempts[loc.getNumber()] = new ArrayList<Attempt>();
+    public ArrayList<Attempt> getLocationAttemptsForLocation(int locNum){
+        return (ArrayList<Attempt>) locationAttempts.get(locNum);
+    }
+
+    public void addLocationAttempt(int locNum, Attempt attempt) {
+        if(locationAttempts.get(locNum) == null){
+            locationAttempts.put(locNum, new ArrayList<Attempt>());
         }
 
-        ((ArrayList<Attempt>) locationAttempts[loc.getNumber()]).add(0,attempt);
+        locationAttempts.get(locNum).add(INDEX_OF_BEG_OF_LIST, attempt);
 
         if(attempt.getAttemptSuccessful()) {
-            locationsCompleted[loc.getNumber()] = true;
+            setLocationCompleted(locNum);
         }
-
     }
 }
