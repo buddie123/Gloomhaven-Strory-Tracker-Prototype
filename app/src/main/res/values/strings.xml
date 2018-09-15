@@ -86,4 +86,7 @@
     <string name="default_attempt_number">1</string>
     <string name="label_record_attempt">Record an Attempt</string>
     <string name="msg_no_attempts">You have not recorded any attempts for this scenario!</string>
+    <string name="title_activity_record_attempt">Record New Attempt</string>
+
+
 </resources>
