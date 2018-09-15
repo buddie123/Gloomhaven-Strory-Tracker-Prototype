@@ -296,6 +296,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
 
                             Intent intent = new Intent(getActivity(), LocationInfoActivity.class);
                             intent.putExtra(LocationInfoActivity.ARG_LOCATION_NUMBER, locNumber);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
                     });

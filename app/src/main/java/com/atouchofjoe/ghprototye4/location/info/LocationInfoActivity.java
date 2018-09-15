@@ -74,8 +74,11 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
         unlockingLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent = new Intent(view.getContext(), LocationInfoActivity.class);
                 intent.putExtra(ARG_LOCATION_NUMBER, unlockingLocNumber);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
