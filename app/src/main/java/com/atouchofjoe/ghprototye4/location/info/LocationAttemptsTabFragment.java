@@ -34,7 +34,7 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Location currentLocation =  locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER, 0)];
+        final Location currentLocation =  locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER, 0)];
         Party currentParty = MainActivity.currentParty;
 
         View rootView;
@@ -56,6 +56,7 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(view.getContext(), RecordAttemptActivity.class);
+                        intent.putExtra(RecordAttemptActivity.ARG_LOCATION_NUMBER, currentLocation.getNumber());
                         startActivity(intent);
                     }
                 });

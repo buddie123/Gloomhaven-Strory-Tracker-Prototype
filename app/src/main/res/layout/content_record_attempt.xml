@@ -58,6 +58,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center"
             android:hint="Location Number"
             android:inputType="number"

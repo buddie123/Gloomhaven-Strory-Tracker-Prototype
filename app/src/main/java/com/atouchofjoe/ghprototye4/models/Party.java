@@ -9,6 +9,7 @@ public class Party {
     private List<com.atouchofjoe.ghprototye4.models.Character> characters;
     private String name;
     private boolean[] locationsCompleted;
+    private boolean[] locationsAvailable;
     private Object[] locationAttempts; // will be used as a Array of ArrayList<Attempt> objects
 
     public Party(String name) {
@@ -16,6 +17,8 @@ public class Party {
         characters = new ArrayList<>();
         locationsCompleted = new boolean[TOTAL_LOCATIONS];
         locationsCompleted[0] = true;
+        locationsAvailable = new boolean[TOTAL_LOCATIONS];
+        locationsAvailable[1] = true;
         locationAttempts = new Object[TOTAL_LOCATIONS];
     }
 
@@ -39,8 +42,21 @@ public class Party {
         return characters;
     }
 
+    public void setLocationCompleted(Location loc) {
+        locationsCompleted[loc.getNumber()] = true;
+        locationsAvailable[loc.getNumber()] = false;
+    }
+
     public boolean getLocationCompleted(Location loc) {
         return locationsCompleted[loc.getNumber()];
+    }
+
+    public void setLocationAvailable(int locNum) {
+        locationsAvailable[locNum] = true;
+    }
+
+    public boolean getLocationAvailable(int locNum) {
+        return locationsAvailable[locNum];
     }
 
     public boolean getLocationAttempted(Location loc) { return locationAttempts[loc.getNumber()] != null; }
