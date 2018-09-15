@@ -84,4 +84,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_attempt_number">Attempt #</string>
     <string name="default_attempt_number">1</string>
+    <string name="label_record_attempt">Record an Attempt</string>
+    <string name="msg_no_attempts">You have not recorded any attempts for this scenario!</string>
 </resources>

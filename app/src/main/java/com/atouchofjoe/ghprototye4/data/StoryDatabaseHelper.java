@@ -4,6 +4,7 @@ package com.atouchofjoe.ghprototye4.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 public class StoryDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "GloomhavenStory.db";
@@ -91,9 +92,10 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.LocationsToBeUnlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsToBeUnlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
-                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NAME + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
-                        ", " + DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION +"));";
+                        ", " + DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_LOCATIONS_TO_BE_UNLOCKED_TABLE);
 
         // create the LocationsToBeBlocked table
@@ -101,9 +103,10 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + DatabaseDescription.LocationsToBeBlocked.TABLE_NAME + "(" +
                         DatabaseDescription.LocationsToBeBlocked._ID + " INTEGER primary key AUTOINCREMENT, " +
                         DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED + " INTEGER, " +
-                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NUMBER + " INTEGER, " +
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NAME + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED +
-                        ", " + DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION +"));";
+                        ", " + DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_LOCATIONS_TO_BE_BLOCKED_TABLE);
 
         // create AddRewardApplicationTypes table
@@ -203,6 +206,7 @@ public class StoryDatabaseHelper extends SQLiteOpenHelper {
                         DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " TEXT, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " INTEGER, " +
                         DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER + " INTEGER, " +
+                        DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NAME + " TEXT, " +
                         "UNIQUE (" + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER +
                         ", " + DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER +"));";
         db.execSQL(CREATE_UNLOCKED_LOCATIONS_TABLE);

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,15 +36,26 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
         Party currentParty = MainActivity.currentParty;
 
         View rootView;
-            if(currentParty.getLocationAttempted(currentLocation)) {
-                rootView = inflater.inflate(R.layout.fragment_scenario_attempts_tab, container, false);
-                setupRecyclerView((RecyclerView)rootView, currentParty.getLocationAttemptsForLocation(currentLocation));
-            }
-            else {
+            if(currentLocation.getNumber() == 0) {
                 rootView = inflater.inflate(R.layout.content_empty_tab, container, false);
 
                 TextView noAttemptsMessage = rootView.findViewById(R.id.emptyMessage);
                 noAttemptsMessage.setText(R.string.text_no_attempts);
+            }
+            else if(currentParty.getLocationAttempted(currentLocation)) {
+                rootView = inflater.inflate(R.layout.fragment_scenario_attempts_tab, container, false);
+                setupRecyclerView((RecyclerView)rootView, currentParty.getLocationAttemptsForLocation(currentLocation));
+            }
+            else {
+                rootView = inflater.inflate(R.layout.content_add_attempt_tab, container, false);
+
+                Button recordAttemptButton = rootView.findViewById(R.id.recordAttempt);
+                recordAttemptButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                         // TODO open new record attempt page/wizard
+                    }
+                });
             }
         return rootView;
     }
@@ -93,7 +105,7 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
             holder.nonParticipantsSpinner.setAdapter(nonParticipantsSpinnerAdapter);
 
             holder.attemptSuccessful.setText(attempt.getAttemptSuccessful() ?
-                                                R.string.value_yes: R.string.value_no);
+                    R.string.value_yes : R.string.value_no);
         }
 
         @Override
@@ -118,7 +130,7 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
                 editParticipantsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        //TODO what?
                     }
                 });
                 attemptSuccessful = view.findViewById(R.id.attemptSuccssfulValue);

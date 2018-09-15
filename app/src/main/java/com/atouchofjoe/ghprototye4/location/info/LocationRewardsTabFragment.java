@@ -2,6 +2,7 @@ package com.atouchofjoe.ghprototye4.location.info;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.locations;
@@ -35,7 +38,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
     private Location currentLoc;
     private Party currentParty;
     View rootView;
-    private int numLoadersFinished = 0;
+    private int numLoadersFinished;
     private static final int NUM_LOADERS = 8;
     private List<String> locationsUnlocked = new ArrayList<>();
     private List<String> locationsBlocked = new ArrayList<>();
@@ -49,20 +52,26 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        numLoadersFinished = 0;
         currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
         currentParty = MainActivity.currentParty;
 
-        if (currentParty.getLocationCompleted(currentLoc)) {
-            rootView = inflater.inflate(R.layout.fragment_scenario_rewards_tab, container, false);
-        } else {
+        if (!currentParty.getLocationCompleted(currentLoc)) {
             rootView = inflater.inflate(R.layout.content_empty_tab, container, false);
 
             TextView notCompleteMessage = rootView.findViewById(R.id.emptyMessage);
             notCompleteMessage.setText(R.string.text_not_completed);
+
+            return rootView;
         }
+
+        // if the currentLoc has been completed by the party
+        rootView = inflater.inflate(R.layout.fragment_scenario_rewards_tab, container, false);
+
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARTY_NAME, currentParty.getName());
-        bundle.putString(ARG_LOCATION_NUMBER, "" + getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER));
+        bundle.putString(LocationInfoActivity.ARG_PARTY_NAME, currentParty.getName());
+        bundle.putString(LocationInfoActivity.ARG_LOCATION_NUMBER, "" + currentLoc.getNumber());
+
         LoaderManager loaderManager = getActivity().getLoaderManager();
         loaderManager.initLoader(LOCATIONS_UNLOCKED_CURSOR_LOADER, bundle, this);
         loaderManager.initLoader(LOCATIONS_BLOCKED_CURSOR_LOADER, bundle, this);
@@ -126,23 +135,34 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
         switch(loader.getId()) {
             case LOCATIONS_UNLOCKED_CURSOR_LOADER:
-                int unlockedLocIndex = cursor.getColumnIndex(
-                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION);
+                locationsUnlocked.clear();
+                int unlockedLocNumberIndex = cursor.getColumnIndex(
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER);
+                int unlockedLocNameIndex = cursor.getColumnIndex(
+                        DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NAME);
                 while (cursor.moveToNext()) {
-                    locationsUnlocked.add(locations[cursor.getInt(unlockedLocIndex)].toString());
+                    String unlockedLocStr = "#" + cursor.getInt(unlockedLocNumberIndex) + " " +
+                            cursor.getString(unlockedLocNameIndex);
+                    locationsUnlocked.add(unlockedLocStr);
                 }
                 break;
             case LOCATIONS_BLOCKED_CURSOR_LOADER:
-                int blockedLocIndex = cursor.getColumnIndex(
-                        DatabaseDescription.BlockedLocations.COLUMN_BLOCKED_LOCATION_NUMBER);
+                locationsBlocked.clear();
+
+                int blockedLocNumberIndex = cursor.getColumnIndex(
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NUMBER);
+                int blockedLocNameIndex = cursor.getColumnIndex(
+                        DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NAME);
                 while (cursor.moveToNext()) {
-                    locationsBlocked.add(locations[cursor.getInt(blockedLocIndex)].toString());
+                    String blockedLocStr = "#" + cursor.getInt(blockedLocNumberIndex) + " " +
+                            cursor.getString(blockedLocNameIndex);
+                    locationsBlocked.add(blockedLocStr);
                 }
                 break;
             case GLOBAL_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
+                globalAchievementsGained.clear();
                 int globalAchievementIndex = cursor.getColumnIndex(
                         DatabaseDescription.GlobalAchievementsToBeAwarded.COLUMN_GLOBAL_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
@@ -150,6 +170,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 }
                 break;
             case GLOBAL_ACHIEVEMENTS_LOST_CURSOR_LOADER:
+                globalAchievementsLost.clear();
                 globalAchievementIndex = cursor.getColumnIndex(
                         DatabaseDescription.GlobalAchievementsToBeRevoked.COLUMN_GLOBAL_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
@@ -157,6 +178,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 }
                 break;
             case PARTY_ACHIEVEMENTS_GAINED_CURSOR_LOADER:
+                partyAchievementsGained.clear();
                 int partyAchievementIndex = cursor.getColumnIndex(
                         DatabaseDescription.PartyAchievementsToBeAwarded.COLUMN_PARTY_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
@@ -164,6 +186,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 }
                 break;
             case PARTY_ACHIEVEMENTS_LOST_CURSOR_LOADER:
+                partyAchievementsLost.clear();
                 partyAchievementIndex = cursor.getColumnIndex(
                         DatabaseDescription.PartyAchievementsToBeRevoked.COLUMN_PARTY_ACHIEVEMENT);
                 while (cursor.moveToNext()) {
@@ -171,6 +194,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                 }
                 break;
             case ADD_REWARDS_GAINED_CURSOR_LOADER:
+                addRewards.clear();
                 int rewardTypeIndex = cursor.getColumnIndex(
                         DatabaseDescription.AddRewards.COLUMN_REWARD_TYPE);
                 int rewardValueIndex = cursor.getColumnIndex(
@@ -185,8 +209,10 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                         string.append(" each");
                     }
                 }
+                // TODO where is this string variable used?
                 break;
             case ADD_PENALTIES_LOST_CURSOR_LOADER:
+                addPenalties.clear();
                 int penaltyTypeIndex = cursor.getColumnIndex(
                         DatabaseDescription.AddPenalties.COLUMN_PENALTY_TYPE);
                 int penaltyValueIndex = cursor.getColumnIndex(
@@ -201,6 +227,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                         string.append(" each");
                     }
                 }
+                // TODO where is this string variable used?
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -218,6 +245,7 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
             TableRow tableRow = rootView.findViewById(tableRowResource);
             tableRow.setVisibility(View.GONE);
         } else {
+
             AppCompatImageButton spinner = rootView.findViewById(spinnerResource);
             spinner.setOnClickListener(listener);
 
@@ -226,18 +254,18 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
         }
     }
 
-        private void updateSpinner(AppCompatImageButton spinner, RecyclerView rView, List<String> list) {
-            LinearLayout.LayoutParams params= ((LinearLayout.LayoutParams) rView.getLayoutParams());
-            if (params.weight == 0) {
-                params.weight = list.size();
-                spinner.setImageResource(R.drawable.ic_expand_more_24dp);
-            } else {
-                params.weight = 0;
-                spinner.setImageResource(R.drawable.ic_chevron_right__24dp);
-            }
-            rView.setLayoutParams(params);
-            rootView.invalidate();
+    private void updateSpinner(AppCompatImageButton spinner, RecyclerView rView, List<String> list) {
+        LinearLayout.LayoutParams params= ((LinearLayout.LayoutParams) rView.getLayoutParams());
+        if (params.weight == 0) {
+            params.weight = list.size();
+            spinner.setImageResource(R.drawable.ic_expand_more_24dp);
+        } else {
+            params.weight = 0;
+            spinner.setImageResource(R.drawable.ic_chevron_right__24dp);
         }
+        rView.setLayoutParams(params);
+        rootView.invalidate();
+    }
 
     private View.OnClickListener scenariosUnlockedOnClickListener =
             new View.OnClickListener() {
@@ -255,7 +283,22 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.scenariosUnlockedRecyclerView);
-                    setupRecyclerView(rView, locationsUnlocked);
+                    setupRecyclerView(rView, locationsUnlocked, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String locationString = ((Button) view).getText().toString();
+                            TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(' ');
+                            splitter.setString(locationString);
+                            Iterator<String> iterator = splitter.iterator();
+                            String numberStr = iterator.next();
+                            numberStr = numberStr.substring(1);
+                            int locNumber = Integer.parseInt(numberStr);
+
+                            Intent intent = new Intent(getActivity(), LocationInfoActivity.class);
+                            intent.putExtra(LocationInfoActivity.ARG_LOCATION_NUMBER, locNumber);
+                            startActivity(intent);
+                        }
+                    });
                     updateSpinner(spinner, rView, locationsUnlocked);
                 }
             };
@@ -278,7 +321,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.scenariosBlockedRecyclerView);
-                    setupRecyclerView(rView, locationsBlocked);
+                    setupRecyclerView(rView, locationsBlocked, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, locationsBlocked);
                 }
             };
@@ -299,7 +347,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.globalGainedRecyclerView);
-                    setupRecyclerView(rView, globalAchievementsGained);
+                    setupRecyclerView(rView, globalAchievementsGained, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, globalAchievementsGained);
                 }
             };
@@ -321,7 +374,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                         label = (Button) view;
                     }
                     rView = label.getRootView().findViewById(R.id.globalLostRecyclerView);
-                    setupRecyclerView(rView, globalAchievementsLost);
+                    setupRecyclerView(rView, globalAchievementsLost, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, globalAchievementsLost);
                 }
             };
@@ -344,7 +402,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.partyGainedRecyclerView);
-                    setupRecyclerView(rView, partyAchievementsGained);
+                    setupRecyclerView(rView, partyAchievementsGained, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, partyAchievementsGained);
                 }
             };
@@ -367,7 +430,12 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.partyLostRecyclerView);
-                    setupRecyclerView(rView, globalAchievementsLost);
+                    setupRecyclerView(rView, globalAchievementsLost, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, globalAchievementsLost);
                 }
             };
@@ -388,9 +456,13 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                         spinner = view.getRootView().findViewById(R.id.addRewardsLabelButton);
                         label = (Button) view;
                     }
-                    rView = label.getRootView()
-                            .findViewById(R.id.extrasGainedRecyclerView);
-                    setupRecyclerView(rView, addRewards);
+                    rView = label.getRootView().findViewById(R.id.extrasGainedRecyclerView);
+                    setupRecyclerView(rView, addRewards, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, addRewards);
                 }
             };
@@ -413,13 +485,18 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
                     }
                     rView = label.getRootView()
                             .findViewById(R.id.extrasLostRecyclerView);
-                    setupRecyclerView(rView, addPenalties);
+                    setupRecyclerView(rView, addPenalties, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
                     updateSpinner(spinner, rView, addPenalties);
                 }
             };
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<String> data) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(getActivity(), data));
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<String> data, View.OnClickListener onClickListener) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(getActivity(), data, onClickListener));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -428,23 +505,15 @@ public class LocationRewardsTabFragment extends LocationTabFragment implements L
 
         private final List<String> mValues;
         private LayoutInflater mInflater;
+        private View.OnClickListener mOnClickListener;
 
 
-        private SimpleItemRecyclerViewAdapter(Context context, List<String> data){
+        private SimpleItemRecyclerViewAdapter(Context context, List<String> data, View.OnClickListener onClickListener){
 
             this.mInflater = LayoutInflater.from(context);
             mValues = data;
+            mOnClickListener = onClickListener;
         }
-
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//
-                //                   Context context = view.getContext();
-                //                 Intent intent = new Intent(context, DataPointDetailActivity.class);
-                //              intent.putExtra(DataPointDetailFragment.ARG_SCENARIO_NUMBER, scenario.sNumber);
-            }
-        };
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

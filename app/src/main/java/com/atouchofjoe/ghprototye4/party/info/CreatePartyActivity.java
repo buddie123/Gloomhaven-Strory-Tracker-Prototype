@@ -166,6 +166,7 @@ public class CreatePartyActivity extends AppCompatActivity {
                 unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_PARTY, party.getName());
                 unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER, 1);
                 unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER, 0);
+                unlockedLocValues.put(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NAME, "Gloomhaven");
                 view.getContext().getContentResolver().insert(DatabaseDescription.UnlockedLocations.CONTENT_URI, unlockedLocValues);
 
                 // set each other location as being locked for the party in the database

@@ -2,6 +2,7 @@ package com.atouchofjoe.ghprototye4.location.info;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,12 +32,15 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
 
     public static Location[] locations = new Location[Location.TOTAL_LOCATIONS];
 
-    private static final int LOCATION_CURSOR_LOADER = 1;
+    private static final int LOCATION_CURSOR_LOADER = 15;
+    private static final int UNLOCKED_LOCATION_CURSOR_LOADER = 20;
+
     public static final String ARG_LOCATION_NUMBER = "com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_LOCATION_NUMBER";
     public static final String ARG_PARTY_NAME = "com.atouchofjoe.ghprototype.LocationInfoActivity.ARG_PARTY_NAME";
 
 
     private int currentLocNumber;
+    private int unlockingLocNumber;
     private Party currentParty;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -47,7 +51,9 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private boolean locationsLoaded = false;
+    private boolean locationLoaded = false;
+    private boolean unlockedLocationLoaded;
+    private Button unlockingLoc;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -56,17 +62,21 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        unlockedLocationLoaded = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_info);
 
         currentLocNumber = getIntent().getIntExtra(ARG_LOCATION_NUMBER, 0);
         currentParty = MainActivity.currentParty;
 
-        Button unlockingLoc = findViewById(R.id.unlockedByButton);
+        unlockingLoc = findViewById(R.id.unlockedByButton);
+        unlockingLoc.setEnabled(false);
         unlockingLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                Intent intent = new Intent(view.getContext(), LocationInfoActivity.class);
+                intent.putExtra(ARG_LOCATION_NUMBER, unlockingLocNumber);
+                startActivity(intent);
             }
         });
 
@@ -85,7 +95,11 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        getLoaderManager().initLoader(LOCATION_CURSOR_LOADER, null, this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_LOCATION_NUMBER, "" + currentLocNumber);
+        getLoaderManager().initLoader(LOCATION_CURSOR_LOADER, bundle, this);
+        getLoaderManager().initLoader(UNLOCKED_LOCATION_CURSOR_LOADER, bundle, this);
     }
 
 
@@ -117,8 +131,14 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
         switch (loaderID) {
             case LOCATION_CURSOR_LOADER: // TODO move this to the location guide activity
                 return new CursorLoader(this, DatabaseDescription.Locations.CONTENT_URI,
-                        null, null, null,
-                        DatabaseDescription.Locations.COLUMN_NUMBER);
+                        null, DatabaseDescription.Locations.COLUMN_NUMBER + " = ? ",
+                        new String[]{bundle.getString(ARG_LOCATION_NUMBER)}, null);
+            case UNLOCKED_LOCATION_CURSOR_LOADER:
+                return new CursorLoader(this, DatabaseDescription.UnlockedLocations.CONTENT_URI,
+                        null, DatabaseDescription.UnlockedLocations.COLUMN_PARTY + " = ? AND " +
+                        DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKED_LOCATION_NUMBER + " = ? ",
+                        new String[] {MainActivity.currentParty.getName(), bundle.getString(ARG_LOCATION_NUMBER)},
+                        null);
             default:
                 return null;
         }
@@ -127,14 +147,14 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch(loader.getId()) {
-            case LOCATION_CURSOR_LOADER: // TODO move this to the Location Guide Activity
+            case LOCATION_CURSOR_LOADER:
                 int locNumberIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NUMBER);
                 int locNameIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_NAME);
                 int locTeaserIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_TEASER);
                 int locSummaryIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_SUMMARY);
                 int locConclusionIndex = cursor.getColumnIndex(DatabaseDescription.Locations.COLUMN_CONCLUSION);
 
-                while (cursor.moveToNext()) {
+                if(cursor.moveToFirst()) {
                     locations[cursor.getInt(locNumberIndex)] =
                             new Location(cursor.getInt(locNumberIndex),
                                     cursor.getString(locNameIndex),
@@ -153,11 +173,29 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
                 locationStatus.setText(currentParty.getLocationCompleted(currentLoc) ? R.string.status_completed :
                         currentParty.getLocationAttempted(currentLoc) ? R.string.status_attempted :
                                 R.string.status_unplayed);
-                locationsLoaded = true;
+                locationLoaded = true;
                 mSectionsPagerAdapter.notifyDataSetChanged();
                 break;
-            default:
-                return;
+
+            case UNLOCKED_LOCATION_CURSOR_LOADER:
+                String unlockingLocName;
+
+                int unlockingLocNumberIndex = cursor.getColumnIndex(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER);
+                int unlockingLocNameIndex = cursor.getColumnIndex(DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NAME);
+                if(cursor.moveToFirst()) {
+                    unlockingLocNumber = cursor.getInt(unlockingLocNumberIndex);
+                    unlockingLocName = cursor.getString(unlockingLocNameIndex);
+
+                    String unlockingLocString = "#" + unlockingLocNumber + " " + unlockingLocName;
+                    unlockingLoc.setText(unlockingLocString);
+                    unlockingLoc.setEnabled(true);
+                }
+                else {
+                    unlockingLoc.setText("N/A");
+                    unlockingLoc.setEnabled(false);
+                }
+                unlockedLocationLoaded = true;
+                mSectionsPagerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -193,7 +231,7 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
             else {
                 throw new IndexOutOfBoundsException();
             }
-            if(locationsLoaded) {
+            if(locationLoaded && unlockedLocationLoaded) {
                 Bundle args = new Bundle();
                 args.putInt(LocationInfoActivity.ARG_LOCATION_NUMBER, currentLocNumber);
                 args.putString(ARG_PARTY_NAME, currentParty.getName());
@@ -207,8 +245,8 @@ public class LocationInfoActivity extends AppCompatActivity implements LoaderMan
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return locationsLoaded ? 3 : 0;
+            // Show 3 total pages
+            return locationLoaded && unlockedLocationLoaded? 3 : 0;
         }
     }
 }

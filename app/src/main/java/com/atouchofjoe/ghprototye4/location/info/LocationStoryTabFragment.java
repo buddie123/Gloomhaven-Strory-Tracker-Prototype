@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.atouchofjoe.ghprototye4.MainActivity;
@@ -17,28 +18,27 @@ import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
 
+import static com.atouchofjoe.ghprototye4.MainActivity.currentParty;
+import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_LOCATION_NUMBER;
+import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.ARG_PARTY_NAME;
 import static com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity.locations;
 
 
 public class LocationStoryTabFragment extends LocationTabFragment {
 
+    private View view;
+    private Location currentLoc;
 
-    private Button unlockingLoc;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scenario_story_tab, container, false);
+        view = inflater.inflate(R.layout.fragment_scenario_story_tab, container, false);
 
-        Location currentLoc = locations[getArguments().getInt(LocationInfoActivity.ARG_LOCATION_NUMBER)];
         Party currentParty = MainActivity.currentParty;
-
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARTY_NAME, currentParty.getName());
-        bundle.putString(ARG_LOCATION_NUMBER, "" + currentLoc.getNumber());
-        getActivity().getLoaderManager().initLoader(UNLOCKED_LOCATION_CURSOR_LOADER, bundle, this);
+        currentLoc = locations[getArguments().getInt(ARG_LOCATION_NUMBER)];
 
         // set view
-        if(currentParty.getLocationCompleted(currentLoc)) {
+        if (currentParty.getLocationCompleted(currentLoc)) {
             // hide teaser
             view.findViewById(R.id.locTeaserLabelTableRow).setVisibility(View.GONE);
             view.findViewById(R.id.locTeaserTableRow).setVisibility(View.GONE);
@@ -50,8 +50,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
             // update conclusion
             TextView sConclusion = view.findViewById(R.id.locConclusionTextView);
             sConclusion.setText(currentLoc.getConclusion());
-        }
-        else if(currentParty.getLocationAttempted(currentLoc)) {
+        } else if (currentParty.getLocationAttempted(currentLoc)) {
 
             // show teaser TODO - figure out if this is the right behavior
             TextView sTeaser = view.findViewById(R.id.locTeaserTextView);
@@ -64,8 +63,7 @@ public class LocationStoryTabFragment extends LocationTabFragment {
             // hide conclusion
             view.findViewById(R.id.locConclusionLabelTableRow).setVisibility(View.GONE);
             view.findViewById(R.id.locConclusionTableRow).setVisibility(View.GONE);
-        }
-        else { // not attempted and not completed
+        } else { // not attempted and not completed
             //show teaser
             TextView sTeaser = view.findViewById(R.id.locTeaserTextView);
             sTeaser.setText(currentLoc.getTeaser());
@@ -78,22 +76,13 @@ public class LocationStoryTabFragment extends LocationTabFragment {
             view.findViewById(R.id.locConclusionLabelTableRow).setVisibility(View.GONE);
             view.findViewById(R.id.locConclusionTableRow).setVisibility(View.GONE);
         }
+
         return view;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        switch(loader.getId()){
-            case UNLOCKED_LOCATION_CURSOR_LOADER:
-                if(cursor.moveToFirst()) {
-                    int unlockingLocationIndex =
-                            cursor.getColumnIndex(
-                                    DatabaseDescription.UnlockedLocations.COLUMN_UNLOCKING_LOCATION_NUMBER);
-                    unlockingLoc.setText(cursor.getInt(unlockingLocationIndex));
-                }
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
+       // intentionally left blank
+        // should never be called
     }
 }

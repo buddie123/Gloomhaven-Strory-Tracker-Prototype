@@ -88,41 +88,41 @@ public class StoryDatabaseInitializer {
     }
 
     private void initializeLocationsUnlocked(Context context) {
-        initializeLocationUnlocked(context, 0, 1);
-        initializeLocationUnlocked(context, 1, 2);
-        initializeLocationUnlocked(context, 2, 3);
-        initializeLocationUnlocked(context, 2, 4);
-        initializeLocationUnlocked(context, 3, 8);
-        initializeLocationUnlocked(context, 3, 9);
-        initializeLocationUnlocked(context, 4, 5);
-        initializeLocationUnlocked(context, 4, 6);
-        initializeLocationUnlocked(context, 5, 10);
-        initializeLocationUnlocked(context, 5, 14);
-        initializeLocationUnlocked(context, 5, 19);
-        initializeLocationUnlocked(context, 6, 8);
-        initializeLocationUnlocked(context, 7, 20);
-        initializeLocationUnlocked(context, 8, 7);
-        initializeLocationUnlocked(context, 8, 13);
-        initializeLocationUnlocked(context, 8, 14);
-        initializeLocationUnlocked(context, 9, 11);
-        initializeLocationUnlocked(context, 9, 12);
-        initializeLocationUnlocked(context, 10,21);
-        initializeLocationUnlocked(context, 10,22);
-        initializeLocationUnlocked(context, 11,16);
-        initializeLocationUnlocked(context, 11,18);
-        initializeLocationUnlocked(context, 12,16);
-        initializeLocationUnlocked(context, 12,18);
-        initializeLocationUnlocked(context, 12,28);
-        initializeLocationUnlocked(context, 13, 15);
-        initializeLocationUnlocked(context, 13, 17);
-        initializeLocationUnlocked(context, 13, 20);
+        initializeLocationUnlocked(context, 0, 1, "Black Barrow");
+        initializeLocationUnlocked(context, 1, 2, null);
+        initializeLocationUnlocked(context, 2, 3, null);
+        initializeLocationUnlocked(context, 2, 4, null);
+        initializeLocationUnlocked(context, 3, 8, null);
+        initializeLocationUnlocked(context, 3, 9, null);
+        initializeLocationUnlocked(context, 4, 5, null);
+        initializeLocationUnlocked(context, 4, 6, null);
+        initializeLocationUnlocked(context, 5, 10, null);
+        initializeLocationUnlocked(context, 5, 14, null);
+        initializeLocationUnlocked(context, 5, 19, null);
+        initializeLocationUnlocked(context, 6, 8, null);
+        initializeLocationUnlocked(context, 7, 20, null);
+        initializeLocationUnlocked(context, 8, 7, null);
+        initializeLocationUnlocked(context, 8, 13, null);
+        initializeLocationUnlocked(context, 8, 14, null);
+        initializeLocationUnlocked(context, 9, 11, null);
+        initializeLocationUnlocked(context, 9, 12, null);
+        initializeLocationUnlocked(context, 10,21, null);
+        initializeLocationUnlocked(context, 10,22, null);
+        initializeLocationUnlocked(context, 11,16, null);
+        initializeLocationUnlocked(context, 11,18, null);
+        initializeLocationUnlocked(context, 12,16, null);
+        initializeLocationUnlocked(context, 12,18, null);
+        initializeLocationUnlocked(context, 12,28, null);
+        initializeLocationUnlocked(context, 13, 15, null);
+        initializeLocationUnlocked(context, 13, 17, null);
+        initializeLocationUnlocked(context, 13, 20, null);
     }
 
     private void initializeLocationsBlocked(Context context) {
-        initializeLocationBlocked(context, 8, 3);
-        initializeLocationBlocked(context, 9, 8);
-        initializeLocationBlocked(context, 8, 9);
-        initializeLocationBlocked(context, 21, 11);
+        initializeLocationBlocked(context, 8, 3, null);
+        initializeLocationBlocked(context, 9, 8, null);
+        initializeLocationBlocked(context, 8, 9, null);
+        initializeLocationBlocked(context, 21, 11, null);
     }
 
     private void initializeGlobalAchievementGained(Context context, int locNumber, String globalAchievement) {
@@ -155,17 +155,19 @@ public class StoryDatabaseInitializer {
         context.getContentResolver().insert(DatabaseDescription.PartyAchievementsToBeRevoked.CONTENT_URI, contentValues);
     }
 
-    private void initializeLocationUnlocked(Context context, int completedLoc, int unlockedLoc) {
+    private void initializeLocationUnlocked(Context context, int completedLoc, int unlockedLocNumber, String unlockedLocName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_LOCATION_TO_BE_COMPLETED, completedLoc);
-        contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION, unlockedLoc);
+        contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NUMBER, unlockedLocNumber);
+        contentValues.put(DatabaseDescription.LocationsToBeUnlocked.COLUMN_UNLOCKED_LOCATION_NAME, unlockedLocName);
         context.getContentResolver().insert(DatabaseDescription.LocationsToBeUnlocked.CONTENT_URI, contentValues);
     }
 
-    private void initializeLocationBlocked(Context context, int completedLoc, int blockedLoc) {
+    private void initializeLocationBlocked(Context context, int completedLoc, int blockedLocNumber, String blockedLocName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_LOCATION_TO_BE_COMPLETED, completedLoc);
-        contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION, blockedLoc);
+        contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NUMBER, blockedLocNumber);
+        contentValues.put(DatabaseDescription.LocationsToBeBlocked.COLUMN_BLOCKED_LOCATION_NAME, blockedLocName);
         context.getContentResolver().insert(DatabaseDescription.LocationsToBeBlocked.CONTENT_URI, contentValues);
     }
 

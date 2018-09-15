@@ -230,7 +230,8 @@ public class DatabaseDescription {
 
         // column names for contacts table's columns
         public static final String COLUMN_LOCATION_TO_BE_COMPLETED = "location_to_be_completed";
-        public static final String COLUMN_UNLOCKED_LOCATION = "unlocked_location";
+        public static final String COLUMN_UNLOCKED_LOCATION_NUMBER = "unlocked_location_number";
+        public static final String COLUMN_UNLOCKED_LOCATION_NAME = "unlocked_location_name";
 
         public static Uri buildLocationToBeUnlockedUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -246,7 +247,8 @@ public class DatabaseDescription {
                 BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
 
         public static final String COLUMN_LOCATION_TO_BE_COMPLETED = "location_to_be_completed";
-        public static final String COLUMN_BLOCKED_LOCATION = "blocked_location";
+        public static final String COLUMN_BLOCKED_LOCATION_NUMBER = "blocked_location_number";
+        public static final String COLUMN_BLOCKED_LOCATION_NAME = "blocked_location_name";
 
         public static Uri buildLocationToBeBlockedUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -331,6 +333,7 @@ public class DatabaseDescription {
         public static final String COLUMN_PARTY = "party";
         public static final String COLUMN_UNLOCKED_LOCATION_NUMBER = "unlocked_location_number";
         public static final String COLUMN_UNLOCKING_LOCATION_NUMBER = "unlocking_location_number";
+        public static final String COLUMN_UNLOCKING_LOCATION_NAME = "unlocking_location_name";
 
         public static Uri buildUnlockedLocationUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
