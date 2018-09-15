@@ -87,6 +87,8 @@
     <string name="label_record_attempt">Record an Attempt</string>
     <string name="msg_no_attempts">You have not recorded any attempts for this scenario!</string>
     <string name="title_activity_record_attempt">Record New Attempt</string>
+    <string name="default_date">default_date</string>
+    <string name="sample_location_number">Location $d%1:</string>
 
 
 </resources>

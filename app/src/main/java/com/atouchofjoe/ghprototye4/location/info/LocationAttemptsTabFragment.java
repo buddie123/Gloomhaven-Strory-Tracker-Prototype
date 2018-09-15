@@ -1,6 +1,7 @@
 package com.atouchofjoe.ghprototye4.location.info;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
+import com.atouchofjoe.ghprototye4.RecordAttemptActivity;
 import com.atouchofjoe.ghprototye4.models.Attempt;
 import com.atouchofjoe.ghprototye4.models.Location;
 import com.atouchofjoe.ghprototye4.models.Party;
@@ -53,7 +55,8 @@ public class LocationAttemptsTabFragment extends LocationTabFragment {
                 recordAttemptButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                         // TODO open new record attempt page/wizard
+                        Intent intent = new Intent(view.getContext(), RecordAttemptActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

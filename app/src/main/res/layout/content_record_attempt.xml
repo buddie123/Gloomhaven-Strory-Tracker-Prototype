@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RecordAttemptActivity"
+    tools:showIn="@layout/activity_record_attempt">
+
+    <TableRow
+        android:id="@+id/attemptDateRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/dateCompletedLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/thin_padding"
+            android:text="Date Attempted:"
+            android:textSize="@dimen/text_size_medium" />
+
+        <EditText
+            android:id="@+id/dateCompleted"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/sample_date"
+            android:inputType="date" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/locNumRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/locNumLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/thin_padding"
+            android:text="Location Number:"
+            android:textSize="@dimen/text_size_medium" />
+
+        <EditText
+            android:id="@+id/editLocNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center_vertical|center"
+            android:hint="Location Number"
+            android:inputType="number"
+            android:singleLine="false" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/locNameRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/locNameLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|fill_vertical"
+            android:paddingRight="@dimen/thin_padding"
+            android:text="Location Name:"
+            android:textSize="@dimen/text_size_medium" />
+
+        <TextView
+            android:id="@+id/locNameValue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Gloomhaven"
+            android:textSize="@dimen/text_size_medium" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/attemptNumRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/attemptNumLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|fill_vertical"
+            android:paddingRight="@dimen/thin_padding"
+            android:text="Attempt #:"
+            android:textSize="@dimen/text_size_medium" />
+
+        <TextView
+            android:id="@+id/attemptNumValue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="------"
+            android:textSize="@dimen/text_size_medium" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/successfulRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/successfulLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/thin_padding"
+            android:text="Successful?"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ToggleButton
+            android:id="@+id/successfulButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="5"
+            android:checked="false"
+            android:text="ToggleButton"
+            android:textOff="No"
+            android:textOn="Yes" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/participantsRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/participantsButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="@dimen/thick_padding"
+            android:layout_marginRight="@dimen/thick_padding"
+            android:layout_marginTop="@dimen/thick_padding"
+            android:layout_weight="1"
+            android:text="Choose Participants" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/notesRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/notesButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/thick_padding"
+            android:layout_marginLeft="@dimen/thick_padding"
+            android:layout_marginRight="@dimen/thick_padding"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:text="Add Notes" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/saveCancelRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/cancelAttempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/saveAttempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save" />
+
+    </TableRow>
+
+</TableLayout>

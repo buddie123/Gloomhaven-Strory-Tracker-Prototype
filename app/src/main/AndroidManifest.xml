@@ -49,6 +49,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.atouchofjoe.ghprototye4.MainActivity" />
         </activity>
+        <activity
+            android:name=".RecordAttemptActivity"
+            android:label="@string/title_activity_record_attempt"
+            android:parentActivityName=".location.info.LocationInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity" />
+        </activity>
     </application>
 
 </manifest>
