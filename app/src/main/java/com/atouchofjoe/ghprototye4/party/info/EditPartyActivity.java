@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.atouchofjoe.ghprototye4.MainActivity;
 import com.atouchofjoe.ghprototye4.R;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
+import com.atouchofjoe.ghprototye4.location.info.LocationAttemptsTabFragment;
 import com.atouchofjoe.ghprototye4.models.Character;
 import com.atouchofjoe.ghprototye4.models.CharacterClass;
 import com.atouchofjoe.ghprototye4.models.Party;
@@ -214,6 +216,7 @@ public class EditPartyActivity extends AppCompatActivity implements LoaderManage
                             DatabaseDescription.Characters.COLUMN_PARTY + " = ? AND " +
                                     DatabaseDescription.Characters.COLUMN_NAME + " = ?",
                             new String[]{originalPartyName, dc.getName()});
+                    Log.d("LocationAttempts" , "" + currentParty.getCharacters().contains(dc));
                     currentParty.removeCharacter(dc);
                 }
 
@@ -381,7 +384,6 @@ public class EditPartyActivity extends AppCompatActivity implements LoaderManage
                 characters.add(character);
                 characterNames.add(character.getName());
                 unAlteredChars.add(character);
-                currentParty.addCharacter(character);
             }
 
             // switch out the RecyclerView for the noChars FrameLayout if characters

@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.atouchofjoe.ghprototye4.data.DatabaseDescription;
 import com.atouchofjoe.ghprototye4.data.StoryDatabaseInitializer;
 import com.atouchofjoe.ghprototye4.location.info.LocationInfoActivity;
+import com.atouchofjoe.ghprototye4.models.Character;
+import com.atouchofjoe.ghprototye4.models.CharacterClass;
 import com.atouchofjoe.ghprototye4.models.Party;
 import com.atouchofjoe.ghprototye4.party.info.CreatePartyActivity;
 import com.atouchofjoe.ghprototye4.party.info.EditPartyActivity;
@@ -42,6 +44,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     // Loader constants for LoaderCallbacks
     private static final int PARTY_CURSOR_LOADER = 2;
+    private static final int CHARACTER_CURSOR_LOADER = 17;
+    private static final String ARG_PARTY_NAME  = "com.atouchofjoe.ghprototye4.MainActivity.ARG_PARTY_NAME";
 
     // other constants
     public static final String PREF_CURRENT_PARTY = "pref_currentParty";
@@ -304,56 +308,77 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     // implementation of the LoaderCallbacks methods
     @Override
     public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
-        switch (loaderID) {
-            // get all parties in the database
-            case PARTY_CURSOR_LOADER:
-                return new CursorLoader(this, DatabaseDescription.Parties.CONTENT_URI,
-                        null, null, null, null);
-            default:
-                return null;
+        // get all parties in the database
+        if (loaderID == PARTY_CURSOR_LOADER) {
+            return new CursorLoader(this, DatabaseDescription.Parties.CONTENT_URI,
+                    null, null, null, null);
+        } else if (loaderID >= CHARACTER_CURSOR_LOADER  &&
+                    loaderID < CHARACTER_CURSOR_LOADER + partyList.size()) {
+            return new CursorLoader(this, DatabaseDescription.Characters.CONTENT_URI, null,
+                    DatabaseDescription.Characters.COLUMN_PARTY + " = ? ",
+                    new String[]{bundle.getString(ARG_PARTY_NAME)}, null);
+        }
+        else {
+            return null;
         }
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        switch (loader.getId()) {
-            case PARTY_CURSOR_LOADER:
+        if(loader.getId() == PARTY_CURSOR_LOADER) {
 
-                // make a new partyList containing all the parties in the database
-                partyList = new ArrayList<>();
+            // make a new partyList containing all the parties in the database
+            partyList = new ArrayList<>();
 
-                // get the index for the "name" column
-                int nameIndex = cursor.getColumnIndex(DatabaseDescription.Parties.COLUMN_NAME);
+            // get the index for the "name" column
+            int nameIndex = cursor.getColumnIndex(DatabaseDescription.Parties.COLUMN_NAME);
 
 
-                String partyPrefName = sharedPreferences.getString(PREF_CURRENT_PARTY, null);
+            String partyPrefName = sharedPreferences.getString(PREF_CURRENT_PARTY, null);
 
-                // create a new party object for each party entry in the database and add
-                // it to partyList
-                while (cursor.moveToNext()) {
-                    Party party = new Party(cursor.getString(nameIndex));
-                    partyList.add(party);
+            // create a new party object for each party entry in the database and add
+            // it to partyList
+            while (cursor.moveToNext()) {
+                Party party = new Party(cursor.getString(nameIndex));
+                partyList.add(party);
 
-                    // set currentParty if party matches sharedPreferences value
-                    if(partyPrefName != null && party.getName().contentEquals(partyPrefName)){
-                        currentParty = party;
-                    }
+                // set currentParty if party matches sharedPreferences value
+                if (partyPrefName != null && party.getName().contentEquals(partyPrefName)) {
+                    currentParty = party;
                 }
+            }
 
-                // enable buttons if there is a current party selected
-                if(currentParty != null){
-                    lastTimeButton.setEnabled(true);
-                    locGuideButton.setEnabled(true);
-                    historyButton.setEnabled(true);
+            // enable buttons if there is a current party selected
+            if (currentParty != null) {
+                lastTimeButton.setEnabled(true);
+                locGuideButton.setEnabled(true);
+                historyButton.setEnabled(true);
+                for (int i = 0; i < partyList.size(); i++) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ARG_PARTY_NAME, partyList.get(i).getName());
+                    getLoaderManager().initLoader(CHARACTER_CURSOR_LOADER + i, bundle, this);
                 }
-                else { // disable buttons if there is no current party selected
-                    lastTimeButton.setEnabled(false);
-                    locGuideButton.setEnabled(false);
-                    historyButton.setEnabled(false);
-                }
-                selectPartyButton.setEnabled(true);
-                break;
-            default:
+            } else { // disable buttons if there is no current party selected
+                lastTimeButton.setEnabled(false);
+                locGuideButton.setEnabled(false);
+                historyButton.setEnabled(false);
+            }
+            selectPartyButton.setEnabled(true);
+        }
+        else if (loader.getId() >= CHARACTER_CURSOR_LOADER  &&
+                loader.getId() < CHARACTER_CURSOR_LOADER + partyList.size()) {
+
+            Party party = partyList.get(loader.getId() - CHARACTER_CURSOR_LOADER);
+
+            List<Character> chars = party.getCharacters();
+            chars.clear();
+
+            int charNameIndex = cursor.getColumnIndex(DatabaseDescription.Characters.COLUMN_NAME);
+            int charClassIndex = cursor.getColumnIndex(DatabaseDescription.Characters.COLUMN_CLASS);
+            while (cursor.moveToNext()) {
+                chars.add(new Character(cursor.getString(charNameIndex),
+                        CharacterClass.values()[cursor.getInt(charClassIndex)]));
+            }
         }
     }
 
